@@ -10,22 +10,16 @@ base class ApiRequestParams {
 
 final class PokemonListRequest extends ApiRequestParams {
   static const _endpoint = 'pokemon';
-  // Will only take 10 pokemons at a time
-  static const _limit = 10;
-  // Start from index 0
-  static const _initialOffset = 0;
 
   const PokemonListRequest({
     super.endpoint = _endpoint,
-    this.limit = _limit,
-    this.offset = _initialOffset,
+    required this.pagination,
   });
 
-  final int limit;
-  final int offset;
+  final ApiPagination pagination;
 
   @override
-  Map<String, dynamic>? queryParams() => {'limit': limit, 'offset': offset};
+  Map<String, dynamic>? queryParams() => pagination.toJson();
 }
 
 final class PokemonAbilityRequest extends ApiRequestParams {
@@ -37,4 +31,21 @@ final class PokemonAbilityRequest extends ApiRequestParams {
   });
 
   final String abilityId;
+}
+
+class ApiPagination {
+  // Will only take 10 pokemons at a time
+  static const _limit = 20;
+  // Start from index 0
+  static const _initialOffset = 0;
+
+  const ApiPagination({
+    this.limit = _limit,
+    this.offset = _initialOffset,
+  });
+
+  final int limit;
+  final int offset;
+
+  Map<String, dynamic> toJson() => {'limit': limit, 'offset': offset};
 }
