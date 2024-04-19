@@ -1,6 +1,8 @@
+// Class used to make the requests to the API
 base class ApiRequestParams {
   final String endpoint;
 
+  // For sending query parameters in the request
   Map<String, dynamic>? queryParams() => null;
 
   const ApiRequestParams({required this.endpoint});
