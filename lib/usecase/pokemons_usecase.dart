@@ -1,10 +1,11 @@
-import 'package:versotech_pokemon/domain/pokemon_usecase_repo.dart';
+import 'package:versotech_pokemon/domain/pokemon_state.dart';
+import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 
-class PokemonUsecase implements PokemonUsecaseRepository {
-  const PokemonUsecase(this._repository);
+final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
+  const PokemonUsecaseImplementation(this._repository);
 
   final RepositoryInterface _repository;
 
@@ -12,6 +13,7 @@ class PokemonUsecase implements PokemonUsecaseRepository {
   Future<List<PokemonEntity>> fetchPokemons(ApiRequestParams params) async {
     try {
       final request = await _repository.get(params);
+
       if (request == null) {
         throw Exception('No exception found');
       }
@@ -23,6 +25,22 @@ class PokemonUsecase implements PokemonUsecaseRepository {
       return pokemons;
     } catch (e) {
       rethrow;
+    }
+  }
+}
+
+final class PokemonUsecase {
+  const PokemonUsecase(this._interface);
+
+  final PokemonUsecaseInterface _interface;
+
+  Future<PokemonListState> fetchPokemons(ApiRequestParams params) async {
+    try {
+      final pokemons = await _interface.fetchPokemons(params);
+      return FetchedPokemons(pokemons: pokemons);
+    } catch (e) {
+      // TODO - Implement proper error handling
+      return const ErrorFetchingPokemons(message: 'Could not fetch pokemons');
     }
   }
 }
