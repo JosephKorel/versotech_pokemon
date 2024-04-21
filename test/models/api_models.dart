@@ -1,3 +1,7 @@
+const apiJsonResponse = <String, dynamic>{
+  'results': [pokemonExample, pokemonExample]
+};
+
 const pokemonExample = {
   "id": 35,
   "name": "clefairy",
