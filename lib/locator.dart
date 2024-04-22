@@ -20,7 +20,8 @@ void setUpLocation() {
   //
 
   // Stores
-  locator.registerLazySingleton(() => PokemonListState());
+  locator.registerLazySingleton(() => PokemonListStore());
   locator.registerLazySingleton(() => PokemonStateStore());
   locator.registerLazySingleton(() => PaginationStore());
+  //
 }

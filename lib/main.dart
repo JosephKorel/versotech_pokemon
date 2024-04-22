@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:versotech_pokemon/locator.dart';
 
 void main() {
+  setUpLocation();
   runApp(const MyApp());
 }
 
