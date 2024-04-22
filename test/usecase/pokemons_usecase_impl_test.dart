@@ -40,11 +40,11 @@ void main() {
           .thenAnswer((_) => Future.value(null));
 
       // act
-      final pokemons = await pokemonUsecase.fetchPokemons(requestParams);
+      final pokemonCall = pokemonUsecase.fetchPokemons(requestParams);
 
       // assert
       verify(() => repository.get(requestParams)).called(1);
-      expect(pokemons, isA<List<PokemonEntity>>());
+      expectLater(pokemonCall, throwsException);
     });
 
     test('Verify that api throws DioException', () async {
@@ -55,10 +55,11 @@ void main() {
       ));
 
       // act
-      final pokemons = await pokemonUsecase.fetchPokemons(requestParams);
+      final pokemonCall = pokemonUsecase.fetchPokemons(requestParams);
 
       // assert
-      expect(pokemons, throwsA(isA<DioException>()));
+      verify(() => repository.get(requestParams)).called(1);
+      await expectLater(pokemonCall, throwsA(isA<DioException>()));
     });
   });
 }
