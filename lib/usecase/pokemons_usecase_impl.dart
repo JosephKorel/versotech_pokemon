@@ -9,7 +9,8 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
   final RepositoryInterface _repository;
 
   List<Future<PokemonEntity>> _getRequestForSinglePokemon(
-      List<dynamic> results) {
+    List<dynamic> results,
+  ) {
     final requestList = <Future<PokemonEntity>>[];
     for (final result in results) {
       final name = (result as Map<String, dynamic>)['name'];

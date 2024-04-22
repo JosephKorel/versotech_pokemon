@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/pokemon_store.dart';
 import 'package:versotech_pokemon/views/home/pokemon_card.dart';
 
@@ -9,20 +10,18 @@ class PokemonListContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pokemonStoreState = locator.get<PokemonStateStore>();
     final pokemonList = locator.get<PokemonListStore>();
 
     return Observer(
-      builder: (context) => pokemonList.pokemons.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : GridView.builder(
-              itemCount: pokemonList.pokemons.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemBuilder: (context, index) =>
-                  PokemonCard(name: pokemonList.pokemons[index].name),
-            ),
+      builder: (context) => GridView.builder(
+        itemCount: pokemonList.length + (pokemonStoreState.loading ? 6 : 0),
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index) => index >= pokemonList.length
+            ? const LoadingCard()
+            : PokemonCard(name: pokemonList.pokemons[index].name),
+      ),
     );
   }
 }
