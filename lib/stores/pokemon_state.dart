@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
@@ -27,12 +28,20 @@ abstract class _PokemonStateStoreBase with Store {
     pokemonState = newState;
   }
 
-  void setupReactions() {
+  void _showErrorSnackbar(String errorMsg) {
+    final context = locator.get<GlobalKey<NavigatorState>>().currentContext!;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(errorMsg),
+      ),
+    );
+  }
+
+  void onStateChange() {
     _dispose = reaction((_) => pokemonState, (newState) {
       return switch (newState) {
         FetchedPokemons(pokemons: final p) => _pokemonListStore.addPokemons(p),
-        // TODO - show toast error msg
-        ErrorFetchingPokemons(message: final m) => {},
+        ErrorFetchingPokemons(message: final m) => _showErrorSnackbar(m),
         LoadingPokemons() => {}
       };
     });

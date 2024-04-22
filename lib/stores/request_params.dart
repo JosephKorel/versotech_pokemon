@@ -17,7 +17,10 @@ abstract class _PaginationStoreBase with Store {
   @computed
   ApiRequestParams get params => PokemonListRequest(pagination: pagination);
 
-  void setupReactions() {
+  void onPaginationChange() {
+    // Set up onStateChange
+    _pokemonStateStore.onStateChange();
+
     _dispose = autorun((_) {
       _pokemonStateStore
           .fetchPokemons(PokemonListRequest(pagination: pagination));

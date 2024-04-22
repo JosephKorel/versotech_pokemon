@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:versotech_pokemon/data/api_implementation.dart';
 import 'package:versotech_pokemon/dio/client.dart';
@@ -18,6 +19,10 @@ void setUpLocation() {
   locator.registerLazySingleton<PokemonUsecaseInterface>(
       () => PokemonUsecaseImplementation(locator<RepositoryInterface>()));
   //
+
+  // Global context key
+  locator.registerLazySingleton<GlobalKey<NavigatorState>>(
+      () => GlobalKey<NavigatorState>(debugLabel: 'routerKey'));
 
   // Stores
   locator.registerLazySingleton(() => PokemonListStore());
