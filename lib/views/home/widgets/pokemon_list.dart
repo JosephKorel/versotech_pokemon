@@ -3,23 +3,56 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/pokemon_store.dart';
+import 'package:versotech_pokemon/stores/request_params.dart';
 import 'package:versotech_pokemon/views/home/widgets/loading_card.dart';
 import 'package:versotech_pokemon/views/home/widgets/pokemon_card.dart';
 
-class PokemonListContainer extends StatelessWidget {
+class PokemonListContainer extends StatefulWidget {
   const PokemonListContainer({super.key});
 
   @override
+  State<PokemonListContainer> createState() => _PokemonListContainerState();
+}
+
+class _PokemonListContainerState extends State<PokemonListContainer> {
+  final _pokemonStoreState = locator.get<PokemonStateStore>();
+  final _paginationStore = locator.get<PaginationStore>();
+  final _controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Make first request to fetch pokemons
+    _paginationStore.onPaginationChange();
+
+    _controller.addListener(() {
+      final reachedEnd = _controller.position.atEdge && _controller.offset != 0;
+
+      // Fetch more pokemons
+      if (_controller.hasClients && reachedEnd && !_pokemonStoreState.loading) {
+        _paginationStore.nextPage();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final pokemonStoreState = locator.get<PokemonStateStore>();
     final pokemonList = locator.get<PokemonListStore>();
 
     return Observer(
       builder: (context) => GridView.builder(
-        itemCount: pokemonList.length + (pokemonStoreState.loading ? 6 : 0),
+        controller: _controller,
+        itemCount: pokemonList.length + (_pokemonStoreState.loading ? 10 : 0),
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
+          childAspectRatio: .8,
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),

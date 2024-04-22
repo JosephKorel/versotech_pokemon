@@ -17,6 +17,11 @@ abstract class _PaginationStoreBase with Store {
   @computed
   ApiRequestParams get params => PokemonListRequest(pagination: pagination);
 
+  @action
+  void nextPage() {
+    pagination = pagination.nextPage;
+  }
+
   void onPaginationChange() {
     // Set up onStateChange
     _pokemonStateStore.onStateChange();
