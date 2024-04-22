@@ -28,7 +28,7 @@ void main() {
         () async {
       // stub
       when(() => interface.fetchPokemons(requestParams))
-          .thenAnswer((invocation) async => <PokemonEntity>[]);
+          .thenAnswer((invocation) async => <SinglePokemonId>[]);
 
       // act
       final pokemonState = await pokemonUsecase.fetchPokemons(requestParams);

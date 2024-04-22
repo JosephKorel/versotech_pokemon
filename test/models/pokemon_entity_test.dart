@@ -8,5 +8,6 @@ void main() {
     final pokemon = PokemonEntity.fromJson(pokemonExample);
 
     expect(pokemon, isA<PokemonEntity>());
+    expect(pokemon.abilities.first.id, '132');
   });
 }

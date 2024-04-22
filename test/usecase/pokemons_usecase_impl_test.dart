@@ -21,7 +21,7 @@ void main() {
   });
 
   group('Tests for implementation of api', () {
-    test('Should return list of pokemons from api call', () async {
+    test('Should return list of SinglePokemonId from api call', () async {
       // stub
       when(() => repository.get(requestParams))
           .thenAnswer((_) => Future.value(apiJsonResponse));
@@ -31,7 +31,7 @@ void main() {
 
       // assert
       verify(() => repository.get(requestParams)).called(1);
-      expect(pokemons, isA<List<PokemonEntity>>());
+      expect(pokemons, isA<List<SinglePokemonId>>());
     });
 
     test('When api returns null, should throw exception', () async {

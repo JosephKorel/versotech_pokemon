@@ -1,5 +1,10 @@
 const apiJsonResponse = <String, dynamic>{
-  'results': [pokemonExample, pokemonExample]
+  'results': [pokemonListJsonItem, pokemonListJsonItem]
+};
+
+const pokemonListJsonItem = {
+  'name': 'ditto',
+  "url": "https://pokeapi.co/api/v2/pokemon/1/"
 };
 
 const pokemonExample = {
