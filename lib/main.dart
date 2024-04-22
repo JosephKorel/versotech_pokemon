@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/theme/color_schemes.g.dart';
 import 'package:versotech_pokemon/views/home/main.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Versotech Pokemon',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: lightColorScheme,
         useMaterial3: true,
       ),
       navigatorKey: key,

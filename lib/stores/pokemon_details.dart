@@ -11,6 +11,7 @@ abstract class _PokemonDetailsStoreBase with Store {
   @observable
   PokemonEntity? pokemon;
 
+  @observable
   @action
   void setPokemon(PokemonEntity selectedPokemon) => pokemon = selectedPokemon;
 }
