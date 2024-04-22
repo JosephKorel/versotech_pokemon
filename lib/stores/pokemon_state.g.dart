@@ -9,6 +9,13 @@ part of 'pokemon_state.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
+  Computed<bool>? _$loadingComputed;
+
+  @override
+  bool get loading => (_$loadingComputed ??= Computed<bool>(() => super.loading,
+          name: '_PokemonStateStoreBase.loading'))
+      .value;
+
   late final _$pokemonStateAtom =
       Atom(name: '_PokemonStateStoreBase.pokemonState', context: context);
 
@@ -36,7 +43,8 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
   @override
   String toString() {
     return '''
-pokemonState: ${pokemonState}
+pokemonState: ${pokemonState},
+loading: ${loading}
     ''';
   }
 }

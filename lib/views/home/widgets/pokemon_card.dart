@@ -1,7 +1,84 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
+import 'package:versotech_pokemon/views/pokemon_details/main.dart';
+
+// To make the widgets more legible
+extension _CardTheme on BuildContext {
+  BoxDecoration get containerDecoration => BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: background,
+        border: Border.all(color: onSurface.withOpacity(0.1)),
+        boxShadow: [
+          BoxShadow(
+            color: onSurface.withOpacity(0.1),
+            spreadRadius: 1,
+            offset: const Offset(0, 1),
+            blurRadius: 1,
+          )
+        ],
+      );
+
+  BoxDecoration get avatarDecoration => BoxDecoration(
+        shape: BoxShape.circle,
+        color: background,
+        border: Border.all(color: onSurface.withOpacity(0.8)),
+      );
+
+  BoxDecoration get nameDecoration => BoxDecoration(
+        border: Border.all(
+          color: onSurface.withOpacity(0.1),
+        ),
+        borderRadius: BorderRadius.circular(8),
+        color: background,
+        boxShadow: [
+          BoxShadow(
+            color: onSurface.withOpacity(0.1),
+            spreadRadius: 1,
+            offset: const Offset(0, 1),
+            blurRadius: 1,
+          )
+        ],
+      );
+}
+//
+
+class _CardContainer extends StatelessWidget {
+  const _CardContainer({super.key, required this.child, required this.pokemon});
+
+  final PokemonEntity pokemon;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+    // Navigate to see details of the pokemon
+    void onTap() {
+      pokemonDetailStore.setPokemon(pokemon);
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PokemonDetailsView(pokemon: pokemon),
+        ),
+      );
+    }
+
+    return Semantics(
+      button: true,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Ink(
+          decoration: context.containerDecoration,
+          child: child,
+        ),
+      ),
+    );
+  }
+}
 
 class _PokemonAvatar extends StatelessWidget {
   const _PokemonAvatar({super.key, required this.url});
@@ -14,11 +91,7 @@ class _PokemonAvatar extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.all(8),
         child: DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: context.background,
-            border: Border.all(color: context.onSurface.withOpacity(0.8)),
-          ),
+          decoration: context.avatarDecoration,
           child: const SizedBox.expand(),
         ),
       ),
@@ -41,21 +114,7 @@ class _Name extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: context.onSurface.withOpacity(0.1),
-          ),
-          borderRadius: BorderRadius.circular(8),
-          color: context.background,
-          boxShadow: [
-            BoxShadow(
-              color: context.onSurface.withOpacity(0.1),
-              spreadRadius: 1,
-              offset: const Offset(0, 1),
-              blurRadius: 1,
-            )
-          ],
-        ),
+        decoration: context.nameDecoration,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(
@@ -78,20 +137,8 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: context.background,
-        border: Border.all(color: context.onSurface.withOpacity(0.1)),
-        boxShadow: [
-          BoxShadow(
-            color: context.onSurface.withOpacity(0.1),
-            spreadRadius: 1,
-            offset: const Offset(0, 1),
-            blurRadius: 1,
-          )
-        ],
-      ),
+    return _CardContainer(
+      pokemon: pokemon,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Stack(

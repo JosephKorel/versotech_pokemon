@@ -4,6 +4,7 @@ import 'package:versotech_pokemon/data/api_implementation.dart';
 import 'package:versotech_pokemon/dio/client.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
+import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/pokemon_store.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
@@ -28,5 +29,6 @@ void setUpLocation() {
   locator.registerLazySingleton(() => PokemonListStore());
   locator.registerLazySingleton(() => PokemonStateStore());
   locator.registerLazySingleton(() => PaginationStore());
+  locator.registerLazySingleton(() => PokemonDetailsStore());
   //
 }

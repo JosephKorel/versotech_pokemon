@@ -33,6 +33,20 @@ mixin _$PaginationStore on _PaginationStoreBase, Store {
     });
   }
 
+  late final _$_PaginationStoreBaseActionController =
+      ActionController(name: '_PaginationStoreBase', context: context);
+
+  @override
+  void nextPage() {
+    final _$actionInfo = _$_PaginationStoreBaseActionController.startAction(
+        name: '_PaginationStoreBase.nextPage');
+    try {
+      return super.nextPage();
+    } finally {
+      _$_PaginationStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
