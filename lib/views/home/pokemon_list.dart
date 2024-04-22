@@ -9,15 +9,16 @@ class PokemonListContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonList = locator.get<PokemonListStore>();
+    final pokemonStore = locator.get<PokemonListStore>();
 
     return Observer(
       builder: (context) => GridView.builder(
-        itemCount: pokemonList.pokemons.length,
+        itemCount: pokemonStore.length,
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (context, index) =>
-            PokemonCard(name: pokemonList.pokemons[index].id),
+        itemBuilder: (context, index) => PokemonCard(
+          simplePokemon: pokemonStore.pokemons[index],
+        ),
       ),
     );
   }

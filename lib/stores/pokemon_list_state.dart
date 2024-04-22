@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/domain/pokemon_list_state.dart';
-import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_store.dart';
@@ -12,9 +11,7 @@ part 'pokemon_list_state.g.dart';
 class PokemonStateStore = _PokemonStateStoreBase with _$PokemonStateStore;
 
 abstract class _PokemonStateStoreBase with Store {
-  final _pokemonUsecase = PokemonUsecase(
-    locator.get<PokemonUsecaseInterface>(),
-  );
+  final _pokemonUsecase = locator.get<PokemonUsecase>();
   final _pokemonListStore = locator.get<PokemonListStore>();
 
   late ReactionDisposer _dispose;

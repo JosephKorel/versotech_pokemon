@@ -7,6 +7,7 @@ import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/stores/pokemon_list_state.dart';
 import 'package:versotech_pokemon/stores/pokemon_store.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
+import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase_impl.dart';
 
 final locator = GetIt.instance;
@@ -18,6 +19,9 @@ void setUpLocation() {
 
   locator.registerLazySingleton<PokemonUsecaseInterface>(
       () => PokemonUsecaseImplementation(locator<RepositoryInterface>()));
+
+  locator.registerLazySingleton<PokemonUsecase>(
+      () => PokemonUsecase(locator.get<PokemonUsecaseInterface>()));
   //
 
   // Global context key

@@ -4,11 +4,7 @@ sealed class SinglePokemonState {
   const SinglePokemonState();
 }
 
-final class LoadingPokemon extends SinglePokemonState {
-  const LoadingPokemon({required this.pokemonName});
-
-  final String pokemonName;
-}
+final class LoadingPokemon extends SinglePokemonState {}
 
 final class LoadedPokemon extends SinglePokemonState {
   const LoadedPokemon({required this.pokemon});
