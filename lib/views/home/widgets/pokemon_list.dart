@@ -17,11 +17,17 @@ class PokemonListContainer extends StatelessWidget {
     return Observer(
       builder: (context) => GridView.builder(
         itemCount: pokemonList.length + (pokemonStoreState.loading ? 6 : 0),
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        padding: const EdgeInsets.all(16),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
         itemBuilder: (context, index) => index >= pokemonList.length
             ? const LoadingCard()
-            : PokemonCard(name: pokemonList.pokemons[index].name),
+            : PokemonCard(
+                pokemon: pokemonList.pokemons[index],
+              ),
       ),
     );
   }

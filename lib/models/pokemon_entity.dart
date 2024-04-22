@@ -11,7 +11,7 @@ final class PokemonEntity {
 
   factory PokemonEntity.fromJson(Map<String, dynamic> json) {
     final sprites = json['sprites']?['other']?['official-artwork'];
-    final gif = json['sprites']?['other']?['showdown']?['front-default'];
+    final gif = json['sprites']?['other']?['showdown']?['front_default'];
     final pokemonImage = PokemonImage(
       gif: gif,
       small: sprites?['front_default'],
