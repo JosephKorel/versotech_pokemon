@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
-import 'package:versotech_pokemon/views/home/pokemon_list.dart';
+import 'package:versotech_pokemon/views/home/widgets/pokemon_list.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

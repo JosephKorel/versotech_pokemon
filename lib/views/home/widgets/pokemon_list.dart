@@ -3,7 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/pokemon_store.dart';
-import 'package:versotech_pokemon/views/home/pokemon_card.dart';
+import 'package:versotech_pokemon/views/home/widgets/loading_card.dart';
+import 'package:versotech_pokemon/views/home/widgets/pokemon_card.dart';
 
 class PokemonListContainer extends StatelessWidget {
   const PokemonListContainer({super.key});
