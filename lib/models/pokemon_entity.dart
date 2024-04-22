@@ -6,7 +6,7 @@ final class SimplePokemonEntity {
   final String name;
   final String id;
 
-  SinglePokemonRequest fetch() => SinglePokemonRequest.fromId(id);
+  SinglePokemonRequest fetch() => SinglePokemonRequest.fromName(name);
 
   factory SimplePokemonEntity.fromJson(Map<String, dynamic> json) {
     final urlSplit = (json['url'] as String).split('/');
