@@ -19,6 +19,9 @@ abstract class _PokemonStateStoreBase with Store {
   @observable
   PokemonListState pokemonState = LoadingPokemons();
 
+  @computed
+  bool get loading => pokemonState is LoadingPokemons;
+
   @action
   Future<void> fetchPokemons(ApiRequestParams params) async {
     final newState = await _pokemonUsecase.fetchPokemons(params);

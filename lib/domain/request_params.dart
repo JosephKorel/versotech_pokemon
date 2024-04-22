@@ -57,6 +57,8 @@ class ApiPagination {
     this.offset = _initialOffset,
   });
 
+  ApiPagination get nextPage => ApiPagination(offset: offset + _limit);
+
   final int limit;
   final int offset;
 
