@@ -7,6 +7,7 @@ final class PokemonEntity {
     required this.images,
     required this.abilities,
     required this.types,
+    required this.stats,
   });
 
   factory PokemonEntity.fromJson(Map<String, dynamic> json) {
@@ -23,19 +24,23 @@ final class PokemonEntity {
         .map((e) => Type.fromJson(e as Map<String, dynamic>))
         .toList();
 
+    final stats = (json['stats'] as List<dynamic>)
+        .map((e) => Status.fromJson(e as Map<String, dynamic>))
+        .toList();
+
     final abilities = (json['abilities'] as List<dynamic>)
         .map((e) => Ability.fromJson(e as Map<String, dynamic>))
         .toList();
 
     return PokemonEntity(
-      id: json['id'],
-      name: json['name'],
-      height: json['height'],
-      weight: json['weight'],
-      images: pokemonImage,
-      abilities: abilities,
-      types: types,
-    );
+        id: json['id'],
+        name: json['name'],
+        height: json['height'],
+        weight: json['weight'],
+        images: pokemonImage,
+        abilities: abilities,
+        types: types,
+        stats: stats);
   }
 
   final int id;
@@ -45,6 +50,7 @@ final class PokemonEntity {
   final PokemonImage images;
   final List<Type> types;
   final List<Ability> abilities;
+  final List<Status> stats;
 }
 
 final class PokemonImage {
@@ -83,4 +89,17 @@ final class Type {
   }
 
   final String type;
+}
+
+final class Status {
+  const Status({required this.name, required this.value});
+
+  final String name;
+  final int value;
+
+  factory Status.fromJson(Map<String, dynamic> json) {
+    final value = json['base_stat'];
+    final name = json['stat']['name'];
+    return Status(name: name, value: value);
+  }
 }
