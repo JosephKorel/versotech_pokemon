@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
@@ -28,7 +30,8 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
     _controller.addListener(() {
       final reachedEnd = _controller.position.atEdge && _controller.offset != 0;
 
-      // Fetch more pokemons
+      // Fetch more pokemons when reached the end
+      // Also check if it's not fetching pokemons already
       if (_controller.hasClients && reachedEnd && !_pokemonStoreState.loading) {
         _paginationStore.nextPage();
       }
@@ -44,6 +47,11 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
   @override
   Widget build(BuildContext context) {
     final pokemonList = locator.get<PokemonListStore>();
+
+    log(pokemonList.pokemons
+        .map((element) => element.name)
+        .toList()
+        .toString());
 
     return Observer(
       builder: (context) => GridView.builder(

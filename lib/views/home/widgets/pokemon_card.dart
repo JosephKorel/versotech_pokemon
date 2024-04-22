@@ -78,7 +78,7 @@ class PokemonCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: context.background,
-        // border: Border.all(color: context.onSurface.withOpacity(0.1)),
+        border: Border.all(color: context.onSurface.withOpacity(0.1)),
         boxShadow: [
           BoxShadow(
             color: context.onSurface.withOpacity(0.1),
