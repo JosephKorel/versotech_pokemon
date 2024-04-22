@@ -6,4 +6,7 @@ import 'package:versotech_pokemon/models/pokemon_entity.dart';
 interface class PokemonUsecaseInterface {
   Future<List<PokemonEntity>> fetchPokemons(ApiRequestParams params) =>
       throw UnimplementedError();
+
+  Future<PokemonEntity> fetchSinglePokemon(ApiRequestParams params) =>
+      throw UnimplementedError();
 }

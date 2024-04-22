@@ -1,4 +1,4 @@
-class PokemonEntity {
+final class PokemonEntity {
   const PokemonEntity({
     required this.id,
     required this.name,

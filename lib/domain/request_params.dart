@@ -1,4 +1,5 @@
 // Class used to make the requests to the API
+
 base class ApiRequestParams {
   final String endpoint;
 
@@ -6,6 +7,20 @@ base class ApiRequestParams {
   Map<String, dynamic>? queryParams() => null;
 
   const ApiRequestParams({required this.endpoint});
+}
+
+final class SinglePokemonRequest extends ApiRequestParams {
+  static const _baseEndpoint = 'pokemon';
+
+  const SinglePokemonRequest({
+    required super.endpoint,
+  });
+
+  factory SinglePokemonRequest.fromUrl(String url) {
+    final urlSplit = url.split('/');
+    final pokemonId = urlSplit[urlSplit.length - 2];
+    return SinglePokemonRequest(endpoint: '$_baseEndpoint/$pokemonId');
+  }
 }
 
 final class PokemonListRequest extends ApiRequestParams {
@@ -35,7 +50,7 @@ final class PokemonAbilityRequest extends ApiRequestParams {
 
 class ApiPagination {
   // Will only take 10 pokemons at a time
-  static const _limit = 20;
+  static const _limit = 10;
   // Start from index 0
   static const _initialOffset = 0;
 

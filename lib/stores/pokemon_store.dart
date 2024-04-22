@@ -13,4 +13,7 @@ abstract class _PokemonStateBase with Store {
   void addPokemons(List<PokemonEntity> newPokemons) {
     pokemons.addAll(newPokemons);
   }
+
+  @computed
+  int get length => pokemons.length;
 }

@@ -8,6 +8,31 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
 
   final RepositoryInterface _repository;
 
+  List<ApiRequestParams> _getRequestForSinglePokemon(List<dynamic> results) {
+    final requestList = <ApiRequestParams>[];
+    for (final result in results) {
+      final url = (result as Map<String, dynamic>)['url'];
+      requestList.add(SinglePokemonRequest.fromUrl(url));
+    }
+
+    return requestList;
+  }
+
+  @override
+  Future<PokemonEntity> fetchSinglePokemon(ApiRequestParams params) async {
+    try {
+      final request = await _repository.get(params);
+
+      if (request == null) {
+        throw Exception('No pokemon found');
+      }
+
+      return PokemonEntity.fromJson(request);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   @override
   Future<List<PokemonEntity>> fetchPokemons(ApiRequestParams params) async {
     try {
@@ -17,9 +42,11 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
         throw Exception('No pokemon found');
       }
 
-      final pokemons = (request['results'] as List<dynamic>)
-          .map((e) => PokemonEntity.fromJson(e as Map<String, dynamic>))
-          .toList();
+      final pokemonsFuture =
+          _getRequestForSinglePokemon(request['results'] as List<dynamic>)
+              .map((e) => fetchSinglePokemon(e));
+
+      final pokemons = await Future.wait(pokemonsFuture);
 
       return pokemons;
     } catch (e) {

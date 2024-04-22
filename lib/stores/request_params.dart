@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
@@ -20,6 +22,8 @@ abstract class _PaginationStoreBase with Store {
   void onPaginationChange() {
     // Set up onStateChange
     _pokemonStateStore.onStateChange();
+
+    log('WE ARE RUNNING HERE');
 
     _dispose = autorun((_) {
       _pokemonStateStore

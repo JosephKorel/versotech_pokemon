@@ -9,6 +9,13 @@ part of 'pokemon_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PokemonListStore on _PokemonStateBase, Store {
+  Computed<int>? _$lengthComputed;
+
+  @override
+  int get length => (_$lengthComputed ??=
+          Computed<int>(() => super.length, name: '_PokemonStateBase.length'))
+      .value;
+
   late final _$pokemonsAtom =
       Atom(name: '_PokemonStateBase.pokemons', context: context);
 
@@ -42,7 +49,8 @@ mixin _$PokemonListStore on _PokemonStateBase, Store {
   @override
   String toString() {
     return '''
-pokemons: ${pokemons}
+pokemons: ${pokemons},
+length: ${length}
     ''';
   }
 }

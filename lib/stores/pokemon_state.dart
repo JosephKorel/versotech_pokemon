@@ -40,8 +40,14 @@ abstract class _PokemonStateStoreBase with Store {
   void onStateChange() {
     _dispose = reaction((_) => pokemonState, (newState) {
       return switch (newState) {
+        // Successfully fetched new pokemons, so it will add to the current list
         FetchedPokemons(pokemons: final p) => _pokemonListStore.addPokemons(p),
+
+        // Something went wrong and failed to get pokemons
+        // Show snackbar message
         ErrorFetchingPokemons(message: final m) => _showErrorSnackbar(m),
+        // Doesn't need to do anything, the UI will watch for loading state
+        // And show it to the user
         LoadingPokemons() => {}
       };
     });
