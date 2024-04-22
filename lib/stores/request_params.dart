@@ -23,10 +23,12 @@ abstract class _PaginationStoreBase with Store {
   }
 
   void onPaginationChange() {
-    // Set up onStateChange
+    // Set up onStateChange, thus making PokemonStateStore
+    // Listen all changes of this store
     _pokemonStateStore.onStateChange();
 
     _dispose = autorun((_) {
+      // When the store has a new value, it will trigger a new request to fetch pokemons
       _pokemonStateStore
           .fetchPokemons(PokemonListRequest(pagination: pagination));
     });

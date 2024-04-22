@@ -38,28 +38,32 @@ class _Name extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: context.onSurface.withOpacity(0.1),
-        ),
-        borderRadius: BorderRadius.circular(8),
-        color: context.background,
-        boxShadow: [
-          BoxShadow(
+    return SizedBox(
+      width: double.infinity,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(
             color: context.onSurface.withOpacity(0.1),
-            spreadRadius: 1,
-            offset: const Offset(0, 2),
-            blurRadius: 2,
-          )
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Text(
-          name,
-          style: context.titleSmall.copyWith(
-            fontWeight: FontWeight.w600,
+          ),
+          borderRadius: BorderRadius.circular(8),
+          color: context.background,
+          boxShadow: [
+            BoxShadow(
+              color: context.onSurface.withOpacity(0.1),
+              spreadRadius: 1,
+              offset: const Offset(0, 1),
+              blurRadius: 1,
+            )
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: Text(
+            name,
+            style: context.titleSmall.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),
@@ -83,8 +87,8 @@ class PokemonCard extends StatelessWidget {
           BoxShadow(
             color: context.onSurface.withOpacity(0.1),
             spreadRadius: 1,
-            offset: const Offset(0, 2),
-            blurRadius: 2,
+            offset: const Offset(0, 1),
+            blurRadius: 1,
           )
         ],
       ),

@@ -36,6 +36,9 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
     }
   }
 
+  // When fetching a list of pokemons, the api only gives the name
+  // And URL for searching that pokemon. So after fetching the list
+  // Fetch detailed information about each pokemon
   @override
   Future<List<PokemonEntity>> fetchPokemons(ApiRequestParams params) async {
     try {
@@ -45,6 +48,7 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
         throw Exception('No pokemon found');
       }
 
+      // Make the request concurrently
       final pokemonsFuture =
           _getRequestForSinglePokemon((request['results'] as List<dynamic>));
 

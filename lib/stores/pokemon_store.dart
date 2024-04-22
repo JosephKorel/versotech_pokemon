@@ -3,6 +3,7 @@ import 'package:versotech_pokemon/models/pokemon_entity.dart';
 
 part 'pokemon_store.g.dart';
 
+// This store will only hold the pokemon list
 class PokemonListStore = _PokemonStateBase with _$PokemonListStore;
 
 abstract class _PokemonStateBase with Store {

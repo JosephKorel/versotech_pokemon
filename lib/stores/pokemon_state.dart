@@ -43,6 +43,9 @@ abstract class _PokemonStateStoreBase with Store {
     );
   }
 
+  // This will run everytime the state of this store changes.
+  // Pagination stores changes -> trigger fetchPokemons method ->
+  // Update current store state -> React to the state changes
   void onStateChange() {
     _dispose = reaction((_) => pokemonState, (newState) {
       return switch (newState) {

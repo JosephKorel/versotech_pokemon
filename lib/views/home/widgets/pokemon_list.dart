@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
@@ -47,11 +45,6 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
   @override
   Widget build(BuildContext context) {
     final pokemonList = locator.get<PokemonListStore>();
-
-    log(pokemonList.pokemons
-        .map((element) => element.name)
-        .toList()
-        .toString());
 
     return Observer(
       builder: (context) => GridView.builder(
