@@ -3,7 +3,7 @@ import 'package:versotech_pokemon/models/pokemon_entity.dart';
 
 part 'pokemon_store.g.dart';
 
-class PokemonState = _PokemonStateBase with _$PokemonState;
+class PokemonListState = _PokemonStateBase with _$PokemonListState;
 
 abstract class _PokemonStateBase with Store {
   @observable
@@ -15,4 +15,4 @@ abstract class _PokemonStateBase with Store {
   }
 }
 
-final pokemonState = PokemonState();
+final pokemonState = PokemonListState();
