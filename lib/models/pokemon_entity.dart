@@ -6,6 +6,7 @@ final class PokemonEntity {
     required this.weight,
     required this.images,
     required this.abilities,
+    required this.types,
   });
 
   factory PokemonEntity.fromJson(Map<String, dynamic> json) {
@@ -18,6 +19,10 @@ final class PokemonEntity {
       large: sprites?['front_default'],
     );
 
+    final types = (json['types'] as List<dynamic>)
+        .map((e) => Type.fromJson(e as Map<String, dynamic>))
+        .toList();
+
     final abilities = (json['abilities'] as List<dynamic>)
         .map((e) => Ability.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -29,6 +34,7 @@ final class PokemonEntity {
       weight: json['weight'],
       images: pokemonImage,
       abilities: abilities,
+      types: types,
     );
   }
 
@@ -37,10 +43,11 @@ final class PokemonEntity {
   final int height;
   final int weight;
   final PokemonImage images;
+  final List<Type> types;
   final List<Ability> abilities;
 }
 
-class PokemonImage {
+final class PokemonImage {
   const PokemonImage({
     required this.small,
     required this.medium,
@@ -54,7 +61,7 @@ class PokemonImage {
   final String? large;
 }
 
-class Ability {
+final class Ability {
   const Ability({required this.id, this.description = ''});
 
   // The id to query the API for detailed information
@@ -63,7 +70,17 @@ class Ability {
   final String description;
 
   factory Ability.fromJson(Map<String, dynamic> json) {
-    final url = json['ability']['url'] as String;
-    return Ability(id: url.split('/').last);
+    final urlSplit = (json['ability']['url'] as String).split('/');
+    return Ability(id: urlSplit[urlSplit.length - 2]);
   }
+}
+
+final class Type {
+  const Type({required this.type});
+
+  factory Type.fromJson(Map<String, dynamic> json) {
+    return Type(type: json['type']['name']);
+  }
+
+  final String type;
 }
