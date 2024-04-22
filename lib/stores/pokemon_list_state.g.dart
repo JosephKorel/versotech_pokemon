@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pokemon_state.dart';
+part of 'pokemon_list_state.dart';
 
 // **************************************************************************
 // StoreGenerator

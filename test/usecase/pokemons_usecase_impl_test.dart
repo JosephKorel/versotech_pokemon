@@ -31,7 +31,7 @@ void main() {
 
       // assert
       verify(() => repository.get(requestParams)).called(1);
-      expect(pokemons, isA<List<SinglePokemonId>>());
+      expect(pokemons, isA<List<SimplePokemonEntity>>());
     });
 
     test('When api returns null, should throw exception', () async {
@@ -60,6 +60,19 @@ void main() {
       // assert
       verify(() => repository.get(requestParams)).called(1);
       await expectLater(pokemonCall, throwsA(isA<DioException>()));
+    });
+
+    test('Should return PokemonEntity from api call', () async {
+      // stub
+      when(() => repository.get(requestParams))
+          .thenAnswer((_) => Future.value(pokemonExample));
+
+      // act
+      final pokemon = await pokemonUsecase.fetchSinglePokemon(requestParams);
+
+      // assert
+      verify(() => repository.get(requestParams)).called(1);
+      expect(pokemon, isA<PokemonEntity>());
     });
   });
 }

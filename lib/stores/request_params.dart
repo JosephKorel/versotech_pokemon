@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/pokemon_state.dart';
+import 'package:versotech_pokemon/stores/pokemon_list_state.dart';
 
 part 'request_params.g.dart';
 

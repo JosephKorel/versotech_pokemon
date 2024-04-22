@@ -7,10 +7,11 @@ class PokemonListStore = _PokemonStateBase with _$PokemonListStore;
 
 abstract class _PokemonStateBase with Store {
   @observable
-  ObservableList<PokemonEntity> pokemons = ObservableList<PokemonEntity>();
+  ObservableList<SimplePokemonEntity> pokemons =
+      ObservableList<SimplePokemonEntity>();
 
   @action
-  void addPokemons(List<PokemonEntity> newPokemons) {
+  void addPokemons(List<SimplePokemonEntity> newPokemons) {
     pokemons.addAll(newPokemons);
   }
 

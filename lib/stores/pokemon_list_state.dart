@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
+import 'package:versotech_pokemon/domain/pokemon_list_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_store.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
-part 'pokemon_state.g.dart';
+part 'pokemon_list_state.g.dart';
 
 class PokemonStateStore = _PokemonStateStoreBase with _$PokemonStateStore;
 

@@ -20,13 +20,13 @@ mixin _$PokemonListStore on _PokemonStateBase, Store {
       Atom(name: '_PokemonStateBase.pokemons', context: context);
 
   @override
-  ObservableList<PokemonEntity> get pokemons {
+  ObservableList<SimplePokemonEntity> get pokemons {
     _$pokemonsAtom.reportRead();
     return super.pokemons;
   }
 
   @override
-  set pokemons(ObservableList<PokemonEntity> value) {
+  set pokemons(ObservableList<SimplePokemonEntity> value) {
     _$pokemonsAtom.reportWrite(value, super.pokemons, () {
       super.pokemons = value;
     });
@@ -36,7 +36,7 @@ mixin _$PokemonListStore on _PokemonStateBase, Store {
       ActionController(name: '_PokemonStateBase', context: context);
 
   @override
-  void addPokemons(List<PokemonEntity> newPokemons) {
+  void addPokemons(List<SimplePokemonEntity> newPokemons) {
     final _$actionInfo = _$_PokemonStateBaseActionController.startAction(
         name: '_PokemonStateBase.addPokemons');
     try {

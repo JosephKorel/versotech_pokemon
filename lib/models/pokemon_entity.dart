@@ -1,4 +1,21 @@
-final class PokemonEntity {
+import 'package:versotech_pokemon/domain/request_params.dart';
+
+final class SimplePokemonEntity {
+  const SimplePokemonEntity({required this.id, required this.name});
+
+  final String name;
+  final String id;
+
+  SinglePokemonRequest fetch() => SinglePokemonRequest.fromId(id);
+
+  factory SimplePokemonEntity.fromJson(Map<String, dynamic> json) {
+    final urlSplit = (json['url'] as String).split('/');
+    final pokemonId = urlSplit[urlSplit.length - 2];
+    return SimplePokemonEntity(name: json['name'], id: pokemonId);
+  }
+}
+
+class PokemonEntity {
   const PokemonEntity({
     required this.id,
     required this.name,
@@ -63,7 +80,8 @@ class Ability {
   final String description;
 
   factory Ability.fromJson(Map<String, dynamic> json) {
-    final url = json['ability']['url'] as String;
-    return Ability(id: url.split('/').last);
+    final urlSplit = (json['ability']['url'] as String).split('/');
+    final abilityId = urlSplit[urlSplit.length - 2];
+    return Ability(id: abilityId);
   }
 }

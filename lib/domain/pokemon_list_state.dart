@@ -10,7 +10,7 @@ final class LoadingPokemons extends PokemonListState {}
 final class FetchedPokemons extends PokemonListState {
   const FetchedPokemons({required this.pokemons});
 
-  final List<PokemonEntity> pokemons;
+  final List<SimplePokemonEntity> pokemons;
 }
 
 final class ErrorFetchingPokemons extends PokemonListState {

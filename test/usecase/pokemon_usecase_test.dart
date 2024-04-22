@@ -1,13 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
+import 'package:versotech_pokemon/domain/pokemon_list_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
+import 'package:versotech_pokemon/domain/single_pokemon_state.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 class MockUsecaseInterface extends Mock implements PokemonUsecaseInterface {}
+
+class MockPokemonEntity extends Fake implements PokemonEntity {}
 
 void main() {
   const requestParams = PokemonListRequest(pagination: ApiPagination());
@@ -20,6 +23,8 @@ void main() {
   setUpAll(() {
     interface = MockUsecaseInterface();
     pokemonUsecase = PokemonUsecase(interface);
+
+    registerFallbackValue(MockPokemonEntity());
   });
 
   group('Tests for the pokemon usecase implementation', () {
@@ -28,7 +33,7 @@ void main() {
         () async {
       // stub
       when(() => interface.fetchPokemons(requestParams))
-          .thenAnswer((invocation) async => <SinglePokemonId>[]);
+          .thenAnswer((invocation) async => <SimplePokemonEntity>[]);
 
       // act
       final pokemonState = await pokemonUsecase.fetchPokemons(requestParams);
@@ -73,6 +78,45 @@ void main() {
 
       // assert
       expect(errorMsg, connectioErrorMsg);
+    });
+
+    test(
+        'When interface return PokemonEntity, usecase method should return LoadedPokemon',
+        () async {
+      // stub
+      final pokemonEntity = MockPokemonEntity();
+      when(() => interface.fetchSinglePokemon(requestParams))
+          .thenAnswer((invocation) async => pokemonEntity);
+
+      // act
+      final pokemonState =
+          await pokemonUsecase.fetchSinglePokemon(requestParams);
+
+      // assert
+      verify(
+        () => interface.fetchSinglePokemon(requestParams),
+      ).called(1);
+      expect(pokemonState, isA<SinglePokemonState>());
+      expect(pokemonState, isA<LoadedPokemon>());
+    });
+
+    test(
+        'When interface throws error, usecase method should return FailedToLoad',
+        () async {
+      // stub
+      when(() => interface.fetchSinglePokemon(requestParams))
+          .thenThrow(dioException);
+
+      // act
+      final pokemonState =
+          await pokemonUsecase.fetchSinglePokemon(requestParams);
+
+      // assert
+      verify(
+        () => interface.fetchSinglePokemon(requestParams),
+      ).called(1);
+      expect(pokemonState, isA<SinglePokemonState>());
+      expect(pokemonState, isA<FailedToLoad>());
     });
   });
 }

@@ -16,10 +16,8 @@ final class SinglePokemonRequest extends ApiRequestParams {
     required super.endpoint,
   });
 
-  factory SinglePokemonRequest.fromUrl(String url) {
-    final urlSplit = url.split('/');
-    final pokemonId = urlSplit[urlSplit.length - 2];
-    return SinglePokemonRequest(endpoint: '$_baseEndpoint/$pokemonId');
+  factory SinglePokemonRequest.fromId(String id) {
+    return SinglePokemonRequest(endpoint: '$_baseEndpoint/$id');
   }
 }
 

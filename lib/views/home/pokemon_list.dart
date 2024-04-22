@@ -17,7 +17,7 @@ class PokemonListContainer extends StatelessWidget {
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (context, index) =>
-            PokemonCard(name: pokemonList.pokemons[index].name),
+            PokemonCard(name: pokemonList.pokemons[index].id),
       ),
     );
   }
