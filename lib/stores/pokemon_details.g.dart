@@ -25,8 +25,35 @@ mixin _$PokemonDetailsStore on _PokemonDetailsStoreBase, Store {
     });
   }
 
+  late final _$colorSchemeAtom =
+      Atom(name: '_PokemonDetailsStoreBase.colorScheme', context: context);
+
+  @override
+  ColorScheme? get colorScheme {
+    _$colorSchemeAtom.reportRead();
+    return super.colorScheme;
+  }
+
+  @override
+  set colorScheme(ColorScheme? value) {
+    _$colorSchemeAtom.reportWrite(value, super.colorScheme, () {
+      super.colorScheme = value;
+    });
+  }
+
   late final _$_PokemonDetailsStoreBaseActionController =
       ActionController(name: '_PokemonDetailsStoreBase', context: context);
+
+  @override
+  void setColorScheme(ColorScheme pokemonColorScheme) {
+    final _$actionInfo = _$_PokemonDetailsStoreBaseActionController.startAction(
+        name: '_PokemonDetailsStoreBase.setColorScheme');
+    try {
+      return super.setColorScheme(pokemonColorScheme);
+    } finally {
+      _$_PokemonDetailsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void setPokemon(PokemonEntity selectedPokemon) {
@@ -42,7 +69,8 @@ mixin _$PokemonDetailsStore on _PokemonDetailsStoreBase, Store {
   @override
   String toString() {
     return '''
-pokemon: ${pokemon}
+pokemon: ${pokemon},
+colorScheme: ${colorScheme}
     ''';
   }
 }

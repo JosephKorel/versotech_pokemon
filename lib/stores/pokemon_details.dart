@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 
@@ -12,6 +13,12 @@ abstract class _PokemonDetailsStoreBase with Store {
   PokemonEntity? pokemon;
 
   @observable
+  ColorScheme? colorScheme;
+
+  @action
+  void setColorScheme(ColorScheme pokemonColorScheme) =>
+      colorScheme = pokemonColorScheme;
+
   @action
   void setPokemon(PokemonEntity selectedPokemon) => pokemon = selectedPokemon;
 }
