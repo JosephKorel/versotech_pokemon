@@ -3,7 +3,7 @@ import 'package:versotech_pokemon/models/simple_pokemon.dart';
 
 part 'pokemon_simple_store.g.dart';
 
-// This store will only hold the pokemon list
+// This store will hold the pokemons that appear on the home screen
 class PokemonListStore = _PokemonStateBase with _$PokemonListStore;
 
 abstract class _PokemonStateBase with Store {

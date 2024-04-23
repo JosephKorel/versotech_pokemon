@@ -9,8 +9,8 @@ import 'package:versotech_pokemon/theme/color_schemes.g.dart';
 
 part 'color_schemes.g.dart';
 
-// The purpose of this store is to hold the pokemon being viewed
-// so we won't have to pass the same pokemon props down the widget tree
+// Each pokemon will have a color based on its image. To prevent fetching
+// its color scheme repeatdly, this store will hold all color schemes
 class ColorSchemesStore = _ColorSchemesStoreBase with _$ColorSchemesStore;
 
 abstract class _ColorSchemesStoreBase with Store {
@@ -22,6 +22,8 @@ abstract class _ColorSchemesStoreBase with Store {
   @action
   void addColor(PokemonColor color) => colorSchemes.add(color);
 
+  // _pokemonStore will only be LoadedPokemon when the user gets in
+  // the pokemon page, so here we return the color scheme of that pokemon
   @computed
   ColorScheme get colorScheme => _pokemonStore is LoadedPokemon
       ? colorSchemes
@@ -30,6 +32,7 @@ abstract class _ColorSchemesStoreBase with Store {
           .colorScheme
       : lightColorScheme;
 
+  // Method to get the color scheme from the pokemon image
   @action
   Future<void> getPokemonTheme(SimplePokemon pokemon) async {
     PokemonColor pokemonColor;

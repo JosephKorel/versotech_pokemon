@@ -11,8 +11,10 @@ part 'pokemon_state.g.dart';
 class PokemonStateStore = _PokemonStateStoreBase with _$PokemonStateStore;
 
 abstract class _PokemonStateStoreBase with Store {
+  // Dependencies
   final _pokemonUsecase = locator.get<PokemonUsecase>();
   final _pokemonListStore = locator.get<PokemonListStore>();
+  //
 
   late ReactionDisposer _dispose;
 

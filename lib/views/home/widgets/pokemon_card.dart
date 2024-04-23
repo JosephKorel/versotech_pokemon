@@ -23,12 +23,6 @@ extension _CardTheme on BuildContext {
         ],
       );
 
-  BoxDecoration get avatarDecoration => BoxDecoration(
-        shape: BoxShape.circle,
-        color: background,
-        border: Border.all(color: onSurface.withOpacity(0.8)),
-      );
-
   BoxDecoration get nameDecoration => BoxDecoration(
         border: Border.all(
           color: onSurface.withOpacity(0.1),

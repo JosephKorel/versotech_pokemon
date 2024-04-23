@@ -9,6 +9,11 @@ import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 part 'fetch_single_pokemon.g.dart';
 
+// This store is responsible for fetching the pokemon details
+// when the user taps the pokemon and navigate to its page.
+// Although the store when successfully loaded the pokemon has
+// the loaded pokemon avaiable, all widgets will read the pokemon from
+// the LoadedPokemonStore, to ensure a single source of truth
 class FetchSinglePokemonStore = _FetchSinglePokemonStoreBase
     with _$FetchSinglePokemonStore;
 
@@ -23,6 +28,8 @@ abstract class _FetchSinglePokemonStoreBase with Store {
   @observable
   SinglePokemonState state = LoadingPokemon();
 
+  // Since this method will only be used in the pokemon screen,
+  // it's safe to assume that the state will be LoadedPokemon
   @computed
   PokemonEntity get pokemon => _loadedPokemonsStore.pokemons
       .where((element) => element.name == (state as LoadedPokemon).pokemon.name)
@@ -40,13 +47,28 @@ abstract class _FetchSinglePokemonStoreBase with Store {
     );
   }
 
+  bool _pokemonAlreadyLoaded(String pokemonName) =>
+      _loadedPokemonsStore.pokemons
+          .any((element) => element.name == pokemonName);
+
+  void _onLoadedPokemon(PokemonEntity pokemon) {
+    if (_pokemonAlreadyLoaded(pokemon.name)) {
+      return;
+    }
+
+    _loadedPokemonsStore.addPokemon(pokemon);
+  }
+
   @action
   Future<void> fetchPokemon(String pokemonName) async {
-    // Already on the list, no need to fetch it again
-    final loadedPokemon = _loadedPokemonsStore.pokemons
-        .where((element) => element.name == pokemonName);
-    if (loadedPokemon.isNotEmpty) {
-      updateState(LoadedPokemon(pokemon: loadedPokemon.first));
+    if (_pokemonAlreadyLoaded(pokemonName)) {
+      final pokemon = _loadedPokemonsStore.pokemons
+          .where((element) => element.name == pokemonName)
+          .first;
+
+      updateState(
+        LoadedPokemon(pokemon: pokemon),
+      );
       return;
     }
 
@@ -60,14 +82,18 @@ abstract class _FetchSinglePokemonStoreBase with Store {
   @action
   void clear() => state = LoadingPokemon();
 
+  // When the user taps the pokemon card, it will call fetchPokemon method
+  // thus triggering the state change
   void onStateChange() {
     _dispose = reaction((_) => state, (newState) {
       return switch (newState) {
-        // Successfully fetched new pokemons, so it will add to the current list
-        LoadedPokemon(pokemon: final p) => _loadedPokemonsStore.addPokemon(p),
+        // Loaded pokemon from the api or just retrieved from the list
+        LoadedPokemon(pokemon: final p) => _onLoadedPokemon(p),
+
         // Something went wrong and failed to get pokemons
         // Show snackbar message
         FailedToGetPokemon(error: final e) => _showErrorSnackbar(e.message),
+
         // Doesn't need to do anything, the UI will watch for loading state
         // And show it to the user
         LoadingPokemon() => {}
