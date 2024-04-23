@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 final class PokemonEntity {
   const PokemonEntity({
     required this.id,
@@ -96,6 +98,12 @@ final class Status {
 
   final String name;
   final int value;
+
+  IconData icon() => switch (name) {
+        'hp' => Icons.favorite,
+        'attack' => Icons.abc,
+        _ => Icons.electric_bolt_rounded
+      };
 
   factory Status.fromJson(Map<String, dynamic> json) {
     final value = json['base_stat'];

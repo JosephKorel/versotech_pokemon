@@ -3,6 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/content.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/profile.dart';
 
 class PokemonDetailsView extends StatefulWidget {
   const PokemonDetailsView({super.key});
@@ -30,13 +32,7 @@ class _PokemonDetailsViewState extends State<PokemonDetailsView> {
           ?
           // TODO - loading screen
           const Scaffold()
-          : Theme(
-              data: ThemeData(
-                useMaterial3: true,
-                colorScheme: _pokemonDetailsStore.colorScheme,
-              ),
-              child: const PokemonMainScreen(),
-            ),
+          : const PokemonMainScreen(),
     );
   }
 }
@@ -48,6 +44,12 @@ class PokemonMainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: PokemonDetailsAppBar(),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Stack(
+          children: [PokemonProfile(), PokemonMainContent()],
+        ),
+      ),
     );
   }
 }
