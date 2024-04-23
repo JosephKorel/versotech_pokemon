@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/utils/navigation.dart';
@@ -50,7 +50,7 @@ extension _CardTheme on BuildContext {
 class _CardContainer extends StatelessWidget {
   const _CardContainer({super.key, required this.child, required this.pokemon});
 
-  final PokemonEntity pokemon;
+  final SimplePokemon pokemon;
   final Widget child;
 
   @override
@@ -59,7 +59,7 @@ class _CardContainer extends StatelessWidget {
 
     // Navigate to see details of the pokemon
     void onTap() {
-      pokemonDetailStore.setPokemon(pokemon);
+      // pokemonDetailStore.setPokemon(pokemon);
 
       context.navigate(const PokemonDetailsView());
     }
@@ -131,7 +131,7 @@ class _Name extends StatelessWidget {
 class PokemonCard extends StatelessWidget {
   const PokemonCard({super.key, required this.pokemon});
 
-  final PokemonEntity pokemon;
+  final SimplePokemon pokemon;
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +142,7 @@ class PokemonCard extends StatelessWidget {
         child: Stack(
           children: [
             _PokemonAvatar(
-              url: pokemon.images.medium ?? '',
-              // url: pokemon.images.gif ?? (pokemon.images.medium ?? ''),
+              url: pokemon.imageUrl,
             ),
             Align(
               alignment: Alignment.bottomCenter,

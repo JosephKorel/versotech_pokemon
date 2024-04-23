@@ -4,7 +4,7 @@ import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/pokemon_store.dart';
+import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 part 'pokemon_state.g.dart';
@@ -54,7 +54,7 @@ abstract class _PokemonStateStoreBase with Store {
 
         // Something went wrong and failed to get pokemons
         // Show snackbar message
-        ErrorFetchingPokemons(message: final m) => _showErrorSnackbar(m),
+        ErrorFetchingPokemons(error: final e) => _showErrorSnackbar(e.message),
         // Doesn't need to do anything, the UI will watch for loading state
         // And show it to the user
         LoadingPokemons() => {}

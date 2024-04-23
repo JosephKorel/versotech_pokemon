@@ -5,8 +5,8 @@ import 'package:versotech_pokemon/dio/client.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/stores/pokemon_details.dart';
+import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
-import 'package:versotech_pokemon/stores/pokemon_store.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase_impl.dart';
 
