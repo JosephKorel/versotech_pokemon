@@ -4,6 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase_impl.dart';
 
 import '../models/api_models.dart';
@@ -24,14 +25,14 @@ void main() {
     test('Should return list of pokemons from api call', () async {
       // stub
       when(() => repository.get(requestParams))
-          .thenAnswer((_) => Future.value(apiJsonResponse));
+          .thenAnswer((_) => Future.value(pokemonListJson));
 
       // act
       final pokemons = await pokemonUsecase.fetchPokemons(requestParams);
 
       // assert
       verify(() => repository.get(requestParams)).called(1);
-      expect(pokemons, isA<List<PokemonEntity>>());
+      expect(pokemons, isA<List<SimplePokemon>>());
     });
 
     test('When api returns null, should throw exception', () async {

@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
-import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 class MockUsecaseInterface extends Mock implements PokemonUsecaseInterface {}
@@ -28,7 +28,7 @@ void main() {
         () async {
       // stub
       when(() => interface.fetchPokemons(requestParams))
-          .thenAnswer((invocation) async => <PokemonEntity>[]);
+          .thenAnswer((invocation) async => <SimplePokemon>[]);
 
       // act
       final pokemonState = await pokemonUsecase.fetchPokemons(requestParams);
@@ -69,7 +69,7 @@ void main() {
 
       // act
       final pokemonState = await pokemonUsecase.fetchPokemons(requestParams);
-      final errorMsg = (pokemonState as ErrorFetchingPokemons).message;
+      final errorMsg = (pokemonState as ErrorFetchingPokemons).error.message;
 
       // assert
       expect(errorMsg, connectioErrorMsg);

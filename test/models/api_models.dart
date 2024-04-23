@@ -2,6 +2,17 @@ const apiJsonResponse = <String, dynamic>{
   'results': [pokemonExample, pokemonExample]
 };
 
+const pokemonListJson = {
+  'results': [
+    {'name': 'bulbasaur', 'url': 'https://pokeapi.co/api/v2/pokemon/1/'}
+  ]
+};
+
+const pokemonFromListJson = {
+  'name': 'bulbasaur',
+  'url': 'https://pokeapi.co/api/v2/pokemon/1/'
+};
+
 const pokemonExample = {
   "id": 35,
   "name": "clefairy",
