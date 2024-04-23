@@ -40,6 +40,20 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
     return _$fetchPokemonsAsyncAction.run(() => super.fetchPokemons(params));
   }
 
+  late final _$_PokemonStateStoreBaseActionController =
+      ActionController(name: '_PokemonStateStoreBase', context: context);
+
+  @override
+  void reset() {
+    final _$actionInfo = _$_PokemonStateStoreBaseActionController.startAction(
+        name: '_PokemonStateStoreBase.reset');
+    try {
+      return super.reset();
+    } finally {
+      _$_PokemonStateStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

@@ -8,6 +8,8 @@ import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 part 'pokemon_state.g.dart';
 
+// This store is responsible for fetching the pokemons that will
+// appear in the home screen
 class PokemonStateStore = _PokemonStateStoreBase with _$PokemonStateStore;
 
 abstract class _PokemonStateStoreBase with Store {
@@ -32,6 +34,9 @@ abstract class _PokemonStateStoreBase with Store {
 
     pokemonState = newState;
   }
+
+  @action
+  void reset() => pokemonState = LoadingPokemons();
 
   void _showErrorSnackbar(String errorMsg) {
     final context = locator.get<GlobalKey<NavigatorState>>().currentContext!;
