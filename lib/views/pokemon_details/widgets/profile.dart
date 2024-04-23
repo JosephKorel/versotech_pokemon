@@ -4,24 +4,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/stores/color_schemes.dart';
 import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
-import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 
 class HalfCirclePainter extends CustomPainter {
-  final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+  final pokemonDetailStore = locator.get<ColorSchemesStore>();
 
   @override
   void paint(Canvas canvas, Size size) {
     final gradient = LinearGradient(
       colors: [
-        pokemonDetailStore.colorScheme!.primary,
-        pokemonDetailStore.colorScheme!.primary.withOpacity(0.6)
+        pokemonDetailStore.colorScheme.primary,
+        pokemonDetailStore.colorScheme.primary.withOpacity(0.6)
       ],
     ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
     Paint paint = Paint()
-      ..color = pokemonDetailStore.colorScheme!.primary
+      ..color = pokemonDetailStore.colorScheme.primary
       ..strokeWidth = 5.0
       ..style = PaintingStyle.fill
       ..shader = gradient;
@@ -48,7 +48,7 @@ class _PokemonStatBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+    final pokemonDetailStore = locator.get<ColorSchemesStore>();
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -71,7 +71,7 @@ class _PokemonStatBadge extends StatelessWidget {
             Icon(
               status.icon,
               size: 12,
-              color: pokemonDetailStore.colorScheme!.primary,
+              color: pokemonDetailStore.colorScheme.primary,
             ),
             const SizedBox(
               width: 8,

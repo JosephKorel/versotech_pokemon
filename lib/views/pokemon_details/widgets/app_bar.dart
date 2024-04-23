@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/pokemon_details.dart';
+import 'package:versotech_pokemon/stores/color_schemes.dart';
 import 'package:versotech_pokemon/utils/navigation.dart';
 
 class PokemonDetailsAppBar extends StatelessWidget
@@ -12,7 +12,7 @@ class PokemonDetailsAppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+    final pokemonDetailStore = locator.get<ColorSchemesStore>();
 
     void onPressed() {
       context.pop();
@@ -28,7 +28,7 @@ class PokemonDetailsAppBar extends StatelessWidget
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          foregroundColor: pokemonDetailStore.colorScheme!.onPrimary,
+          foregroundColor: pokemonDetailStore.colorScheme.onPrimary,
         ),
       ),
     );

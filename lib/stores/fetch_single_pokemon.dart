@@ -4,8 +4,8 @@ import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/stores/color_schemes.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
-import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 part 'fetch_single_pokemon.g.dart';
@@ -17,7 +17,7 @@ abstract class _FetchSinglePokemonStoreBase with Store {
   // Dependencies
   final _pokemonUsecase = locator.get<PokemonUsecase>();
   final _loadedPokemonsStore = locator.get<LoadedPokemonStore>();
-  final _pokemonDetailsStore = locator.get<PokemonDetailsStore>();
+  final _pokemonDetailsStore = locator.get<ColorSchemesStore>();
   //
 
   late ReactionDisposer _dispose;
@@ -54,7 +54,7 @@ abstract class _FetchSinglePokemonStoreBase with Store {
 
     // Is not yet on the list, will fetch it
     final newState = await _pokemonUsecase.fetchSinglePokemons(
-      SinglePokemonRequest.fromName(_pokemonDetailsStore.currentPokemonName),
+      SinglePokemonRequest.fromName(pokemonName),
     );
     updateState(newState);
   }
