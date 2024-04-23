@@ -356,6 +356,7 @@ const pokemonExample = {
 
 const abilityResponse = {
   "effect_changes": [],
+  "name": "battle-armor",
   "effect_entries": [
     {
       "effect":

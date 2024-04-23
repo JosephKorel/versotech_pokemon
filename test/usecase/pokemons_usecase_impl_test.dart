@@ -61,5 +61,19 @@ void main() {
       verify(() => repository.get(requestParams)).called(1);
       await expectLater(pokemonCall, throwsA(isA<DioException>()));
     });
+
+    test('When api returns ability JSON, usecase should return Ability class',
+        () async {
+      // stub
+      when(() => repository.get(requestParams))
+          .thenAnswer((invocation) async => abilityResponse);
+
+      // act
+      final ability = await pokemonUsecase.getAbilityDescription(requestParams);
+
+      // assert
+      verify(() => repository.get(requestParams)).called(1);
+      expect(ability, isA<Ability>());
+    });
   });
 }

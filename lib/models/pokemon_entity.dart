@@ -89,7 +89,7 @@ final class Ability {
   }
 
   factory Ability.fromAbilityJson(Map<String, dynamic> json) {
-    final ability = (json['effect_entries'] as List<Map<String, dynamic>>)
+    final ability = (json['effect_entries'] as List<dynamic>)
         .where((element) => element['language']['name'] == 'en')
         .first;
 
