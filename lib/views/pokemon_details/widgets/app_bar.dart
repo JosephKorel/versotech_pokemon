@@ -19,14 +19,16 @@ class PokemonDetailsAppBar extends StatelessWidget
     }
 
     return AppBar(
-      title: Text(pokemonDetailStore.pokemon?.name.toUpperCase() ?? ''),
-      leading: IconButton.outlined(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: IconButton(
         onPressed: onPressed,
         icon: const Icon(Icons.arrow_back),
         style: IconButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
+          foregroundColor: pokemonDetailStore.colorScheme!.onPrimary,
         ),
       ),
     );

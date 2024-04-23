@@ -46,6 +46,12 @@ final class PokemonEntity {
         stats: stats);
   }
 
+  String get idLabel => switch (id.toString().length) {
+        1 => '#00$id',
+        2 => '#0$id',
+        _ => '#$id'
+      };
+
   final int id;
   final String name;
   final int height;

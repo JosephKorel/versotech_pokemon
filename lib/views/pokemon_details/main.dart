@@ -4,7 +4,6 @@ import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/content.dart';
-import 'package:versotech_pokemon/views/pokemon_details/widgets/profile.dart';
 
 class PokemonDetailsView extends StatefulWidget {
   const PokemonDetailsView({super.key});
@@ -44,11 +43,12 @@ class PokemonMainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: PokemonDetailsAppBar(),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Stack(
-          children: [PokemonProfile(), PokemonMainContent()],
-        ),
+      extendBodyBehindAppBar: true,
+      body: Column(
+        children: [
+          /* Expanded(child: PokemonProfile()), */
+          Expanded(flex: 2, child: PokemonMainContent())
+        ],
       ),
     );
   }

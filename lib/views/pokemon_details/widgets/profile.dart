@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
@@ -5,20 +7,36 @@ import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 
-class _ImageBackground extends StatelessWidget {
-  const _ImageBackground({super.key});
+class HalfCirclePainter extends CustomPainter {
+  final pokemonDetailStore = locator.get<PokemonDetailsStore>();
 
   @override
-  Widget build(BuildContext context) {
-    final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+  void paint(Canvas canvas, Size size) {
+    final gradient = LinearGradient(
+      colors: [
+        pokemonDetailStore.colorScheme!.primary,
+        pokemonDetailStore.colorScheme!.primary.withOpacity(0.6)
+      ],
+    ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    return Container(
-      width: context.deviceWidth * 2,
-      decoration: BoxDecoration(
-        color: pokemonDetailStore.colorScheme!.primary,
-        shape: BoxShape.circle,
-      ),
-    );
+    Paint paint = Paint()
+      ..color = pokemonDetailStore.colorScheme!.primary
+      ..strokeWidth = 5.0
+      ..style = PaintingStyle.fill
+      ..shader = gradient;
+
+    // Defina o raio do círculo
+    double radius = size.width / 1.2;
+
+    Offset center = Offset(size.width / 2, -16);
+
+    canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius), 0, pi, true, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
 
@@ -76,41 +94,25 @@ class PokemonProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pokemonDetailStore = locator.get<PokemonDetailsStore>();
-    return SizedBox(
-        height: context.deviceHeight / 3,
-        width: double.infinity,
-        child: LayoutBuilder(
-          builder: (context, constraints) => Stack(
-            children: [
-              const _ImageBackground(),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: pokemonDetailStore.colorScheme!.primary,
-                ),
-                child: const SizedBox.expand(),
-              ),
-              CachedNetworkImage(
+
+    return LayoutBuilder(
+      builder: (context, constraints) => Stack(
+        children: [
+          CustomPaint(
+            size: constraints.biggest,
+            painter: HalfCirclePainter(),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: CachedNetworkImage(
                 imageUrl: pokemonDetailStore.pokemon!.images.medium ?? '',
               ),
-              Positioned(
-                bottom: constraints.maxHeight * .2,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: pokemonDetailStore.pokemon!.stats
-                        .map((e) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              child: _PokemonStatBadge(status: e),
-                            ))
-                        .toList(),
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
