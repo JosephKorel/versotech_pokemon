@@ -36,7 +36,7 @@ void setUpLocation() {
   locator.registerLazySingleton(() => PokemonStateStore());
   locator.registerLazySingleton(() => LoadedPokemonStore());
   locator.registerLazySingleton(() => FetchSinglePokemonStore());
-  locator.registerLazySingleton(() => PaginationStore());
   locator.registerLazySingleton(() => ColorSchemesStore());
+  locator.registerLazySingleton(() => PaginationStore());
   //
 }

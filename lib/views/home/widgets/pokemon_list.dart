@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/color_schemes.dart';
 import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
@@ -19,7 +18,6 @@ class PokemonListContainer extends StatefulWidget {
 class _PokemonListContainerState extends State<PokemonListContainer> {
   final _pokemonStoreState = locator.get<PokemonStateStore>();
   final _fetchSinglePokemonStore = locator.get<FetchSinglePokemonStore>();
-  final _pokemonDetailsStore = locator.get<ColorSchemesStore>();
   final _paginationStore = locator.get<PaginationStore>();
   final _controller = ScrollController();
 

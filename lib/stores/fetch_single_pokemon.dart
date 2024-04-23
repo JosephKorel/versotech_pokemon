@@ -4,7 +4,6 @@ import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
-import 'package:versotech_pokemon/stores/color_schemes.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
@@ -17,7 +16,6 @@ abstract class _FetchSinglePokemonStoreBase with Store {
   // Dependencies
   final _pokemonUsecase = locator.get<PokemonUsecase>();
   final _loadedPokemonsStore = locator.get<LoadedPokemonStore>();
-  final _pokemonDetailsStore = locator.get<ColorSchemesStore>();
   //
 
   late ReactionDisposer _dispose;
@@ -58,6 +56,9 @@ abstract class _FetchSinglePokemonStoreBase with Store {
     );
     updateState(newState);
   }
+
+  @action
+  void clear() => state = LoadingPokemon();
 
   void onStateChange() {
     _dispose = reaction((_) => state, (newState) {

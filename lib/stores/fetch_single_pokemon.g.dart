@@ -57,6 +57,17 @@ mixin _$FetchSinglePokemonStore on _FetchSinglePokemonStoreBase, Store {
   }
 
   @override
+  void clear() {
+    final _$actionInfo = _$_FetchSinglePokemonStoreBaseActionController
+        .startAction(name: '_FetchSinglePokemonStoreBase.clear');
+    try {
+      return super.clear();
+    } finally {
+      _$_FetchSinglePokemonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 state: ${state},

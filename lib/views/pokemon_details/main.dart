@@ -22,7 +22,7 @@ class _PokemonDetailsViewState extends State<PokemonDetailsView> {
     super.dispose();
 
     // Reset values to null when going back
-    // _pokemonDetailsStore.clear();
+    _pokemon.clear();
   }
 
   @override
@@ -61,7 +61,11 @@ class _LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }
 
@@ -73,6 +77,10 @@ class _ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Text(error.message),
+      ),
+    );
   }
 }

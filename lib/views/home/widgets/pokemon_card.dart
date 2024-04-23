@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/utils/navigation.dart';
+import 'package:versotech_pokemon/views/home/widgets/pokemon_avatar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/main.dart';
 
 // To make the widgets more legible
@@ -78,30 +78,6 @@ class _CardContainer extends StatelessWidget {
   }
 }
 
-class _PokemonAvatar extends StatelessWidget {
-  const _PokemonAvatar({super.key, required this.url});
-
-  final String url;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: [
-      Padding(
-        padding: const EdgeInsets.all(8),
-        child: DecoratedBox(
-          decoration: context.avatarDecoration,
-          child: const SizedBox.expand(),
-        ),
-      ),
-      SizedBox.expand(
-        child: CachedNetworkImage(
-          imageUrl: url,
-        ),
-      ),
-    ]);
-  }
-}
-
 class _Name extends StatelessWidget {
   const _Name({super.key, required this.name});
 
@@ -141,9 +117,7 @@ class PokemonCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Stack(
           children: [
-            _PokemonAvatar(
-              url: pokemon.imageUrl,
-            ),
+            PokemonAvatar(pokemon: pokemon),
             Align(
               alignment: Alignment.bottomCenter,
               child: _Name(name: pokemon.name.toUpperCase()),

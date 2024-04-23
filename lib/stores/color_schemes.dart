@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_color.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
@@ -22,10 +23,12 @@ abstract class _ColorSchemesStoreBase with Store {
   void addColor(PokemonColor color) => colorSchemes.add(color);
 
   @computed
-  ColorScheme get colorScheme => colorSchemes
-      .where((element) => element.name == (_pokemonStore.pokemon.name))
-      .first
-      .colorScheme;
+  ColorScheme get colorScheme => _pokemonStore is LoadedPokemon
+      ? colorSchemes
+          .where((element) => element.name == (_pokemonStore.pokemon.name))
+          .first
+          .colorScheme
+      : lightColorScheme;
 
   @action
   Future<void> getPokemonTheme(SimplePokemon pokemon) async {
