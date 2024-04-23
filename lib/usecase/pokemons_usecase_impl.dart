@@ -59,4 +59,18 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
       rethrow;
     }
   }
+
+  @override
+  Future<Ability> getAbilityDescription(ApiRequestParams params) async {
+    try {
+      final request = await _repository.get(params);
+      if (request == null) {
+        throw Exception('No ability found');
+      }
+
+      return Ability.fromAbilityJson(request);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/rpg_awesome_icons.dart';
 
 final class PokemonEntity {
   const PokemonEntity({
@@ -70,16 +71,33 @@ final class PokemonImage {
 }
 
 final class Ability {
-  const Ability({required this.id, this.description = ''});
+  const Ability({required this.id, required this.name, this.description = ''});
 
   // The id to query the API for detailed information
   // About the ability
   final String id;
+  final String name;
   final String description;
 
   factory Ability.fromJson(Map<String, dynamic> json) {
+    final name = json['ability']['name'];
     final urlSplit = (json['ability']['url'] as String).split('/');
-    return Ability(id: urlSplit[urlSplit.length - 2]);
+    return Ability(
+      id: urlSplit[urlSplit.length - 2],
+      name: name,
+    );
+  }
+
+  factory Ability.fromAbilityJson(Map<String, dynamic> json) {
+    final ability = (json['effect_entries'] as List<Map<String, dynamic>>)
+        .where((element) => element['language']['name'] == 'en')
+        .first;
+
+    return Ability(
+      id: json['id'].toString(),
+      name: json['name'],
+      description: ability['effect'],
+    );
   }
 }
 
@@ -99,9 +117,13 @@ final class Status {
   final String name;
   final int value;
 
-  IconData icon() => switch (name) {
-        'hp' => Icons.favorite,
-        'attack' => Icons.abc,
+  IconData get icon => switch (name) {
+        'hp' => RpgAwesome.hearts,
+        'attack' => RpgAwesome.crossed_swords,
+        'defense' => RpgAwesome.shield,
+        'special-attack' => RpgAwesome.fireball_sword,
+        'special-defense' => RpgAwesome.heavy_shield,
+        'speed' => Icons.directions_run,
         _ => Icons.electric_bolt_rounded
       };
 

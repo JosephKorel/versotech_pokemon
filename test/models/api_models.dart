@@ -353,3 +353,27 @@ const pokemonExample = {
     }
   ]
 };
+
+const abilityResponse = {
+  "effect_changes": [],
+  "effect_entries": [
+    {
+      "effect":
+          "Attacken können keinen kritischen Treffer landen.\n\nDiese Fähigkeit ist identisch mit shell armor.",
+      "language": {
+        "name": "de",
+        "url": "https://pokeapi.co/api/v2/language/6/"
+      },
+      "short_effect": "Schützt vor kritischen Treffern."
+    },
+    {
+      "effect":
+          "Moves cannot score critical hits against this Pokémon.\n\nThis ability functions identically to shell armor.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "short_effect": "Protects against critical hits."
+    }
+  ]
+};
