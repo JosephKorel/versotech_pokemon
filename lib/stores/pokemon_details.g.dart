@@ -9,6 +9,21 @@ part of 'pokemon_details.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PokemonDetailsStore on _PokemonDetailsStoreBase, Store {
+  Computed<bool>? _$loadingColorSchemeComputed;
+
+  @override
+  bool get loadingColorScheme => (_$loadingColorSchemeComputed ??=
+          Computed<bool>(() => super.loadingColorScheme,
+              name: '_PokemonDetailsStoreBase.loadingColorScheme'))
+      .value;
+  Computed<bool>? _$noPokemonComputed;
+
+  @override
+  bool get noPokemon =>
+      (_$noPokemonComputed ??= Computed<bool>(() => super.noPokemon,
+              name: '_PokemonDetailsStoreBase.noPokemon'))
+          .value;
+
   late final _$pokemonAtom =
       Atom(name: '_PokemonDetailsStoreBase.pokemon', context: context);
 
@@ -67,10 +82,23 @@ mixin _$PokemonDetailsStore on _PokemonDetailsStoreBase, Store {
   }
 
   @override
+  void clear() {
+    final _$actionInfo = _$_PokemonDetailsStoreBaseActionController.startAction(
+        name: '_PokemonDetailsStoreBase.clear');
+    try {
+      return super.clear();
+    } finally {
+      _$_PokemonDetailsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 pokemon: ${pokemon},
-colorScheme: ${colorScheme}
+colorScheme: ${colorScheme},
+loadingColorScheme: ${loadingColorScheme},
+noPokemon: ${noPokemon}
     ''';
   }
 }

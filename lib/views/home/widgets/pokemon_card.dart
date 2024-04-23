@@ -4,6 +4,7 @@ import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
+import 'package:versotech_pokemon/utils/navigation.dart';
 import 'package:versotech_pokemon/views/pokemon_details/main.dart';
 
 // To make the widgets more legible
@@ -55,15 +56,12 @@ class _CardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+
     // Navigate to see details of the pokemon
     void onTap() {
       pokemonDetailStore.setPokemon(pokemon);
 
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => PokemonDetailsView(pokemon: pokemon),
-        ),
-      );
+      context.navigate(const PokemonDetailsView());
     }
 
     return Semantics(
