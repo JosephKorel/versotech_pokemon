@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
@@ -9,6 +10,20 @@ final class PokemonUsecase {
 
   final PokemonUsecaseInterface _interface;
 
+  Future<SinglePokemonState> fetchSinglePokemons(
+      ApiRequestParams params) async {
+    try {
+      final pokemon = await _interface.fetchSinglePokemon(params);
+      return LoadedPokemon(pokemon: pokemon);
+    } on DioException catch (e) {
+      return FailedToGetPokemon(error: ApiException.fromDioException(e));
+    } catch (e) {
+      return const FailedToGetPokemon(
+        error: ApiException(message: 'Failed to get pokemon data'),
+      );
+    }
+  }
+
   Future<PokemonListState> fetchPokemons(ApiRequestParams params) async {
     try {
       final pokemons = await _interface.fetchPokemons(params);
@@ -17,7 +32,8 @@ final class PokemonUsecase {
       return ErrorFetchingPokemons(error: ApiException.fromDioException(e));
     } catch (e) {
       return const ErrorFetchingPokemons(
-        error: ApiException(message: 'An unknown error happened'),
+        error: ApiException(
+            message: 'An unknown error happened while getting pokemons list'),
       );
     }
   }

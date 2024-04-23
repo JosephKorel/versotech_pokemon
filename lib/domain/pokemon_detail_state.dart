@@ -13,7 +13,7 @@ final class LoadedPokemon extends SinglePokemonState {
   final PokemonEntity pokemon;
 }
 
-final class FailedToGetPokemon {
+final class FailedToGetPokemon extends SinglePokemonState {
   const FailedToGetPokemon({required this.error});
 
   final ApiException error;

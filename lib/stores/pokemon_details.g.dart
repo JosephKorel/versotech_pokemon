@@ -16,25 +16,32 @@ mixin _$PokemonDetailsStore on _PokemonDetailsStoreBase, Store {
           Computed<bool>(() => super.loadingColorScheme,
               name: '_PokemonDetailsStoreBase.loadingColorScheme'))
       .value;
-  Computed<bool>? _$noPokemonComputed;
+  Computed<PokemonEntity?>? _$currentPokemonComputed;
 
   @override
-  bool get noPokemon =>
-      (_$noPokemonComputed ??= Computed<bool>(() => super.noPokemon,
-              name: '_PokemonDetailsStoreBase.noPokemon'))
-          .value;
+  PokemonEntity? get currentPokemon => (_$currentPokemonComputed ??=
+          Computed<PokemonEntity?>(() => super.currentPokemon,
+              name: '_PokemonDetailsStoreBase.currentPokemon'))
+      .value;
+  Computed<String>? _$currentPokemonNameComputed;
+
+  @override
+  String get currentPokemonName => (_$currentPokemonNameComputed ??=
+          Computed<String>(() => super.currentPokemonName,
+              name: '_PokemonDetailsStoreBase.currentPokemonName'))
+      .value;
 
   late final _$pokemonAtom =
       Atom(name: '_PokemonDetailsStoreBase.pokemon', context: context);
 
   @override
-  PokemonEntity? get pokemon {
+  SimplePokemon? get pokemon {
     _$pokemonAtom.reportRead();
     return super.pokemon;
   }
 
   @override
-  set pokemon(PokemonEntity? value) {
+  set pokemon(SimplePokemon? value) {
     _$pokemonAtom.reportWrite(value, super.pokemon, () {
       super.pokemon = value;
     });
@@ -71,7 +78,7 @@ mixin _$PokemonDetailsStore on _PokemonDetailsStoreBase, Store {
   }
 
   @override
-  void setPokemon(PokemonEntity selectedPokemon) {
+  void setPokemon(SimplePokemon selectedPokemon) {
     final _$actionInfo = _$_PokemonDetailsStoreBaseActionController.startAction(
         name: '_PokemonDetailsStoreBase.setPokemon');
     try {
@@ -98,7 +105,8 @@ mixin _$PokemonDetailsStore on _PokemonDetailsStoreBase, Store {
 pokemon: ${pokemon},
 colorScheme: ${colorScheme},
 loadingColorScheme: ${loadingColorScheme},
-noPokemon: ${noPokemon}
+currentPokemon: ${currentPokemon},
+currentPokemonName: ${currentPokemonName}
     ''';
   }
 }

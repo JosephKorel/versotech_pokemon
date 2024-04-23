@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
-import 'package:versotech_pokemon/stores/pokemon_details.dart';
+import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/utils/navigation.dart';
 import 'package:versotech_pokemon/views/pokemon_details/main.dart';
@@ -55,11 +55,11 @@ class _CardContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+    final pokemonStore = locator.get<FetchSinglePokemonStore>();
 
     // Navigate to see details of the pokemon
     void onTap() {
-      // pokemonDetailStore.setPokemon(pokemon);
+      pokemonStore.fetchPokemon(pokemon.name);
 
       context.navigate(const PokemonDetailsView());
     }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/pokemon_details.dart';
+import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/tabs.dart';
 
@@ -9,18 +9,19 @@ class _PokemonName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          pokemonDetailStore.pokemon!.name.toUpperCase(),
+          pokemonStore.pokemon.name.toUpperCase(),
           style: context.titleLarge.copyWith(
             fontWeight: FontWeight.w800,
           ),
         ),
         Text(
-          pokemonDetailStore.pokemon!.idLabel,
+          pokemonStore.pokemon.idLabel,
           style: context.titleLarge.copyWith(
               color: context.onSurface.withOpacity(0.7),
               fontWeight: FontWeight.w800),

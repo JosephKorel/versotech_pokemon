@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_details.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 
@@ -93,7 +94,7 @@ class PokemonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonDetailStore = locator.get<PokemonDetailsStore>();
+    final pokemonStore = locator.get<FetchSinglePokemonStore>();
 
     return LayoutBuilder(
       builder: (context, constraints) => Stack(
@@ -107,7 +108,7 @@ class PokemonProfile extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: CachedNetworkImage(
-                imageUrl: pokemonDetailStore.pokemon!.images.medium ?? '',
+                imageUrl: pokemonStore.pokemon.images.medium ?? '',
               ),
             ),
           ),

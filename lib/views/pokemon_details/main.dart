@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/pokemon_details.dart';
+import 'package:versotech_pokemon/models/error.dart';
+import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/content.dart';
 
@@ -13,25 +15,24 @@ class PokemonDetailsView extends StatefulWidget {
 }
 
 class _PokemonDetailsViewState extends State<PokemonDetailsView> {
-  final _pokemonDetailsStore = locator.get<PokemonDetailsStore>();
+  final _pokemon = locator.get<FetchSinglePokemonStore>();
 
   @override
   void dispose() {
     super.dispose();
 
     // Reset values to null when going back
-    _pokemonDetailsStore.clear();
+    // _pokemonDetailsStore.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      // Load color scheme based on pokemon colors
-      builder: (context) => _pokemonDetailsStore.colorScheme == null
-          ?
-          // TODO - loading screen
-          const Scaffold()
-          : const PokemonMainScreen(),
+      builder: (context) => switch (_pokemon.state) {
+        LoadingPokemon() => const _LoadingScreen(),
+        LoadedPokemon(pokemon: _) => const PokemonMainScreen(),
+        FailedToGetPokemon(error: final e) => _ErrorScreen(error: e)
+      },
     );
   }
 }
@@ -51,5 +52,27 @@ class PokemonMainScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+// TODO - loading screen
+class _LoadingScreen extends StatelessWidget {
+  const _LoadingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+// TODO - error screen
+class _ErrorScreen extends StatelessWidget {
+  const _ErrorScreen({super.key, required this.error});
+
+  final ApiException error;
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

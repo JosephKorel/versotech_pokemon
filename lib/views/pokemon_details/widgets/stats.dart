@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
-import 'package:versotech_pokemon/stores/pokemon_details.dart';
+import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 
 class _StatTile extends StatelessWidget {
@@ -39,12 +39,13 @@ class PokemonStatsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemon = locator.get<PokemonDetailsStore>().pokemon!;
+    final pokemonStore = locator.get<FetchSinglePokemonStore>();
 
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: pokemon.stats.length,
-      itemBuilder: (context, index) => _StatTile(status: pokemon.stats[index]),
+      itemCount: pokemonStore.pokemon.stats.length,
+      itemBuilder: (context, index) =>
+          _StatTile(status: pokemonStore.pokemon.stats[index]),
     );
   }
 }
