@@ -69,9 +69,20 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
         throw Exception('No ability found');
       }
 
-      return (request['flavor_text_entries'] as List<dynamic>)
-          .map((e) => Characteristic.fromJson(e as Map<String, dynamic>))
-          .toList();
+      final characteristics = <Characteristic>[];
+
+      for (final item in request['flavor_text_entries'] as List<dynamic>) {
+        final characteristic =
+            Characteristic.fromJson(item as Map<String, dynamic>);
+        if (characteristics.any(
+            (element) => element.description == characteristic.description)) {
+          continue;
+        }
+
+        characteristics.add(characteristic);
+      }
+
+      return characteristics;
     } catch (e) {
       rethrow;
     }

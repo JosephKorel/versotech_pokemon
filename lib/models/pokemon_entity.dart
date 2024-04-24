@@ -152,7 +152,8 @@ final class Characteristic {
   const Characteristic({required this.description, required this.version});
 
   factory Characteristic.fromJson(Map<String, dynamic> json) {
-    final description = json['flavor_text'].replaceAll('\n', ' ');
+    final description =
+        (json['flavor_text'] as String).replaceAll(RegExp('\\s+'), ' ');
     final version = json['version']['name'];
 
     return Characteristic(description: description, version: version);

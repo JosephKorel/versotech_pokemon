@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/characteristics.dart';
 
 class _LoadingCharacteristics extends StatelessWidget {
@@ -23,16 +24,105 @@ class _FailedToLoadCharacteristics extends StatelessWidget {
   }
 }
 
-class _ShowPokemonCharacteristics extends StatelessWidget {
+class _CharacteristicText extends StatelessWidget {
+  const _CharacteristicText({super.key, required this.characteristic});
+
+  final Characteristic characteristic;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: constraints.maxHeight * .7,
+            child: SingleChildScrollView(
+              child: Text(
+                characteristic.description,
+                style: context.bodySmall.copyWith(
+                  color: context.onSurface.withOpacity(0.7),
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            characteristic.version.toUpperCase(),
+            style: context.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _ShowPokemonCharacteristics extends StatefulWidget {
   const _ShowPokemonCharacteristics({super.key, required this.characteristics});
 
   final List<Characteristic> characteristics;
 
   @override
+  State<_ShowPokemonCharacteristics> createState() =>
+      _ShowPokemonCharacteristicsState();
+}
+
+class _ShowPokemonCharacteristicsState
+    extends State<_ShowPokemonCharacteristics> {
+  var _viewingCharacteristic = 0;
+
+  void _next() => setState(() {
+        _viewingCharacteristic += 1;
+      });
+
+  void _previous() => setState(() {
+        _viewingCharacteristic -= 1;
+      });
+
+  bool get _canGoToNext =>
+      _viewingCharacteristic < widget.characteristics.length;
+
+  bool get _canGoToPrevious => _viewingCharacteristic > 0;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(characteristics.first.description),
+        Expanded(
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: _canGoToPrevious ? _previous : null,
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color:
+                      _canGoToPrevious ? context.onSurface : Colors.transparent,
+                ),
+              ),
+              Expanded(
+                child: _CharacteristicText(
+                    characteristic:
+                        widget.characteristics[_viewingCharacteristic]),
+              ),
+              if (_canGoToNext)
+                IconButton(
+                  onPressed: _canGoToNext ? _next : null,
+                  icon: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color:
+                        _canGoToNext ? context.onSurface : Colors.transparent,
+                  ),
+                )
+            ],
+          ),
+        ),
+        const Spacer(
+          flex: 3,
+        )
       ],
     );
   }
@@ -78,6 +168,9 @@ class AboutTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _PokemonCharacteristics();
+    return const Padding(
+      padding: EdgeInsets.only(top: 16),
+      child: _PokemonCharacteristics(),
+    );
   }
 }
