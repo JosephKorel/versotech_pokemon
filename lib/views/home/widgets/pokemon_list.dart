@@ -5,6 +5,7 @@ import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
+import 'package:versotech_pokemon/stores/theme.dart';
 import 'package:versotech_pokemon/views/home/widgets/loading_card.dart';
 import 'package:versotech_pokemon/views/home/widgets/pokemon_card.dart';
 
@@ -19,14 +20,14 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
   final _pokemonStoreState = locator.get<PokemonStateStore>();
   final _fetchSinglePokemonStore = locator.get<FetchSinglePokemonStore>();
   final _paginationStore = locator.get<PaginationStore>();
+  final _themeStore = locator.get<ThemeStore>();
   final _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize pokemon state listener
-    // _pokemonStoreState.onStateChange();
+    _themeStore.onThemeChange();
 
     // Make first request to fetch pokemons
     _paginationStore.onPaginationChange();

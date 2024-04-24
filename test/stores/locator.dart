@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/stores/color_schemes.dart';
@@ -21,6 +22,9 @@ void setUpTestingLocation() {
 
   testingLocator.registerLazySingleton<PokemonUsecaseInterface>(
       () => MockUsecaseInterface());
+
+  testingLocator.registerLazySingletonAsync<SharedPreferences>(
+      () => SharedPreferences.getInstance());
 
   testingLocator.registerLazySingleton<PokemonUsecase>(
       () => PokemonUsecase(testingLocator.get<PokemonUsecaseInterface>()));

@@ -5,10 +5,13 @@ import 'package:versotech_pokemon/stores/theme.dart';
 import 'package:versotech_pokemon/views/home/main.dart';
 
 Future<void> main() async {
-  setUpLocation();
-
   // So we can read the platform brightness in ThemeStore
   WidgetsFlutterBinding.ensureInitialized();
+
+  await setUpLocation();
+
+  final themeStore = locator.get<ThemeStore>();
+  themeStore.readTheme();
 
   runApp(const MyApp());
 }
