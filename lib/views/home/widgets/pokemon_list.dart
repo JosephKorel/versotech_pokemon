@@ -17,16 +17,20 @@ class PokemonListContainer extends StatefulWidget {
 }
 
 class _PokemonListContainerState extends State<PokemonListContainer> {
+  // Stores
   final _pokemonStoreState = locator.get<PokemonStateStore>();
   final _fetchSinglePokemonStore = locator.get<FetchSinglePokemonStore>();
   final _paginationStore = locator.get<PaginationStore>();
   final _themeStore = locator.get<ThemeStore>();
+  //
+
   final _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
+    // Initiate reactions for theme store
     _themeStore.onThemeChange();
 
     // Make first request to fetch pokemons
@@ -78,5 +82,5 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
 
 // Explanation about GridView item count:
 // If loading is true, add 10 items to the list and show
-// a loading widget. Showing a different widget if pokemonStateStore was loading 
-// would hide the already loaded pokemons. 
+// a loading widget. Showing a different widget if pokemonStateStore was loading
+// would hide the already loaded pokemons.

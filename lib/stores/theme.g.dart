@@ -43,11 +43,11 @@ mixin _$ThemeStore on _ThemeStoreBase, Store {
       ActionController(name: '_ThemeStoreBase', context: context);
 
   @override
-  void setBrightness({required bool darkMode}) {
+  void readTheme() {
     final _$actionInfo = _$_ThemeStoreBaseActionController.startAction(
-        name: '_ThemeStoreBase.setBrightness');
+        name: '_ThemeStoreBase.readTheme');
     try {
-      return super.setBrightness(darkMode: darkMode);
+      return super.readTheme();
     } finally {
       _$_ThemeStoreBaseActionController.endAction(_$actionInfo);
     }

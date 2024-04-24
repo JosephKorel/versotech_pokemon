@@ -54,6 +54,9 @@ final class PokemonEntity {
         _ => '#$id'
       };
 
+  double get weightInKg => weight / 10;
+  double get heightInM => height / 10;
+
   final int id;
   final String name;
   final int height;
@@ -143,4 +146,18 @@ final class Status {
     final name = json['stat']['name'];
     return Status(name: name, value: value);
   }
+}
+
+final class Characteristic {
+  const Characteristic({required this.description, required this.version});
+
+  factory Characteristic.fromJson(Map<String, dynamic> json) {
+    final description = json['flavor_text'].replaceAll('\n', ' ');
+    final version = json['version']['name'];
+
+    return Characteristic(description: description, version: version);
+  }
+
+  final String description;
+  final String version;
 }

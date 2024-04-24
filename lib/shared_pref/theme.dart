@@ -15,6 +15,7 @@ final class ThemeLocalService {
   ThemeOptions getTheme() {
     final value = _localStorageService.getKey<String>();
 
+    // If there's nothing saved yet, go back to system preference
     if (value == null) {
       return ThemeOptions.system;
     }

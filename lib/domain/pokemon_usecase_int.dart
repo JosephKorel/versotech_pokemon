@@ -13,4 +13,7 @@ interface class PokemonUsecaseInterface {
 
   Future<Ability> getAbilityDescription(ApiRequestParams params) =>
       throw UnimplementedError();
+
+  Future<List<Characteristic>> getCharacteristic(ApiRequestParams params) =>
+      throw UnimplementedError();
 }

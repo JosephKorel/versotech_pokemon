@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mobx/mobx.dart';
@@ -24,10 +22,10 @@ enum ThemeOptions {
       ][index];
 }
 
+// This store will control the theme of the application
 class ThemeStore = _ThemeStoreBase with _$ThemeStore;
 
 abstract class _ThemeStoreBase with Store {
-  final _key = locator.get<GlobalKey<NavigatorState>>();
   final _themeLocalService = locator.get<ThemeLocalService>();
   late final ReactionDisposer _dispose;
 
@@ -42,16 +40,7 @@ abstract class _ThemeStoreBase with Store {
   ThemeOptions theme = ThemeOptions.system;
 
   @action
-  void readTheme() {
-    final sharedPrefTheme = _themeLocalService.getTheme();
-    log('This is our theme: ${sharedPrefTheme.name}');
-
-    theme = sharedPrefTheme;
-  }
-
-  @action
-  void setBrightness({required bool darkMode}) =>
-      theme = darkMode ? ThemeOptions.dark : ThemeOptions.light;
+  void readTheme() => theme = _themeLocalService.getTheme();
 
   @action
   setTheme(ThemeOptions newTheme) => theme = newTheme;
@@ -68,6 +57,7 @@ abstract class _ThemeStoreBase with Store {
       ? ThemeOptions.light.icon
       : ThemeOptions.dark.icon;
 
+  // Everytime theme changes, save it in shared prefs
   void onThemeChange() {
     _dispose = reaction((_) => theme, (t) {
       _themeLocalService.setTheme(t);

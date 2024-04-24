@@ -59,4 +59,21 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
       rethrow;
     }
   }
+
+  @override
+  Future<List<Characteristic>> getCharacteristic(
+      ApiRequestParams params) async {
+    try {
+      final request = await _repository.get(params);
+      if (request == null) {
+        throw Exception('No ability found');
+      }
+
+      return (request['flavor_text_entries'] as List<dynamic>)
+          .map((e) => Characteristic.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

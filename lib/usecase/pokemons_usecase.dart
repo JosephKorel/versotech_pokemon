@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
@@ -34,6 +35,21 @@ final class PokemonUsecase {
       return const ErrorFetchingPokemons(
         error: ApiException(
             message: 'An unknown error happened while getting pokemons list'),
+      );
+    }
+  }
+
+  Future<PokemonCharacteristicsState> getCharacteristics(
+      ApiRequestParams params) async {
+    try {
+      final characteristics = await _interface.getCharacteristic(params);
+      return LoadedCharacteristics(characteristics: characteristics);
+    } on DioException catch (e) {
+      return FailedToGetCharacteristics(
+          error: ApiException.fromDioException(e));
+    } catch (e) {
+      return const FailedToGetCharacteristics(
+        error: ApiException(message: 'Failed to get pokemon characteristic'),
       );
     }
   }

@@ -46,6 +46,17 @@ final class PokemonAbilityRequest extends ApiRequestParams {
   final String abilityId;
 }
 
+final class PokemonCharacteristicRequest extends ApiRequestParams {
+  static const _baseEndpoint = 'pokemon-species';
+
+  const PokemonCharacteristicRequest({
+    super.endpoint = _baseEndpoint,
+  });
+
+  factory PokemonCharacteristicRequest.fromName(String name) =>
+      PokemonCharacteristicRequest(endpoint: '$_baseEndpoint/$name');
+}
+
 class ApiPagination {
   // Will only take 10 pokemons at a time
   static const _limit = 10;
