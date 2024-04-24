@@ -10,6 +10,7 @@ import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
+import 'package:versotech_pokemon/stores/theme.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase_impl.dart';
 
@@ -32,6 +33,7 @@ void setUpLocation() {
       () => GlobalKey<NavigatorState>(debugLabel: 'routerKey'));
 
   // Stores
+  locator.registerLazySingleton(() => ThemeStore());
   locator.registerLazySingleton(() => PokemonListStore());
   locator.registerLazySingleton(() => PokemonStateStore());
   locator.registerLazySingleton(() => LoadedPokemonStore());

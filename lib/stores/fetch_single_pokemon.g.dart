@@ -16,6 +16,13 @@ mixin _$FetchSinglePokemonStore on _FetchSinglePokemonStoreBase, Store {
       (_$pokemonComputed ??= Computed<PokemonEntity>(() => super.pokemon,
               name: '_FetchSinglePokemonStoreBase.pokemon'))
           .value;
+  Computed<bool>? _$hasActivePokemonComputed;
+
+  @override
+  bool get hasActivePokemon => (_$hasActivePokemonComputed ??= Computed<bool>(
+          () => super.hasActivePokemon,
+          name: '_FetchSinglePokemonStoreBase.hasActivePokemon'))
+      .value;
 
   late final _$stateAtom =
       Atom(name: '_FetchSinglePokemonStoreBase.state', context: context);
@@ -71,7 +78,8 @@ mixin _$FetchSinglePokemonStore on _FetchSinglePokemonStoreBase, Store {
   String toString() {
     return '''
 state: ${state},
-pokemon: ${pokemon}
+pokemon: ${pokemon},
+hasActivePokemon: ${hasActivePokemon}
     ''';
   }
 }

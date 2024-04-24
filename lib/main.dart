@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/theme/color_schemes.g.dart';
+import 'package:versotech_pokemon/stores/theme.dart';
 import 'package:versotech_pokemon/views/home/main.dart';
 
-void main() {
+Future<void> main() async {
   setUpLocation();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Setting up the app theme
+/*   final themeStore = locator.get<ThemeStore>();
+
+  final brightness =
+      SchedulerBinding.instance.platformDispatcher.platformBrightness;
+
+  themeStore.setBrightness(darkMode: brightness == Brightness.dark); */
+
   runApp(const MyApp());
 }
 
@@ -14,10 +24,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final key = locator.get<GlobalKey<NavigatorState>>();
+    final theme = locator.get<ThemeStore>();
     return MaterialApp(
       title: 'Versotech Pokemon',
       theme: ThemeData(
-        colorScheme: lightColorScheme,
+        colorScheme: theme.colorScheme,
         useMaterial3: true,
       ),
       navigatorKey: key,
