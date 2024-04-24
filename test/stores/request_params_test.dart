@@ -14,7 +14,7 @@ void main() {
   setUpTestingLocation();
 
   const params = ApiRequestParams(endpoint: '');
-  const pokemon = SimplePokemon(name: '', imageUrl: '');
+  const pokemon = SimplePokemon(name: '', imageUrl: '', id: '');
   final pokemonStateStore = testingLocator.get<PokemonStateStore>();
   final mockUsecase = testingLocator.get<PokemonUsecaseInterface>();
   final pokemonListStore = testingLocator.get<PokemonListStore>();

@@ -14,13 +14,15 @@ final class PokemonEntity {
   });
 
   factory PokemonEntity.fromJson(Map<String, dynamic> json) {
-    final sprites = json['sprites']?['other']?['official-artwork'];
+    final sprites = json['sprites']?['other'];
+    final officialArtword = sprites?['official-artwork'];
+    final dreamWorld = sprites?['dream_world'];
     final gif = json['sprites']?['other']?['showdown']?['front_default'];
     final pokemonImage = PokemonImage(
       gif: gif,
-      small: sprites?['front_default'],
-      medium: sprites?['front_default'],
-      large: sprites?['front_default'],
+      small: officialArtword?['front_default'],
+      medium: dreamWorld?['front_default'],
+      large: officialArtword?['front_default'],
     );
 
     final types = (json['types'] as List<dynamic>)

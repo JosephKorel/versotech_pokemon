@@ -9,14 +9,11 @@ import 'package:versotech_pokemon/stores/pokemon_state.dart';
 
 import 'locator.dart';
 
-class MockStore extends Mock implements PokemonStateStore {}
-
 void main() {
   setUpTestingLocation();
 
-  final store = MockStore();
   const params = ApiRequestParams(endpoint: '');
-  const pokemon = SimplePokemon(name: '', imageUrl: '');
+  const pokemon = SimplePokemon(name: '', imageUrl: '', id: '');
   final pokemonStateStore = testingLocator.get<PokemonStateStore>();
   final mockUsecase = testingLocator.get<PokemonUsecaseInterface>();
   final pokemonListStore = testingLocator.get<PokemonListStore>();

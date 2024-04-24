@@ -19,7 +19,7 @@ final class SimplePokemon {
 
   // Here we can access the pokemon image by putting /[pokemon name].png at the end of the URL
   static const _imageUrlBasePath =
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown';
 
   factory SimplePokemon.fromJson(Map<String, dynamic> json) {
     final name = json['name'];
@@ -29,7 +29,7 @@ final class SimplePokemon {
     return SimplePokemon(
       name: name,
       id: id,
-      imageUrl: '$_imageUrlBasePath/$id.png',
+      imageUrl: '$_imageUrlBasePath/$id.gif',
     );
   }
 }

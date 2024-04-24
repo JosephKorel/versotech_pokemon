@@ -35,6 +35,9 @@ abstract class _FetchSinglePokemonStoreBase with Store {
       .where((element) => element.name == (state as LoadedPokemon).pokemon.name)
       .first;
 
+  @computed
+  bool get hasActivePokemon => state is LoadedPokemon;
+
   @action
   void updateState(SinglePokemonState newState) => state = newState;
 

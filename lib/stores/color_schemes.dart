@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_color.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
@@ -25,7 +24,7 @@ abstract class _ColorSchemesStoreBase with Store {
   // _pokemonStore will only be LoadedPokemon when the user gets in
   // the pokemon page, so here we return the color scheme of that pokemon
   @computed
-  ColorScheme get colorScheme => _pokemonStore is LoadedPokemon
+  ColorScheme get colorScheme => _pokemonStore.hasActivePokemon
       ? colorSchemes
           .where((element) => element.name == (_pokemonStore.pokemon.name))
           .first

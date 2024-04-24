@@ -6,6 +6,7 @@ import 'package:versotech_pokemon/models/error.dart';
 import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/content.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/profile.dart';
 
 class PokemonDetailsView extends StatefulWidget {
   const PokemonDetailsView({super.key});
@@ -30,15 +31,15 @@ class _PokemonDetailsViewState extends State<PokemonDetailsView> {
     return Observer(
       builder: (context) => switch (_pokemon.state) {
         LoadingPokemon() => const _LoadingScreen(),
-        LoadedPokemon(pokemon: _) => const PokemonMainScreen(),
+        LoadedPokemon(pokemon: _) => const _PokemonMainScreen(),
         FailedToGetPokemon(error: final e) => _ErrorScreen(error: e)
       },
     );
   }
 }
 
-class PokemonMainScreen extends StatelessWidget {
-  const PokemonMainScreen({super.key});
+class _PokemonMainScreen extends StatelessWidget {
+  const _PokemonMainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class PokemonMainScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
-          /* Expanded(child: PokemonProfile()), */
+          Expanded(child: PokemonProfile()),
           Expanded(flex: 2, child: PokemonMainContent())
         ],
       ),

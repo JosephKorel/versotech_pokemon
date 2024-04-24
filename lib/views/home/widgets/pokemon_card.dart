@@ -22,22 +22,6 @@ extension _CardTheme on BuildContext {
           )
         ],
       );
-
-  BoxDecoration get nameDecoration => BoxDecoration(
-        border: Border.all(
-          color: onSurface.withOpacity(0.1),
-        ),
-        borderRadius: BorderRadius.circular(8),
-        color: background,
-        boxShadow: [
-          BoxShadow(
-            color: onSurface.withOpacity(0.1),
-            spreadRadius: 1,
-            offset: const Offset(0, 1),
-            blurRadius: 1,
-          )
-        ],
-      );
 }
 //
 

@@ -26,7 +26,7 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
     super.initState();
 
     // Initialize pokemon state listener
-    _pokemonStoreState.onStateChange();
+    // _pokemonStoreState.onStateChange();
 
     // Make first request to fetch pokemons
     _paginationStore.onPaginationChange();
