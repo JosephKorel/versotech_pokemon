@@ -24,6 +24,10 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
   @override
   void initState() {
     super.initState();
+
+    // Initialize pokemon state listener
+    _pokemonStoreState.onStateChange();
+
     // Make first request to fetch pokemons
     _paginationStore.onPaginationChange();
 
@@ -58,7 +62,6 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: .8,
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),

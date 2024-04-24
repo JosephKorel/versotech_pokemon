@@ -28,7 +28,10 @@ void setUpTestingLocation() {
 
   // Stores
   testingLocator.registerLazySingleton(() => PokemonListStore());
-  testingLocator.registerLazySingleton(() => PokemonStateStore());
+  testingLocator.registerLazySingleton(
+    () => PokemonStateStore(),
+    dispose: (param) => param.reset(),
+  );
   testingLocator.registerLazySingleton(() => LoadedPokemonStore());
   testingLocator.registerLazySingleton(() => FetchSinglePokemonStore());
   testingLocator.registerLazySingleton(() => ColorSchemesStore());

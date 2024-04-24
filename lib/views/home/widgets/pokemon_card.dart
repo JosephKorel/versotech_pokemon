@@ -82,18 +82,37 @@ class _Name extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: DecoratedBox(
-        decoration: context.nameDecoration,
+        decoration: BoxDecoration(
+            color: context.onSurface.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(32)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           child: Text(
             name,
-            style: context.titleSmall.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: context.titleSmall
+                .copyWith(fontWeight: FontWeight.w800, color: context.surface),
             textAlign: TextAlign.center,
           ),
         ),
       ),
+    );
+  }
+}
+
+class _PokemonId extends StatelessWidget {
+  const _PokemonId({super.key, required this.pokemonId});
+
+  final String pokemonId;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      pokemonId,
+      style: context.titleSmall.copyWith(
+        fontWeight: FontWeight.w800,
+        color: context.onSurface.withOpacity(0.6),
+      ),
+      textAlign: TextAlign.center,
     );
   }
 }
@@ -111,11 +130,20 @@ class PokemonCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Stack(
           children: [
-            PokemonAvatar(pokemon: pokemon),
+            Align(
+              alignment: Alignment.topRight,
+              child: _PokemonId(
+                pokemonId: pokemon.idLabel,
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: PokemonAvatar(pokemon: pokemon),
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: _Name(name: pokemon.name.toUpperCase()),
-            )
+            ),
           ],
         ),
       ),

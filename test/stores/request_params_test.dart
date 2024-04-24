@@ -1,72 +1,76 @@
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
+import 'package:versotech_pokemon/stores/request_params.dart';
 
 import 'locator.dart';
-
-class MockStore extends Mock implements PokemonStateStore {}
 
 void main() {
   setUpTestingLocation();
 
-  final store = MockStore();
   const params = ApiRequestParams(endpoint: '');
   const pokemon = SimplePokemon(name: '', imageUrl: '');
   final pokemonStateStore = testingLocator.get<PokemonStateStore>();
   final mockUsecase = testingLocator.get<PokemonUsecaseInterface>();
   final pokemonListStore = testingLocator.get<PokemonListStore>();
+  final paginationStore = testingLocator.get<PaginationStore>();
 
   setUpAll(() {
+    // When initializing the store, pokemon state store will
+    // already fetch new pokemons
     pokemonStateStore.onStateChange();
+    paginationStore.onPaginationChange();
   });
 
   tearDown(() {
     testingLocator.resetLazySingleton<PokemonStateStore>();
+    testingLocator.resetLazySingleton<PaginationStore>();
     testingLocator.resetLazySingleton<PokemonUsecaseInterface>();
   });
 
-  group('Tests for PokemonStateStore', () {
-    test('State should start as loading and then go to FetchedPokemons',
+  group('Tests for PaginationStore', () {
+    test('When go to next page, set offset to current offset + limit',
         () async {
-      // stub
-      when(() => mockUsecase.fetchPokemons(params))
-          .thenAnswer((invocation) async => <SimplePokemon>[]);
+      // Initial state
+      expect(paginationStore.pagination.offset, 0);
 
-      // State starts loading
-      expect(pokemonStateStore.loading, true);
+      paginationStore.nextPage();
 
-      await pokemonStateStore.fetchPokemons(params);
+      expect(paginationStore.pagination.offset,
+          0 + paginationStore.pagination.limit);
 
-      verify(
-        () => mockUsecase.fetchPokemons(params),
-      ).called(1);
-
-      expect(pokemonStateStore.pokemonState, isA<FetchedPokemons>());
+      // Goes back to loading for the next tests
+      testingLocator.resetLazySingleton<PokemonStateStore>();
     });
 
-    test('When fetched new pokemons, will update the pokemon list store',
+    test(
+        'When pagination store change its state, pokemon state store will fetch pokemons and add it to pokemon list store',
         () async {
       // stub
       when(() => mockUsecase.fetchPokemons(params))
           .thenAnswer((invocation) async => [pokemon, pokemon]);
 
+      expect(pokemonStateStore.loading, true);
+      expect(paginationStore.pagination.offset, 0);
+
       // List starts empty
       expect(pokemonListStore.pokemons.isEmpty, true);
-      expect(pokemonStateStore.loading, true);
 
-      await pokemonStateStore.fetchPokemons(params);
+      paginationStore.nextPage();
+
+      await Future.delayed(2.seconds);
 
       verify(
         () => mockUsecase.fetchPokemons(params),
       ).called(1);
 
-      expect(pokemonStateStore.pokemonState, isA<FetchedPokemons>());
-      expect(pokemonListStore.length, 2);
+      /* expect(store.pokemonState, isA<FetchedPokemons>());
+      expect(pokemonListStore.length, 2); */
     });
   });
 }

@@ -6,8 +6,16 @@
 final class SimplePokemon {
   final String name;
   final String imageUrl;
+  final String id;
 
-  const SimplePokemon({required this.name, required this.imageUrl});
+  String get idLabel => switch (id.toString().length) {
+        1 => '#00$id',
+        2 => '#0$id',
+        _ => '#$id'
+      };
+
+  const SimplePokemon(
+      {required this.name, required this.id, required this.imageUrl});
 
   // Here we can access the pokemon image by putting /[pokemon name].png at the end of the URL
   static const _imageUrlBasePath =
@@ -18,6 +26,10 @@ final class SimplePokemon {
     final urlSplit = (json['url'] as String).split('/');
     final id = urlSplit[urlSplit.length - 2];
 
-    return SimplePokemon(name: name, imageUrl: '$_imageUrlBasePath/$id.png');
+    return SimplePokemon(
+      name: name,
+      id: id,
+      imageUrl: '$_imageUrlBasePath/$id.png',
+    );
   }
 }

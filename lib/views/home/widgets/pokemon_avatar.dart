@@ -25,25 +25,18 @@ class PokemonAvatarState extends State<PokemonAvatar> {
 
   @override
   Widget build(BuildContext context) {
-    print('This is the length: ${_colorSchemeStore.colorSchemes.length}');
-    return Stack(children: [
-      Padding(
-        padding: const EdgeInsets.all(8),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: context.background,
-            border: Border.all(color: context.onSurface.withOpacity(0.8)),
-          ),
-          child: const SizedBox.expand(),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: context.onSurface.withOpacity(0.1),
         ),
-      ),
-      SizedBox.expand(
         child: CachedNetworkImage(
           imageUrl: widget.pokemon.imageUrl,
           errorWidget: (context, url, error) => const Icon(Icons.error_outline),
         ),
       ),
-    ]);
+    );
   }
 }
