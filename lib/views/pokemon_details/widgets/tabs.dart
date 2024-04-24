@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/stats.dart';
 
 enum Tabs {
   stats,
   evolutions,
   moves;
+
+  Widget get widget => const [PokemonStatsTab(), SizedBox(), SizedBox()][index];
 }
 
 class PokemonContentTabs extends StatefulWidget {
@@ -45,7 +48,7 @@ class _PokemonContentTabsState extends State<PokemonContentTabs>
         Expanded(
           child: TabBarView(
             controller: _controller,
-            children: Tabs.values.map((e) => const SizedBox.shrink()).toList(),
+            children: Tabs.values.map((e) => e.widget).toList(),
           ),
         )
       ],

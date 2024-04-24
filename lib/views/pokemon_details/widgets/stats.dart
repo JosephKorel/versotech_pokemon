@@ -11,25 +11,42 @@ class _StatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            status.name.toUpperCase(),
-            style: context.titleMedium,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+            border: Border.all(color: context.onSurface),
+            borderRadius: BorderRadius.circular(8)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                status.icon,
+                size: 18,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: Text(
+                  status.label,
+                  style: context.titleSmall,
+                ),
+              ),
+              Text(
+                status.value.toString(),
+                style: context.titleMedium.copyWith(
+                  color: context.onSurface.withOpacity(0.7),
+                ),
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+            ],
           ),
         ),
-        Icon(status.icon),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          status.value.toString(),
-          style: context.titleMedium.copyWith(
-            color: context.onSurface.withOpacity(0.7),
-          ),
-        )
-      ],
+      ),
     );
   }
 }
@@ -42,6 +59,8 @@ class PokemonStatsTab extends StatelessWidget {
     final pokemonStore = locator.get<FetchSinglePokemonStore>();
 
     return ListView.builder(
+      padding: const EdgeInsets.only(top: 8),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: pokemonStore.pokemon.stats.length,
       itemBuilder: (context, index) =>

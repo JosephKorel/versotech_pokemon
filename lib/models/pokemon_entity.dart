@@ -125,6 +125,9 @@ final class Status {
   final String name;
   final int value;
 
+  String get label =>
+      name.split('-').map((e) => e[0].toUpperCase() + e.substring(1)).join(' ');
+
   IconData get icon => switch (name) {
         'hp' => RpgAwesome.hearts,
         'attack' => RpgAwesome.crossed_swords,
