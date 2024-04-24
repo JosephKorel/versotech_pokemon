@@ -16,6 +16,12 @@ mixin _$ThemeStore on _ThemeStoreBase, Store {
       (_$colorSchemeComputed ??= Computed<ColorScheme>(() => super.colorScheme,
               name: '_ThemeStoreBase.colorScheme'))
           .value;
+  Computed<IconData>? _$iconComputed;
+
+  @override
+  IconData get icon => (_$iconComputed ??=
+          Computed<IconData>(() => super.icon, name: '_ThemeStoreBase.icon'))
+      .value;
 
   late final _$themeAtom =
       Atom(name: '_ThemeStoreBase.theme', context: context);
@@ -48,10 +54,22 @@ mixin _$ThemeStore on _ThemeStoreBase, Store {
   }
 
   @override
+  dynamic setTheme(ThemeOptions newTheme) {
+    final _$actionInfo = _$_ThemeStoreBaseActionController.startAction(
+        name: '_ThemeStoreBase.setTheme');
+    try {
+      return super.setTheme(newTheme);
+    } finally {
+      _$_ThemeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 theme: ${theme},
-colorScheme: ${colorScheme}
+colorScheme: ${colorScheme},
+icon: ${icon}
     ''';
   }
 }

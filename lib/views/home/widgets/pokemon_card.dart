@@ -11,16 +11,16 @@ import 'package:versotech_pokemon/views/pokemon_details/main.dart';
 extension _CardTheme on BuildContext {
   BoxDecoration get containerDecoration => BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: background,
-        border: Border.all(color: onSurface.withOpacity(0.1)),
-        boxShadow: [
+        color: onPrimary,
+        // border: Border.all(color: onSurface.withOpacity(0.1)),
+        /* boxShadow: [
           BoxShadow(
             color: onSurface.withOpacity(0.1),
             spreadRadius: 1,
             offset: const Offset(0, 1),
             blurRadius: 1,
           )
-        ],
+        ], */
       );
 }
 //
@@ -67,14 +67,15 @@ class _Name extends StatelessWidget {
       width: double.infinity,
       child: DecoratedBox(
         decoration: BoxDecoration(
-            color: context.onSurface.withOpacity(0.8),
+            color: context.background,
+            border: Border.all(color: context.onSurface),
             borderRadius: BorderRadius.circular(32)),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           child: Text(
             name,
-            style: context.titleSmall
-                .copyWith(fontWeight: FontWeight.w800, color: context.surface),
+            style: context.titleSmall.copyWith(
+                fontWeight: FontWeight.w800, color: context.onSurface),
             textAlign: TextAlign.center,
           ),
         ),
@@ -90,13 +91,25 @@ class _PokemonId extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      pokemonId,
-      style: context.titleSmall.copyWith(
-        fontWeight: FontWeight.w800,
-        color: context.onSurface.withOpacity(0.6),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: context.onSurface.withOpacity(0.8),
+        ),
+        color: context.background,
+        borderRadius: BorderRadius.circular(32),
       ),
-      textAlign: TextAlign.center,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+        child: Text(
+          pokemonId,
+          style: context.titleSmall.copyWith(
+            fontWeight: FontWeight.w800,
+            color: context.onSurface,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
     );
   }
 }

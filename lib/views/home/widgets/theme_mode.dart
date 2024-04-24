@@ -1,41 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 
 class ThemeSwitch extends StatelessWidget {
   const ThemeSwitch({super.key});
 
-  void onPressed(ThemeOptions theme) {}
-
   @override
   Widget build(BuildContext context) {
-    return MenuAnchor(
-      builder: (context, controller, child) => IconButton.outlined(
-        onPressed: controller.open,
-        icon: const Icon(Icons.more_horiz),
-      ),
-      style: MenuStyle(
-        backgroundColor: MaterialStateProperty.resolveWith(
-          (states) => context.background,
+    final themeStore = locator.get<ThemeStore>();
+
+    void onPressed(ThemeOptions theme) {
+      themeStore.setTheme(theme);
+    }
+
+    return Observer(
+      builder: (context) => MenuAnchor(
+        builder: (context, controller, child) => IconButton.outlined(
+          onPressed: controller.open,
+          icon: Icon(themeStore.icon),
+          style: IconButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
         ),
-        surfaceTintColor: MaterialStateProperty.resolveWith(
-          (states) => context.background,
+        style: MenuStyle(
+          backgroundColor: MaterialStateProperty.resolveWith(
+            (states) => context.background,
+          ),
+          surfaceTintColor: MaterialStateProperty.resolveWith(
+            (states) => context.background,
+          ),
         ),
-      ),
-      menuChildren: ThemeOptions.values
-          .map(
-            (e) => MenuItemButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith(
-                  (states) => context.background,
+        menuChildren: ThemeOptions.values
+            .map(
+              (e) => MenuItemButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                    (states) => themeStore.theme == e
+                        ? context.onSurface.withOpacity(0.1)
+                        : context.background,
+                  ),
+                ),
+                onPressed: () => onPressed(e),
+                leadingIcon: Icon(
+                  e.icon,
+                  color: context.onSurface,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(e.label),
                 ),
               ),
-              onPressed: () => onPressed(e),
-              leadingIcon: Icon(e.icon),
-              child: Text(e.label),
-            ),
-          )
-          .toList(),
+            )
+            .toList(),
+      ),
     );
   }
 }

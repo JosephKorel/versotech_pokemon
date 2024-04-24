@@ -15,7 +15,7 @@ class _StatTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: DecoratedBox(
         decoration: BoxDecoration(
-            border: Border.all(color: context.onSurface),
+            border: Border.all(color: context.primary),
             borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

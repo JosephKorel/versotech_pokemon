@@ -15,8 +15,8 @@ enum ThemeOptions {
   final String label;
 
   IconData get icon => [
-        Icons.dark_mode_rounded,
         Icons.light_mode_rounded,
+        Icons.dark_mode_rounded,
         Icons.smartphone_rounded
       ][index];
 }
@@ -25,8 +25,6 @@ class ThemeStore = _ThemeStoreBase with _$ThemeStore;
 
 abstract class _ThemeStoreBase with Store {
   final key = locator.get<GlobalKey<NavigatorState>>();
-
-  late ReactionDisposer _dispose;
 
   ColorScheme _getSystemBrightness() {
     final brightness =
@@ -42,10 +40,18 @@ abstract class _ThemeStoreBase with Store {
   void setBrightness({required bool darkMode}) =>
       theme = darkMode ? ThemeOptions.dark : ThemeOptions.light;
 
+  @action
+  setTheme(ThemeOptions newTheme) => theme = newTheme;
+
   @computed
   ColorScheme get colorScheme => switch (theme) {
         ThemeOptions.light => lightColorScheme,
         ThemeOptions.dark => darkColorScheme,
         ThemeOptions.system => _getSystemBrightness()
       };
+
+  @computed
+  IconData get icon => colorScheme == lightColorScheme
+      ? ThemeOptions.light.icon
+      : ThemeOptions.dark.icon;
 }

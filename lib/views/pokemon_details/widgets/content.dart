@@ -16,15 +16,15 @@ class _TypeBadge extends StatelessWidget {
       padding: const EdgeInsets.only(right: 8),
       child: DecoratedBox(
         decoration: BoxDecoration(
-            border: Border.all(color: context.onSurface),
+            // border: Border.all(color: context.primary),
+            color: context.primaryContainer,
             borderRadius: BorderRadius.circular(32)),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
           child: Text(
             type.type.toUpperCase(),
             style: context.bodyMedium.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+                fontWeight: FontWeight.w600, color: context.onPrimaryContainer),
           ),
         ),
       ),

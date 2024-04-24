@@ -29,9 +29,12 @@ extension ThemeHelper on BuildContext {
   Color get onSurface => Theme.of(this).colorScheme.onSurface;
   Color get error => Theme.of(this).colorScheme.error;
   Color get onError => Theme.of(this).colorScheme.onError;
+  Color get lightBackground => const Color(0xFFEEEEEE);
 }
 
 extension MediaQueryUtils on BuildContext {
   double get deviceWidth => MediaQuery.of(this).size.width;
   double get deviceHeight => MediaQuery.of(this).size.height;
+  bool get isDarkMode =>
+      MediaQuery.of(this).platformBrightness == Brightness.dark;
 }
