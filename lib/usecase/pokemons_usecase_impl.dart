@@ -72,6 +72,9 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
       final characteristics = <Characteristic>[];
 
       for (final item in request['flavor_text_entries'] as List<dynamic>) {
+        if (item['language']['name'] != 'en') {
+          continue;
+        }
         final characteristic =
             Characteristic.fromJson(item as Map<String, dynamic>);
         if (characteristics.any(

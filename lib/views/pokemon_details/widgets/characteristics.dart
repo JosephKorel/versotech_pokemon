@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
+import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/characteristics.dart';
 
@@ -31,30 +33,15 @@ class _CharacteristicText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: constraints.maxHeight * .7,
-            child: SingleChildScrollView(
-              child: Text(
-                characteristic.description,
-                style: context.bodySmall.copyWith(
-                  color: context.onSurface.withOpacity(0.7),
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ),
+    return SizedBox.expand(
+      child: SingleChildScrollView(
+        child: Text(
+          characteristic.description,
+          style: context.bodyMedium.copyWith(
+            color: context.onSurface.withOpacity(0.7),
+            fontStyle: FontStyle.italic,
           ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            characteristic.version.toUpperCase(),
-            style: context.bodyMedium.copyWith(fontWeight: FontWeight.w600),
-          )
-        ],
+        ),
       ),
     );
   }
@@ -83,46 +70,46 @@ class _ShowPokemonCharacteristicsState
       });
 
   bool get _canGoToNext =>
-      _viewingCharacteristic < widget.characteristics.length;
+      _viewingCharacteristic < widget.characteristics.length - 1;
 
   bool get _canGoToPrevious => _viewingCharacteristic > 0;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: _canGoToPrevious ? _previous : null,
-                icon: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color:
-                      _canGoToPrevious ? context.onSurface : Colors.transparent,
-                ),
-              ),
-              Expanded(
-                child: _CharacteristicText(
-                    characteristic:
-                        widget.characteristics[_viewingCharacteristic]),
-              ),
-              if (_canGoToNext)
-                IconButton(
-                  onPressed: _canGoToNext ? _next : null,
-                  icon: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color:
-                        _canGoToNext ? context.onSurface : Colors.transparent,
-                  ),
-                )
-            ],
-          ),
+          child: _CharacteristicText(
+              characteristic: widget.characteristics[_viewingCharacteristic]),
         ),
-        const Spacer(
-          flex: 3,
-        )
+        Row(
+          children: [
+            IconButton(
+              onPressed: _canGoToPrevious ? _previous : null,
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color:
+                    _canGoToPrevious ? context.onSurface : Colors.transparent,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                widget.characteristics[_viewingCharacteristic].version
+                    .toUpperCase(),
+                style: context.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            if (_canGoToNext)
+              IconButton(
+                onPressed: _canGoToNext ? _next : null,
+                icon: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: _canGoToNext ? context.onSurface : Colors.transparent,
+                ),
+              )
+          ],
+        ),
       ],
     );
   }
@@ -163,6 +150,79 @@ class __PokemonCharacteristicsState extends State<_PokemonCharacteristics>
   }
 }
 
+class _PokemonDetais extends StatelessWidget {
+  const _PokemonDetais({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.scale, color: context.onSurface.withOpacity(0.8)),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    'Weight',
+                    style: context.bodyMedium
+                        .copyWith(color: context.onSurface.withOpacity(0.8)),
+                  )
+                ],
+              ),
+              const Divider(),
+              Text(
+                '${pokemonStore.pokemon.weightInKg} kg',
+                style: context.titleLarge.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.height, color: context.onSurface.withOpacity(0.8)),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    'Height',
+                    style: context.bodyMedium
+                        .copyWith(color: context.onSurface.withOpacity(0.8)),
+                  )
+                ],
+              ),
+              const Divider(),
+              Text(
+                '${pokemonStore.pokemon.heightInM} m',
+                style: context.titleLarge.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class AboutTab extends StatelessWidget {
   const AboutTab({super.key});
 
@@ -170,7 +230,15 @@ class AboutTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.only(top: 16),
-      child: _PokemonCharacteristics(),
+      child: Column(
+        children: [
+          Expanded(child: _PokemonCharacteristics()),
+          Spacer(
+            flex: 2,
+          ),
+          Expanded(child: _PokemonDetais())
+        ],
+      ),
     );
   }
 }
