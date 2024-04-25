@@ -7,6 +7,7 @@ final class PokemonEntity {
     required this.name,
     required this.height,
     required this.weight,
+    required this.cry,
     required this.images,
     required this.abilities,
     required this.types,
@@ -18,6 +19,7 @@ final class PokemonEntity {
         name: 'pikachu',
         height: 0,
         weight: 0,
+        cry: PokemonCry(url: ''),
         images: PokemonImage(),
         abilities: [],
         types: [],
@@ -36,6 +38,8 @@ final class PokemonEntity {
       large: officialArtword?['front_default'],
     );
 
+    final cry = PokemonCry.fromJson(json);
+
     final types = (json['types'] as List<dynamic>)
         .map((e) => Type.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -49,14 +53,16 @@ final class PokemonEntity {
         .toList();
 
     return PokemonEntity(
-        id: json['id'],
-        name: json['name'],
-        height: json['height'],
-        weight: json['weight'],
-        images: pokemonImage,
-        abilities: abilities,
-        types: types,
-        stats: stats);
+      id: json['id'],
+      name: json['name'],
+      height: json['height'],
+      weight: json['weight'],
+      cry: cry,
+      images: pokemonImage,
+      abilities: abilities,
+      types: types,
+      stats: stats,
+    );
   }
 
   String get idLabel => switch (id.toString().length) {
@@ -72,10 +78,20 @@ final class PokemonEntity {
   final String name;
   final int height;
   final int weight;
+  final PokemonCry cry;
   final PokemonImage images;
   final List<Type> types;
   final List<Ability> abilities;
   final List<Status> stats;
+}
+
+final class PokemonCry {
+  const PokemonCry({required this.url});
+
+  factory PokemonCry.fromJson(Map<String, dynamic> json) {
+    return PokemonCry(url: json['cries']['latest']);
+  }
+  final String url;
 }
 
 final class PokemonImage {

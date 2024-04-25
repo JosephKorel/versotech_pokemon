@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/color_schemes.dart';
-import 'package:versotech_pokemon/utils/navigation.dart';
+import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_cry.dart';
+
+class _PokemonCryButton extends StatelessWidget with PokemonCryController {
+  _PokemonCryButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      tooltip: 'Play pokemon cry',
+      onPressed: () => playAudio(context),
+      icon: const Icon(Icons.multitrack_audio_rounded),
+      style: IconButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
+}
 
 class PokemonDetailsAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -12,25 +30,12 @@ class PokemonDetailsAppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    final pokemonDetailStore = locator.get<ColorSchemesStore>();
-
-    void onPressed() {
-      context.pop();
-    }
-
+    final pokemonColorScheme = locator.get<ColorSchemesStore>();
     return AppBar(
       backgroundColor: Colors.transparent,
+      foregroundColor: pokemonColorScheme.colorScheme.onPrimary,
       elevation: 0,
-      leading: IconButton(
-        onPressed: onPressed,
-        icon: const Icon(Icons.arrow_back),
-        style: IconButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          foregroundColor: pokemonDetailStore.colorScheme.onPrimary,
-        ),
-      ),
+      actions: [_PokemonCryButton()],
     );
   }
 }

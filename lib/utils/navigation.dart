@@ -8,4 +8,7 @@ extension Navigation on BuildContext {
           builder: (context) => page,
         ),
       );
+
+  void showSnackbar(String message) =>
+      ScaffoldMessenger.of(this).showSnackBar(SnackBar(content: Text(message)));
 }
