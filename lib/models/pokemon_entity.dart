@@ -1,8 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:fluttericon/rpg_awesome_icons.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 
-final class PokemonEntity {
+class PokemonEntity {
   const PokemonEntity({
     required this.id,
     required this.name,
@@ -84,6 +85,30 @@ final class PokemonEntity {
   final List<Type> types;
   final List<Ability> abilities;
   final List<Status> stats;
+
+  PokemonEntity copyWith({
+    int? id,
+    String? name,
+    int? height,
+    int? weight,
+    PokemonCry? cry,
+    PokemonImage? images,
+    List<Type>? types,
+    List<Ability>? abilities,
+    List<Status>? stats,
+  }) {
+    return PokemonEntity(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+      cry: cry ?? this.cry,
+      images: images ?? this.images,
+      types: types ?? this.types,
+      abilities: abilities ?? this.abilities,
+      stats: stats ?? this.stats,
+    );
+  }
 }
 
 final class PokemonCry {

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/abilities.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/characteristics.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/stats.dart';
 
 enum Tabs {
   about,
-  stats;
-  /* evolutions,
-  moves; */
+  stats,
+  abilities;
 
-  Widget get widget => const [AboutTab(), PokemonStatsTab()][index];
+  Widget get widget =>
+      const [AboutTab(), PokemonStatsTab(), AbilitiesTab()][index];
 }
 
 class PokemonContentTabs extends StatefulWidget {

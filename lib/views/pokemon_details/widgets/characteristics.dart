@@ -4,7 +4,7 @@ import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
-import 'package:versotech_pokemon/views/pokemon_details/controller/characteristics.dart';
+import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_details.dart';
 
 class _LoadingCharacteristics extends StatelessWidget {
   const _LoadingCharacteristics({super.key});
@@ -16,12 +16,14 @@ class _LoadingCharacteristics extends StatelessWidget {
 }
 
 class _FailedToLoadCharacteristics extends StatelessWidget {
-  const _FailedToLoadCharacteristics({super.key});
+  const _FailedToLoadCharacteristics({super.key, required this.message});
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Icon(Icons.error_outline_outlined),
+    return Center(
+      child: Text(message),
     );
   }
 }
@@ -143,7 +145,9 @@ class __PokemonCharacteristicsState extends State<_PokemonCharacteristics>
     return switch (_characteristic) {
       LoadingCharacteristic() => const _LoadingCharacteristics(),
       FailedToGetCharacteristics(error: final e) =>
-        const _FailedToLoadCharacteristics(),
+        _FailedToLoadCharacteristics(
+          message: e.message,
+        ),
       LoadedCharacteristics(characteristics: final c) =>
         _ShowPokemonCharacteristics(characteristics: c)
     };
