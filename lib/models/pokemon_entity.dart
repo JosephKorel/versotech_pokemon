@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/rpg_awesome_icons.dart';
+import 'package:versotech_pokemon/domain/request_params.dart';
 
 final class PokemonEntity {
   const PokemonEntity({
@@ -137,6 +138,8 @@ final class Ability {
       description: ability['effect'],
     );
   }
+
+  PokemonAbilityRequest get apiRequest => PokemonAbilityRequest.fromName(name);
 }
 
 final class Type {

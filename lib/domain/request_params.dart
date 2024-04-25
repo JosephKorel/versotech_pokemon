@@ -39,14 +39,14 @@ final class PokemonListRequest extends ApiRequestParams {
 }
 
 final class PokemonAbilityRequest extends ApiRequestParams {
-  static const _endpoint = 'ability';
+  static const _baseEndpoint = 'ability';
 
   const PokemonAbilityRequest({
-    super.endpoint = _endpoint,
-    required this.abilityId,
+    super.endpoint = _baseEndpoint,
   });
 
-  final String abilityId;
+  factory PokemonAbilityRequest.fromName(String abilityName) =>
+      PokemonAbilityRequest(endpoint: '$_baseEndpoint/$abilityName');
 }
 
 final class PokemonCharacteristicRequest extends ApiRequestParams {

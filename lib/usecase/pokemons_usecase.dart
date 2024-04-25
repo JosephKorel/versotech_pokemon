@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:versotech_pokemon/domain/pokemon_abilities.dart';
 import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_state.dart';
@@ -52,6 +53,20 @@ final class PokemonUsecase implements PokemonUsecaseService {
     } catch (e) {
       return const FailedToGetCharacteristics(
         error: ApiException(message: 'Failed to get pokemon characteristic'),
+      );
+    }
+  }
+
+  @override
+  Future<PokemonAbilityState> getAbility(ApiRequestParams params) async {
+    try {
+      final ability = await _interface.getAbilityDescription(params);
+      return LoadedAbility(ability: ability);
+    } on DioException catch (e) {
+      return FailedToGetAbility(error: ApiException.fromDioException(e));
+    } catch (e) {
+      return const FailedToGetAbility(
+        error: ApiException(message: 'Failed to get pokemon ability'),
       );
     }
   }

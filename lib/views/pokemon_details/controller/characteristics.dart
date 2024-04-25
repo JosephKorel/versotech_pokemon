@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
@@ -9,6 +11,7 @@ mixin CharacteristicsController {
   final _pokemonStore = locator.get<FetchSinglePokemonStore>();
 
   Future<PokemonCharacteristicsState> getCharacteristics() async {
+    log(_pokemonStore.pokemon.abilities.map((e) => e.name).toList().toString());
     return await _usecase.getCharacteristics(
       PokemonCharacteristicRequest.fromName(_pokemonStore.pokemon.name),
     );

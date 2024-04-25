@@ -1,3 +1,4 @@
+import 'package:versotech_pokemon/domain/pokemon_abilities.dart';
 import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_state.dart';
@@ -30,5 +31,8 @@ interface class PokemonUsecaseService {
 
   Future<PokemonCharacteristicsState> getCharacteristics(
           ApiRequestParams params) =>
+      throw UnimplementedError();
+
+  Future<PokemonAbilityState> getAbility(ApiRequestParams params) =>
       throw UnimplementedError();
 }

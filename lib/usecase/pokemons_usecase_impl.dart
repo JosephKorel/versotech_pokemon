@@ -66,7 +66,7 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
     try {
       final request = await _repository.get(params);
       if (request == null) {
-        throw Exception('No ability found');
+        throw Exception('No characteristic found');
       }
 
       final characteristics = <Characteristic>[];
