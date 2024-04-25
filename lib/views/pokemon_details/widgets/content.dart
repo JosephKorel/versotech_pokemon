@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/tabs.dart';
 
 class _TypeBadge extends StatelessWidget {
@@ -49,13 +51,13 @@ class _PokemonName extends StatelessWidget {
               style: context.titleLarge.copyWith(
                 fontWeight: FontWeight.w800,
               ),
-            ),
+            ).animate().fadeIn().slideFromLeft,
             Text(
               pokemonStore.pokemon.idLabel,
               style: context.titleLarge.copyWith(
                   color: context.onSurface.withOpacity(0.7),
                   fontWeight: FontWeight.w800),
-            ),
+            ).animate().fadeIn().slideFromRight,
           ],
         ),
         const SizedBox(
@@ -63,7 +65,7 @@ class _PokemonName extends StatelessWidget {
         ),
         Row(
           children: pokemonStore.pokemon.types
-              .map((e) => _TypeBadge(type: e))
+              .map((e) => _TypeBadge(type: e).animate().fadeEffect)
               .toList(),
         )
       ],

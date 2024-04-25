@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
@@ -9,6 +10,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await setUpLocation();
+
+  Animate.restartOnHotReload = true;
 
   final themeStore = locator.get<ThemeStore>();
   themeStore.readTheme();
