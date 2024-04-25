@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/domain/pokemon_abilities.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
+import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_details.dart';
 
 class _LoadingAbility extends StatelessWidget {
@@ -39,7 +38,16 @@ class _AbilityDescription extends StatelessWidget {
       LoadingAbility() => const _LoadingAbility(),
       FailedToGetAbility(error: final e) =>
         _FailedToGetAbility(message: e.message),
-      LoadedAbility(ability: final a) => Text(a.description)
+      LoadedAbility(ability: final a) => Text(
+          a.description,
+          textAlign: TextAlign.justify,
+          style: context.bodyMedium.copyWith(
+            fontStyle: FontStyle.italic,
+            color: context.onSurface.withOpacity(
+              0.7,
+            ),
+          ),
+        )
     };
   }
 }
@@ -67,13 +75,13 @@ class _AbilityTileState extends State<_AbilityTile> with AbilityController {
   void initState() {
     super.initState();
 
+    // Ability already loaded, no need to fetch it
     if (widget.ability.description.isNotEmpty) {
-      log('We have description already');
-
       _ability = LoadedAbility(ability: widget.ability);
       return;
     }
 
+    // Set loading and fetch its details
     _ability = LoadingAbility();
     _fetchAbility();
   }
@@ -81,7 +89,13 @@ class _AbilityTileState extends State<_AbilityTile> with AbilityController {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(widget.ability.name.toUpperCase()),
+      title: Text(
+        widget.ability.label,
+        style: context.titleMedium.copyWith(
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      childrenPadding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
       children: [_AbilityDescription(ability: _ability)],
     );
   }
@@ -93,8 +107,6 @@ class AbilitiesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pokemonAbilities = locator.get<LoadedPokemonStore>().pokemonAbilities;
-
-    log(pokemonAbilities.first.description.isEmpty.toString());
 
     return Observer(
       builder: (context) => ListView.builder(

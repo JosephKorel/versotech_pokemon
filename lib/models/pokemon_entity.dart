@@ -164,6 +164,9 @@ final class Ability {
     );
   }
 
+  String get label =>
+      name.split('-').map((e) => e[0].toUpperCase() + e.substring(1)).join(' ');
+
   PokemonAbilityRequest get apiRequest => PokemonAbilityRequest.fromName(name);
 }
 

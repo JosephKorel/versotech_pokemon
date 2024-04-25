@@ -44,6 +44,7 @@ dependencies:
   fluttericon: ^2.0.0
   shared_preferences: ^2.2.3
   audioplayers: ^5.2.1
+  spider_chart: ^0.2.0
 
 dev_dependencies:
   flutter_test:

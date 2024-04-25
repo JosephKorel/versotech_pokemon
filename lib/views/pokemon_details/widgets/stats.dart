@@ -21,19 +21,7 @@ class _StatTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: context.primaryContainer,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    status.icon,
-                    size: 18,
-                  ),
-                ),
-              ),
+              BackgroundIcon(icon: status.icon),
               const SizedBox(
                 width: 8,
               ),
@@ -79,12 +67,13 @@ class BackgroundIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
         decoration: BoxDecoration(
-            color: context.onSurface, borderRadius: BorderRadius.circular(8)),
+            color: context.primary.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Icon(
             icon,
-            color: context.background,
+            color: context.primary,
             size: 18,
           ),
         ));
@@ -98,33 +87,12 @@ class PokemonStatsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final pokemonStore = locator.get<FetchSinglePokemonStore>();
 
-    return Column(
-      children: [
-        const SizedBox(
-          height: 16,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Weight: ${pokemonStore.pokemon.weightInKg} KG',
-              style: context.bodyMedium.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-        const Divider(),
-        Expanded(
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: pokemonStore.pokemon.stats.length,
-            itemBuilder: (context, index) =>
-                _StatTile(status: pokemonStore.pokemon.stats[index]),
-          ),
-        ),
-      ],
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      itemCount: pokemonStore.pokemon.stats.length,
+      itemBuilder: (context, index) =>
+          _StatTile(status: pokemonStore.pokemon.stats[index]),
     );
   }
 }
