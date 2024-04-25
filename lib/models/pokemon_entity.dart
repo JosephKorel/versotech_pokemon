@@ -13,6 +13,17 @@ final class PokemonEntity {
     required this.stats,
   });
 
+  factory PokemonEntity.mock() => const PokemonEntity(
+        id: 2,
+        name: 'pikachu',
+        height: 0,
+        weight: 0,
+        images: PokemonImage(),
+        abilities: [],
+        types: [],
+        stats: [],
+      );
+
   factory PokemonEntity.fromJson(Map<String, dynamic> json) {
     final sprites = json['sprites']?['other'];
     final officialArtword = sprites?['official-artwork'];
@@ -69,10 +80,10 @@ final class PokemonEntity {
 
 final class PokemonImage {
   const PokemonImage({
-    required this.small,
-    required this.medium,
-    required this.large,
-    required this.gif,
+    this.small,
+    this.medium,
+    this.large,
+    this.gif,
   });
 
   final String? gif;

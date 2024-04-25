@@ -13,6 +13,9 @@ abstract class _LoadedPokemonStoreBase with Store {
   var pokemons = ObservableList<PokemonEntity>();
 
   @action
+  void reset() => pokemons.clear();
+
+  @action
   void addPokemon(PokemonEntity pokemon) => pokemons.add(pokemon);
 
   // TODO - implement local storage interaction

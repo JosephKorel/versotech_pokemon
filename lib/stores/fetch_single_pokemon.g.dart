@@ -9,6 +9,12 @@ part of 'fetch_single_pokemon.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$FetchSinglePokemonStore on _FetchSinglePokemonStoreBase, Store {
+  Computed<bool>? _$loadingComputed;
+
+  @override
+  bool get loading => (_$loadingComputed ??= Computed<bool>(() => super.loading,
+          name: '_FetchSinglePokemonStoreBase.loading'))
+      .value;
   Computed<PokemonEntity>? _$pokemonComputed;
 
   @override
@@ -53,6 +59,17 @@ mixin _$FetchSinglePokemonStore on _FetchSinglePokemonStoreBase, Store {
       ActionController(name: '_FetchSinglePokemonStoreBase', context: context);
 
   @override
+  void reset() {
+    final _$actionInfo = _$_FetchSinglePokemonStoreBaseActionController
+        .startAction(name: '_FetchSinglePokemonStoreBase.reset');
+    try {
+      return super.reset();
+    } finally {
+      _$_FetchSinglePokemonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void updateState(SinglePokemonState newState) {
     final _$actionInfo = _$_FetchSinglePokemonStoreBaseActionController
         .startAction(name: '_FetchSinglePokemonStoreBase.updateState');
@@ -78,6 +95,7 @@ mixin _$FetchSinglePokemonStore on _FetchSinglePokemonStoreBase, Store {
   String toString() {
     return '''
 state: ${state},
+loading: ${loading},
 pokemon: ${pokemon},
 hasActivePokemon: ${hasActivePokemon}
     ''';

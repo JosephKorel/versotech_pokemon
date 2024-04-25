@@ -29,6 +29,17 @@ mixin _$LoadedPokemonStore on _LoadedPokemonStoreBase, Store {
       ActionController(name: '_LoadedPokemonStoreBase', context: context);
 
   @override
+  void reset() {
+    final _$actionInfo = _$_LoadedPokemonStoreBaseActionController.startAction(
+        name: '_LoadedPokemonStoreBase.reset');
+    try {
+      return super.reset();
+    } finally {
+      _$_LoadedPokemonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addPokemon(PokemonEntity pokemon) {
     final _$actionInfo = _$_LoadedPokemonStoreBaseActionController.startAction(
         name: '_LoadedPokemonStoreBase.addPokemon');

@@ -12,6 +12,9 @@ import '../models/api_models.dart';
 
 class MockApiRepository extends Mock implements RepositoryInterface {}
 
+class MockPokemonUsecaseInterface extends Mock
+    implements PokemonUsecaseInterface {}
+
 class MockPokemonUsecase extends Mock implements PokemonUsecaseService {}
 
 void main() {

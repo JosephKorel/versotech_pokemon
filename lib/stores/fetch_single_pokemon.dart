@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
+import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
-import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 part 'fetch_single_pokemon.g.dart';
 
@@ -19,7 +19,7 @@ class FetchSinglePokemonStore = _FetchSinglePokemonStoreBase
 
 abstract class _FetchSinglePokemonStoreBase with Store {
   // Dependencies
-  final _pokemonUsecase = locator.get<PokemonUsecase>();
+  final _pokemonUsecase = locator.get<PokemonUsecaseService>();
   final _loadedPokemonsStore = locator.get<LoadedPokemonStore>();
   //
 
@@ -27,6 +27,9 @@ abstract class _FetchSinglePokemonStoreBase with Store {
 
   @observable
   SinglePokemonState state = LoadingPokemon();
+
+  @computed
+  bool get loading => state is LoadingPokemon;
 
   // Since this method will only be used in the pokemon screen,
   // it's safe to assume that the state will be LoadedPokemon
@@ -37,6 +40,9 @@ abstract class _FetchSinglePokemonStoreBase with Store {
 
   @computed
   bool get hasActivePokemon => state is LoadedPokemon;
+
+  @action
+  void reset() => state = LoadingPokemon();
 
   @action
   void updateState(SinglePokemonState newState) => state = newState;
@@ -99,7 +105,7 @@ abstract class _FetchSinglePokemonStoreBase with Store {
 
         // Doesn't need to do anything, the UI will watch for loading state
         // And show it to the user
-        LoadingPokemon() => {}
+        (_) => {}
       };
     });
   }
