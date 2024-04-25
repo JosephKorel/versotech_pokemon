@@ -8,8 +8,7 @@ enum Tabs {
   stats,
   abilities;
 
-  Widget get widget =>
-      const [AboutTab(), PokemonStatsTab(), AbilitiesTab()][index];
+  Widget get widget => const [AboutTab(), StatsTab(), AbilitiesTab()][index];
 }
 
 class PokemonContentTabs extends StatefulWidget {

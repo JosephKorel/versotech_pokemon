@@ -199,6 +199,16 @@ final class Status {
         _ => Icons.electric_bolt_rounded
       };
 
+  String get chartLabel => switch (name) {
+        'hp' => label,
+        'attack' => label,
+        'defense' => label,
+        'special-attack' => 'Sp. At',
+        'special-defense' => 'Sp. Def',
+        'speed' => 'Speed',
+        _ => ''
+      };
+
   factory Status.fromJson(Map<String, dynamic> json) {
     final value = json['base_stat'];
     final name = json['stat']['name'];
