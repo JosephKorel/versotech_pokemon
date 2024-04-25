@@ -32,4 +32,7 @@ final class SimplePokemon {
       imageUrl: '$_imageUrlBasePath/$id.gif',
     );
   }
+
+  factory SimplePokemon.mock() =>
+      const SimplePokemon(name: 'john', id: '2', imageUrl: 'url');
 }

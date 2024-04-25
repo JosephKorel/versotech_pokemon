@@ -76,7 +76,7 @@ abstract class _FetchSinglePokemonStoreBase with Store {
     }
 
     // Is not yet on the list, will fetch it
-    final newState = await _pokemonUsecase.fetchSinglePokemons(
+    final newState = await _pokemonUsecase.fetchSinglePokemon(
       SinglePokemonRequest.fromName(pokemonName),
     );
     updateState(newState);

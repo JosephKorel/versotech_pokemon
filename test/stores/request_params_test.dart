@@ -1,39 +1,36 @@
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
-import 'package:versotech_pokemon/models/simple_pokemon.dart';
+import 'package:versotech_pokemon/domain/repository_interface.dart';
+import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
 
-import 'locator.dart';
+import '../usecase/pokemons_usecase_impl_test.dart';
 
-void main() {
-  setUpTestingLocation();
+void main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
 
-  const params = ApiRequestParams(endpoint: '');
-  const pokemon = SimplePokemon(name: '', imageUrl: '', id: '');
-  final pokemonStateStore = testingLocator.get<PokemonStateStore>();
-  final mockUsecase = testingLocator.get<PokemonUsecaseInterface>();
-  final pokemonListStore = testingLocator.get<PokemonListStore>();
-  final paginationStore = testingLocator.get<PaginationStore>();
+  await setUpLocation(testing: true);
 
-  setUpAll(() {
-    // When initializing the store, pokemon state store will
-    // already fetch new pokemons
-    pokemonStateStore.onStateChange();
-    paginationStore.onPaginationChange();
-  });
+  locator.registerLazySingleton<RepositoryInterface>(() => MockApiRepository());
 
-  tearDown(() {
-    testingLocator.resetLazySingleton<PokemonStateStore>();
-    testingLocator.resetLazySingleton<PaginationStore>();
-    testingLocator.resetLazySingleton<PokemonUsecaseInterface>();
-  });
+  locator
+      .registerLazySingleton<PokemonUsecaseService>(() => MockPokemonUsecase());
+
+  final pokemonStateStore = locator.get<PokemonStateStore>();
+  final paginationStore = locator.get<PaginationStore>();
+  final pokemonListStore = locator.get<PokemonListStore>();
 
   group('Tests for PaginationStore', () {
+    tearDown(() {
+      locator.resetLazySingleton<PokemonStateStore>();
+      locator.resetLazySingleton<PaginationStore>();
+      locator.resetLazySingleton<PokemonUsecaseInterface>();
+      locator.resetLazySingleton<PokemonListStore>();
+    });
+
     test('When go to next page, set offset to current offset + limit',
         () async {
       // Initial state
@@ -43,34 +40,28 @@ void main() {
 
       expect(paginationStore.pagination.offset,
           0 + paginationStore.pagination.limit);
-
-      // Goes back to loading for the next tests
-      testingLocator.resetLazySingleton<PokemonStateStore>();
     });
 
     test(
         'When pagination store change its state, pokemon state store will fetch pokemons and add it to pokemon list store',
         () async {
-      // stub
-      when(() => mockUsecase.fetchPokemons(params))
-          .thenAnswer((invocation) async => [pokemon, pokemon]);
+      // Set up listener
+      paginationStore.onTestCalled();
 
-      expect(pokemonStateStore.loading, true);
+      // Initial state
       expect(paginationStore.pagination.offset, 0);
+      expect(pokemonStateStore.loading, true);
+      expect(pokemonListStore.length, 0);
 
-      // List starts empty
-      expect(pokemonListStore.pokemons.isEmpty, true);
-
+      // Go to next page
       paginationStore.nextPage();
 
-      await Future.delayed(2.seconds);
-
-      verify(
-        () => mockUsecase.fetchPokemons(params),
-      ).called(1);
-
-      /* expect(store.pokemonState, isA<FetchedPokemons>());
-      expect(pokemonListStore.length, 2); */
+      // Should update offset, trigger pokemon store and trigger
+      // pokemon list store
+      expect(paginationStore.pagination.offset,
+          0 + paginationStore.pagination.limit);
+      expect(pokemonStateStore.pokemonState, isA<FetchedPokemons>());
+      expect(pokemonListStore.length, 3);
     });
   });
 }

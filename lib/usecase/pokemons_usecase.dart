@@ -6,13 +6,13 @@ import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/models/error.dart';
 
-final class PokemonUsecase {
+final class PokemonUsecase implements PokemonUsecaseService {
   const PokemonUsecase(this._interface);
 
   final PokemonUsecaseInterface _interface;
 
-  Future<SinglePokemonState> fetchSinglePokemons(
-      ApiRequestParams params) async {
+  @override
+  Future<SinglePokemonState> fetchSinglePokemon(ApiRequestParams params) async {
     try {
       final pokemon = await _interface.fetchSinglePokemon(params);
       return LoadedPokemon(pokemon: pokemon);
@@ -25,6 +25,7 @@ final class PokemonUsecase {
     }
   }
 
+  @override
   Future<PokemonListState> fetchPokemons(ApiRequestParams params) async {
     try {
       final pokemons = await _interface.fetchPokemons(params);
@@ -39,6 +40,7 @@ final class PokemonUsecase {
     }
   }
 
+  @override
   Future<PokemonCharacteristicsState> getCharacteristics(
       ApiRequestParams params) async {
     try {

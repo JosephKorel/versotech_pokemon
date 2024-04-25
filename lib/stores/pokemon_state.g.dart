@@ -44,6 +44,17 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
       ActionController(name: '_PokemonStateStoreBase', context: context);
 
   @override
+  void setPokemonState(PokemonListState newState) {
+    final _$actionInfo = _$_PokemonStateStoreBaseActionController.startAction(
+        name: '_PokemonStateStoreBase.setPokemonState');
+    try {
+      return super.setPokemonState(newState);
+    } finally {
+      _$_PokemonStateStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void reset() {
     final _$actionInfo = _$_PokemonStateStoreBaseActionController.startAction(
         name: '_PokemonStateStoreBase.reset');

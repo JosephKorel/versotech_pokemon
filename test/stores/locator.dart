@@ -8,7 +8,6 @@ import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
-import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 import '../usecase/pokemon_usecase_test.dart';
 import '../usecase/pokemons_usecase_impl_test.dart';
@@ -26,12 +25,15 @@ void setUpTestingLocation() {
   testingLocator.registerLazySingletonAsync<SharedPreferences>(
       () => SharedPreferences.getInstance());
 
-  testingLocator.registerLazySingleton<PokemonUsecase>(
-      () => PokemonUsecase(testingLocator.get<PokemonUsecaseInterface>()));
+  testingLocator
+      .registerLazySingleton<PokemonUsecaseService>(() => MockPokemonUsecase());
   //
 
   // Stores
-  testingLocator.registerLazySingleton(() => PokemonListStore());
+  testingLocator.registerLazySingleton(
+    () => PokemonListStore(),
+    dispose: (param) => param.reset(),
+  );
   testingLocator.registerLazySingleton(
     () => PokemonStateStore(),
     dispose: (param) => param.reset(),

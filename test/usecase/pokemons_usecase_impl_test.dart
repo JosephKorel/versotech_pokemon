@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
@@ -10,6 +11,8 @@ import 'package:versotech_pokemon/usecase/pokemons_usecase_impl.dart';
 import '../models/api_models.dart';
 
 class MockApiRepository extends Mock implements RepositoryInterface {}
+
+class MockPokemonUsecase extends Mock implements PokemonUsecaseService {}
 
 void main() {
   const requestParams = PokemonListRequest(pagination: ApiPagination());

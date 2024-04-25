@@ -19,10 +19,14 @@ import 'package:versotech_pokemon/usecase/pokemons_usecase_impl.dart';
 
 final locator = GetIt.instance;
 
-Future<void> setUpLocation() async {
-  final sharedPref = await SharedPreferences.getInstance();
+Future<void> setUpLocation({bool testing = false}) async {
+  locator.allowReassignment = testing;
 
-  locator.registerLazySingleton<SharedPreferences>(() => sharedPref);
+  if (!testing) {
+    final sharedPref = await SharedPreferences.getInstance();
+
+    locator.registerLazySingleton<SharedPreferences>(() => sharedPref);
+  }
 
   locator.registerLazySingleton<SharedPrefService>(
       () => ThemeLocalImplementation());
@@ -37,8 +41,9 @@ Future<void> setUpLocation() async {
   locator.registerLazySingleton<PokemonUsecaseInterface>(
       () => PokemonUsecaseImplementation(locator<RepositoryInterface>()));
 
-  locator.registerLazySingleton<PokemonUsecase>(
+  locator.registerLazySingleton<PokemonUsecaseService>(
       () => PokemonUsecase(locator.get<PokemonUsecaseInterface>()));
+
   //
 
   // Global context key
@@ -47,11 +52,20 @@ Future<void> setUpLocation() async {
 
   // Stores
   locator.registerLazySingleton(() => ThemeStore());
-  locator.registerLazySingleton(() => PokemonListStore());
-  locator.registerLazySingleton(() => PokemonStateStore());
+  locator.registerLazySingleton(
+    () => PaginationStore(),
+    dispose: (param) => param.reset(),
+  );
+  locator.registerLazySingleton(
+    () => PokemonListStore(),
+    dispose: (param) => param.reset(),
+  );
+  locator.registerLazySingleton(
+    () => PokemonStateStore(),
+    dispose: (param) => param.reset(),
+  );
   locator.registerLazySingleton(() => LoadedPokemonStore());
   locator.registerLazySingleton(() => FetchSinglePokemonStore());
   locator.registerLazySingleton(() => ColorSchemesStore());
-  locator.registerLazySingleton(() => PaginationStore());
   //
 }

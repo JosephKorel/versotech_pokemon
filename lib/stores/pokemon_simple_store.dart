@@ -15,6 +15,9 @@ abstract class _PokemonStateBase with Store {
     pokemons.addAll(newPokemons);
   }
 
+  @action
+  void reset() => pokemons = <SimplePokemon>[].asObservable();
+
   @computed
   int get length => pokemons.length;
 }

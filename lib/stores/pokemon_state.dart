@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/domain/pokemon_state.dart';
+import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
-import 'package:versotech_pokemon/usecase/pokemons_usecase.dart';
 
 part 'pokemon_state.g.dart';
 
@@ -14,7 +14,7 @@ class PokemonStateStore = _PokemonStateStoreBase with _$PokemonStateStore;
 
 abstract class _PokemonStateStoreBase with Store {
   // Dependencies
-  final _pokemonUsecase = locator.get<PokemonUsecase>();
+  final _pokemonUsecase = locator.get<PokemonUsecaseService>();
   final _pokemonListStore = locator.get<PokemonListStore>();
   //
 
@@ -34,6 +34,9 @@ abstract class _PokemonStateStoreBase with Store {
 
     pokemonState = newState;
   }
+
+  @action
+  void setPokemonState(PokemonListState newState) => pokemonState = newState;
 
   @action
   void reset() => pokemonState = LoadingPokemons();
