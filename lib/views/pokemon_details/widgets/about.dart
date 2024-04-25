@@ -38,9 +38,8 @@ class _CharacteristicText extends StatelessWidget {
     return SizedBox.expand(
       child: SingleChildScrollView(
         child: Text(
-          characteristic.description,
-          style: context.bodyMedium.copyWith(
-            color: context.onSurface.withOpacity(0.7),
+          '"${characteristic.description}"',
+          style: context.bodyLarge.copyWith(
             fontStyle: FontStyle.italic,
           ),
         ),
@@ -238,7 +237,7 @@ class AboutTab extends StatelessWidget {
         children: [
           Expanded(child: _PokemonCharacteristics()),
           Spacer(
-            flex: 2,
+            flex: 1,
           ),
           Expanded(child: _PokemonDetais())
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/abilities.dart';
-import 'package:versotech_pokemon/views/pokemon_details/widgets/characteristics.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/about.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/stats.dart';
 
 enum Tabs {
