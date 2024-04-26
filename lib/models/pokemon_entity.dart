@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
-import 'package:fluttericon/rpg_awesome_icons.dart';
 import 'package:versotech_pokemon/models/request_params.dart';
 
 class PokemonEntity {
@@ -143,12 +140,6 @@ final class PokemonImage {
 final class Ability {
   const Ability({required this.id, required this.name, this.description = ''});
 
-  // The id to query the API for detailed information
-  // About the ability
-  final String id;
-  final String name;
-  final String description;
-
   factory Ability.fromJson(Map<String, dynamic> json) {
     final name = json['ability']['name'] as String;
     final urlSplit = (json['ability']['url'] as String).split('/');
@@ -170,6 +161,12 @@ final class Ability {
     );
   }
 
+  // The id to query the API for detailed information
+  // About the ability
+  final String id;
+  final String name;
+  final String description;
+
   String get label =>
       name.split('-').map((e) => e[0].toUpperCase() + e.substring(1)).join(' ');
 
@@ -189,21 +186,17 @@ final class Type {
 final class Status {
   const Status({required this.name, required this.value});
 
+  factory Status.fromJson(Map<String, dynamic> json) {
+    final value = json['base_stat'] as int;
+    final name = json['stat']['name'] as String;
+    return Status(name: name, value: value);
+  }
+
   final String name;
   final int value;
 
   String get label =>
       name.split('-').map((e) => e[0].toUpperCase() + e.substring(1)).join(' ');
-
-  IconData get icon => switch (name) {
-        'hp' => RpgAwesome.hearts,
-        'attack' => RpgAwesome.crossed_swords,
-        'defense' => RpgAwesome.shield,
-        'special-attack' => RpgAwesome.fireball_sword,
-        'special-defense' => RpgAwesome.heavy_shield,
-        'speed' => Icons.directions_run,
-        _ => Icons.electric_bolt_rounded
-      };
 
   String get chartLabel => switch (name) {
         'hp' => label,
@@ -214,12 +207,6 @@ final class Status {
         'speed' => 'Speed',
         _ => ''
       };
-
-  factory Status.fromJson(Map<String, dynamic> json) {
-    final value = json['base_stat'] as int;
-    final name = json['stat']['name'] as String;
-    return Status(name: name, value: value);
-  }
 }
 
 final class Characteristic {

@@ -41,7 +41,6 @@ dependencies:
   get_it: ^7.6.7
   flutter_animate: ^4.5.0
   cached_network_image: ^3.3.1
-  fluttericon: ^2.0.0
   shared_preferences: ^2.2.3
   audioplayers: ^5.2.1
   spider_chart: ^0.2.0
