@@ -21,8 +21,16 @@ class ThemeSwitch extends StatelessWidget {
           onPressed: controller.open,
           icon: Icon(themeStore.icon),
           style: IconButton.styleFrom(
+            foregroundColor: context.isDarkMode
+                ? context.onPrimaryContainer
+                : context.onPrimary,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            side: BorderSide(
+              color: context.isDarkMode
+                  ? context.onPrimaryContainer
+                  : context.onPrimary,
+            ),
           ),
         ),
         style: MenuStyle(
