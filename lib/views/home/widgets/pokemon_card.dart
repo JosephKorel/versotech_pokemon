@@ -7,24 +7,6 @@ import 'package:versotech_pokemon/utils/navigation.dart';
 import 'package:versotech_pokemon/views/home/widgets/pokemon_avatar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/main.dart';
 
-// To make the widgets more legible
-extension _CardTheme on BuildContext {
-  BoxDecoration get containerDecoration => BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: onPrimary,
-        // border: Border.all(color: onSurface.withOpacity(0.1)),
-        /* boxShadow: [
-          BoxShadow(
-            color: onSurface.withOpacity(0.1),
-            spreadRadius: 1,
-            offset: const Offset(0, 1),
-            blurRadius: 1,
-          )
-        ], */
-      );
-}
-//
-
 class _CardContainer extends StatelessWidget {
   const _CardContainer({super.key, required this.child, required this.pokemon});
 
@@ -48,7 +30,10 @@ class _CardContainer extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Ink(
-          decoration: context.containerDecoration,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: context.onPrimary,
+          ),
           child: child,
         ),
       ),

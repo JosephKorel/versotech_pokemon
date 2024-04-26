@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
@@ -32,7 +33,7 @@ class ThemeSwitch extends StatelessWidget {
                   : context.onPrimary,
             ),
           ),
-        ),
+        ).animate().fadeIn().slideHorizontal(fromRight: true),
         style: MenuStyle(
           backgroundColor: MaterialStateProperty.resolveWith(
             (states) => context.background,

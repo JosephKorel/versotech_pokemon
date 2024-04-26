@@ -4,7 +4,6 @@ import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
-import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/tabs.dart';
 
 class _TypeBadge extends StatelessWidget {
@@ -51,13 +50,13 @@ class _PokemonName extends StatelessWidget {
               style: context.titleLarge.copyWith(
                 fontWeight: FontWeight.w800,
               ),
-            ).animate().fadeIn().slideFromLeft,
+            ).animate().fadeIn().slideHorizontal(),
             Text(
               pokemonStore.pokemon.idLabel,
               style: context.titleLarge.copyWith(
                   color: context.onSurface.withOpacity(0.7),
                   fontWeight: FontWeight.w800),
-            ).animate().fadeIn().slideFromRight,
+            ).animate().fadeIn().slideHorizontal(),
           ],
         ),
         const SizedBox(

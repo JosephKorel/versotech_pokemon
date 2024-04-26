@@ -7,6 +7,9 @@ import 'package:versotech_pokemon/stores/pokemon_state.dart';
 
 part 'request_params.g.dart';
 
+// This store holds the current pagination of pokemons. When user scrolls down
+// and reach bottom, it will update the store state, which will make PokemonStateStore
+// react to it and fetch more pokemons
 class PaginationStore = _PaginationStoreBase with _$PaginationStore;
 
 abstract class _PaginationStoreBase with Store {
@@ -42,8 +45,8 @@ abstract class _PaginationStoreBase with Store {
   }
 
   void onPaginationChange() {
-    // Set up onStateChange, thus making PokemonStateStore
-    // listen all changes of this store
+    // Set up onStateChange to make PokemonStateStore
+    // listen to all changes of this store
     _pokemonStateStore.onStateChange();
 
     _dispose = autorun((_) {

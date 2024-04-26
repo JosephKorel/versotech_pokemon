@@ -5,6 +5,7 @@ import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
+import 'package:versotech_pokemon/utils/navigation.dart';
 
 part 'pokemon_state.g.dart';
 
@@ -43,11 +44,7 @@ abstract class _PokemonStateStoreBase with Store {
 
   void _showErrorSnackbar(String errorMsg) {
     final context = locator.get<GlobalKey<NavigatorState>>().currentContext!;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(errorMsg),
-      ),
-    );
+    context.showSnackbar(errorMsg);
   }
 
   // This will run everytime the state of this store changes.

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 extension ThemeHelper on BuildContext {
   // Text theme
@@ -37,4 +38,20 @@ extension MediaQueryUtils on BuildContext {
   double get deviceHeight => MediaQuery.of(this).size.height;
   bool get isDarkMode =>
       MediaQuery.of(this).platformBrightness == Brightness.dark;
+}
+
+// Animation extensions
+extension AnimationEffects on Animate {
+  Animate slideHorizontal({bool fromRight = false}) => slideX(
+        begin: fromRight ? 2 : -2,
+        end: 0,
+        curve: Curves.easeOutQuint,
+        duration: .4.seconds,
+      );
+
+  Animate get fadeEffect => fadeIn(
+        delay: .2.seconds,
+        curve: Curves.easeOutQuint,
+        duration: .5.seconds,
+      );
 }

@@ -10,10 +10,9 @@ import 'package:versotech_pokemon/utils/navigation.dart';
 
 part 'single_pokemon.g.dart';
 
-// This store is responsible for fetching the pokemon details
-// when the user taps the pokemon and navigate to its page.
-// Although the store when successfully loaded the pokemon has
-// the loaded pokemon avaiable, all widgets will read the pokemon from
+// This store is responsible for fetching the pokemon details when the user taps the
+// pokemon and navigate to its page. Although the store, once it has successfully
+// loaded the pokemon, will have the pokemon avaiable, all widgets will read the pokemon from
 // the LoadedPokemonStore, to ensure a single source of truth
 class SinglePokemonStore = _SinglePokemonStoreBase with _$SinglePokemonStore;
 
@@ -56,6 +55,7 @@ abstract class _SinglePokemonStoreBase with Store {
       _loadedPokemonsStore.pokemons
           .any((element) => element.name == pokemonName);
 
+  // This will run everytime the state changed to LoadedPokemon (success state)
   void _onLoadedPokemon(PokemonEntity pokemon) {
     if (_pokemonAlreadyLoaded(pokemon.name)) {
       return;

@@ -2,29 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/color_schemes.dart';
+import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_cry.dart';
-
-extension AnimationEffects on Animate {
-  Animate get slideFromRight => slideX(
-        begin: 2,
-        end: 0,
-        curve: Curves.easeOutQuint,
-        duration: .5.seconds,
-      );
-
-  Animate get slideFromLeft => slideX(
-        begin: -2,
-        end: 0,
-        curve: Curves.easeOutQuint,
-        duration: .5.seconds,
-      );
-
-  Animate get fadeEffect => fadeIn(
-        delay: .2.seconds,
-        curve: Curves.easeOutQuint,
-        duration: 1.seconds,
-      );
-}
 
 class _PokemonCryButton extends StatelessWidget with PokemonCryController {
   _PokemonCryButton({super.key});
@@ -40,7 +19,7 @@ class _PokemonCryButton extends StatelessWidget with PokemonCryController {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-    ).animate().fadeIn().slideFromRight;
+    ).animate().fadeIn().slideHorizontal(fromRight: true);
   }
 }
 
