@@ -6,8 +6,7 @@ import 'package:versotech_pokemon/stores/single_pokemon.dart';
 part 'fetched_pokemons.g.dart';
 
 // This store holds the list of every pokemon the user tapped.
-// The main goal of this store is to prevent that users keep fetching the same
-// pokemon.
+// The main goal of this store is to prevent that users keep fetching the same pokemon
 class LoadedPokemonStore = _LoadedPokemonStoreBase with _$LoadedPokemonStore;
 
 abstract class _LoadedPokemonStoreBase with Store {
@@ -16,6 +15,12 @@ abstract class _LoadedPokemonStoreBase with Store {
 
   @action
   void reset() => pokemons.clear();
+
+  @computed
+  PokemonEntity get currentPokemon {
+    final pokemonStore = locator.get<SinglePokemonStore>();
+    return pokemons.firstWhere((element) => pokemonStore.pokemon == element);
+  }
 
   // Will only be called when there's an active pokemon
   @computed

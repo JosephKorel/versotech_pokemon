@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/color_schemes.dart';
-import 'package:versotech_pokemon/stores/single_pokemon.dart';
+import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 
 class HalfCirclePainter extends CustomPainter {
   final pokemonColor = locator.get<ColorSchemesStore>();
@@ -44,7 +44,7 @@ class PokemonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonStore = locator.get<SinglePokemonStore>();
+    final pokemon = locator.get<LoadedPokemonStore>().currentPokemon;
 
     return LayoutBuilder(
       builder: (context, constraints) => CustomPaint(
@@ -54,7 +54,7 @@ class PokemonProfile extends StatelessWidget {
           width: constraints.maxWidth,
           height: constraints.maxHeight,
           fit: BoxFit.fitHeight,
-          imageUrl: pokemonStore.pokemon.images.large ?? '',
+          imageUrl: pokemon.images.large ?? '',
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:versotech_pokemon/models/error.dart';
 import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/content.dart';
+import 'package:versotech_pokemon/views/pokemon_details/widgets/loading_screen.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/profile.dart';
 
 class PokemonDetailsView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _PokemonDetailsViewState extends State<PokemonDetailsView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => switch (_pokemon.state) {
-        LoadingPokemon() => const _LoadingScreen(),
+        LoadingPokemon() => const PokemonDetailsLoadingScreen(),
         LoadedPokemon(pokemon: _) => const _PokemonMainScreen(),
         FailedToGetPokemon(error: final e) => _ErrorScreen(error: e)
       },

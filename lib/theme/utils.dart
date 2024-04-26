@@ -54,4 +54,9 @@ extension AnimationEffects on Animate {
         curve: Curves.easeOutQuint,
         duration: .5.seconds,
       );
+
+  Animate get loading => shimmer(
+        duration: .8.seconds,
+        curve: Curves.easeInCubic,
+      );
 }
