@@ -8,7 +8,7 @@ import 'package:versotech_pokemon/views/home/widgets/pokemon_avatar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/main.dart';
 
 class _CardContainer extends StatelessWidget {
-  const _CardContainer({super.key, required this.child, required this.pokemon});
+  const _CardContainer({required this.child, required this.pokemon});
 
   final SimplePokemon pokemon;
   final Widget child;
@@ -42,7 +42,7 @@ class _CardContainer extends StatelessWidget {
 }
 
 class _Name extends StatelessWidget {
-  const _Name({super.key, required this.name});
+  const _Name({required this.name});
 
   final String name;
 
@@ -70,7 +70,7 @@ class _Name extends StatelessWidget {
 }
 
 class _PokemonId extends StatelessWidget {
-  const _PokemonId({super.key, required this.pokemonId});
+  const _PokemonId({required this.pokemonId});
 
   final String pokemonId;
 

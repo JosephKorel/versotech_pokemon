@@ -5,7 +5,7 @@ import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 
 class _StatsSpiderChart extends StatelessWidget {
-  const _StatsSpiderChart({super.key});
+  const _StatsSpiderChart();
 
   @override
   Widget build(BuildContext context) {

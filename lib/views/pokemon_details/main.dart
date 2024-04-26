@@ -47,7 +47,7 @@ class _PokemonDetailsViewState extends State<PokemonDetailsView> {
 }
 
 class _PokemonMainScreen extends StatelessWidget {
-  const _PokemonMainScreen({super.key});
+  const _PokemonMainScreen();
 
   @override
   Widget build(BuildContext context) {

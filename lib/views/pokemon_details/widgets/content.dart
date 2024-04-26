@@ -7,7 +7,7 @@ import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/tabs.dart';
 
 class _TypeBadge extends StatelessWidget {
-  const _TypeBadge({super.key, required this.type});
+  const _TypeBadge({required this.type});
 
   final Type type;
 
@@ -34,7 +34,7 @@ class _TypeBadge extends StatelessWidget {
 }
 
 class _PokemonName extends StatelessWidget {
-  const _PokemonName({super.key});
+  const _PokemonName();
 
   @override
   Widget build(BuildContext context) {

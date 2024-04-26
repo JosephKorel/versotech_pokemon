@@ -8,7 +8,7 @@ import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_details.dart';
 
 class _LoadingAbility extends StatelessWidget {
-  const _LoadingAbility({super.key});
+  const _LoadingAbility();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class _LoadingAbility extends StatelessWidget {
 }
 
 class _FailedToGetAbility extends StatelessWidget {
-  const _FailedToGetAbility({super.key, required this.message});
+  const _FailedToGetAbility({required this.message});
 
   final String message;
 
@@ -28,7 +28,7 @@ class _FailedToGetAbility extends StatelessWidget {
 }
 
 class _AbilityDescription extends StatelessWidget {
-  const _AbilityDescription({super.key, required this.ability});
+  const _AbilityDescription({required this.ability});
 
   final PokemonAbilityState ability;
 
@@ -53,7 +53,7 @@ class _AbilityDescription extends StatelessWidget {
 }
 
 class _AbilityTile extends StatefulWidget {
-  const _AbilityTile({super.key, required this.ability});
+  const _AbilityTile({required this.ability});
 
   final Ability ability;
 
