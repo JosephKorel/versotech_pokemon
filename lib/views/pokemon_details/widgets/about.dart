@@ -8,7 +8,7 @@ import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_details.dart';
 
 class _LoadingCharacteristics extends StatelessWidget {
-  const _LoadingCharacteristics({super.key});
+  const _LoadingCharacteristics();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class _LoadingCharacteristics extends StatelessWidget {
 }
 
 class _FailedToLoadCharacteristics extends StatelessWidget {
-  const _FailedToLoadCharacteristics({super.key, required this.message});
+  const _FailedToLoadCharacteristics({required this.message});
 
   final String message;
 
@@ -30,7 +30,7 @@ class _FailedToLoadCharacteristics extends StatelessWidget {
 }
 
 class _CharacteristicText extends StatelessWidget {
-  const _CharacteristicText({super.key, required this.characteristic});
+  const _CharacteristicText({required this.characteristic});
 
   final Characteristic characteristic;
 
@@ -50,7 +50,7 @@ class _CharacteristicText extends StatelessWidget {
 }
 
 class _ShowPokemonCharacteristics extends StatefulWidget {
-  const _ShowPokemonCharacteristics({super.key, required this.characteristics});
+  const _ShowPokemonCharacteristics({required this.characteristics});
 
   final List<Characteristic> characteristics;
 
@@ -118,7 +118,7 @@ class _ShowPokemonCharacteristicsState
 }
 
 class _PokemonCharacteristics extends StatefulWidget {
-  const _PokemonCharacteristics({super.key});
+  const _PokemonCharacteristics();
 
   @override
   State<_PokemonCharacteristics> createState() =>
@@ -165,7 +165,7 @@ class __PokemonCharacteristicsState extends State<_PokemonCharacteristics>
 }
 
 class _PokemonDetais extends StatelessWidget {
-  const _PokemonDetais({super.key});
+  const _PokemonDetais();
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_cry.dart';
 
 class _PokemonCryButton extends StatelessWidget with PokemonCryController {
-  _PokemonCryButton({super.key});
+  _PokemonCryButton();
 
   @override
   Widget build(BuildContext context) {
