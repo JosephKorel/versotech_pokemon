@@ -33,6 +33,17 @@ final class SimplePokemon {
     );
   }
 
+  factory SimplePokemon.fromLocalStorage(Map<String, dynamic> json) {
+    return SimplePokemon(
+      name: json['name'],
+      id: json['id'],
+      imageUrl: json['imageUrl'],
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+      {'name': name, 'id': id, 'imageUrl': imageUrl};
+
   factory SimplePokemon.mock() =>
       const SimplePokemon(name: 'john', id: '2', imageUrl: 'url');
 }

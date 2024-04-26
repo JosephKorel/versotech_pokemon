@@ -47,6 +47,17 @@ mixin _$PokemonListStore on _PokemonStateBase, Store {
   }
 
   @override
+  void getSavedPokemons() {
+    final _$actionInfo = _$_PokemonStateBaseActionController.startAction(
+        name: '_PokemonStateBase.getSavedPokemons');
+    try {
+      return super.getSavedPokemons();
+    } finally {
+      _$_PokemonStateBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void reset() {
     final _$actionInfo = _$_PokemonStateBaseActionController.startAction(
         name: '_PokemonStateBase.reset');

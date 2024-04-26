@@ -1,19 +1,14 @@
 import 'package:versotech_pokemon/shared_pref/interface.dart';
-import 'package:versotech_pokemon/shared_pref/shared_pref.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
 
-final class ThemeLocalImplementation extends SharedPrefImplementation {
-  static const _key = 'theme';
-  ThemeLocalImplementation({super.key = _key});
-}
-
 final class ThemeLocalService {
+  static const _key = 'theme';
   const ThemeLocalService(this._localStorageService);
 
   final SharedPrefService _localStorageService;
 
   ThemeOptions getTheme() {
-    final value = _localStorageService.getKey<String>();
+    final value = _localStorageService.getKey<String>(key: _key);
 
     // If there's nothing saved yet, go back to system preference
     if (value == null) {
@@ -24,5 +19,5 @@ final class ThemeLocalService {
   }
 
   Future<bool> setTheme(ThemeOptions theme) async =>
-      _localStorageService.setKey({'theme': theme.name});
+      _localStorageService.setKey(key: _key, value: theme.name);
 }

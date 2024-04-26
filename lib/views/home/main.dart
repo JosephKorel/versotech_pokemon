@@ -30,6 +30,8 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
 
+    _pokemonList.onStateChange();
+
     // Initiate reactions for theme store
     _themeStore.onThemeChange();
 

@@ -30,8 +30,8 @@ final class PokemonListRequest extends ApiRequestParams {
 
   final ApiPagination pagination;
 
-  PokemonListRequest nextPage() =>
-      PokemonListRequest(pagination: pagination.nextPage);
+  PokemonListRequest nextPage(int newOffset) =>
+      PokemonListRequest(pagination: pagination.goToPage(newOffset));
 
   @override
   Map<String, dynamic>? queryParams() => pagination.toJson();
@@ -71,6 +71,8 @@ class ApiPagination {
   });
 
   ApiPagination get nextPage => ApiPagination(offset: offset + _limit);
+
+  ApiPagination goToPage(int newOffset) => ApiPagination(offset: newOffset);
 
   final int limit;
   final int offset;

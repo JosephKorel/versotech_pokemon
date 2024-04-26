@@ -1,7 +1,6 @@
 interface class SharedPrefService {
-  String get key => throw UnimplementedError();
+  T? getKey<T>({required String key}) => throw UnimplementedError();
 
-  T? getKey<T>() => throw UnimplementedError();
-
-  Future<bool> setKey(Map<String, dynamic> value) => throw UnimplementedError();
+  Future<bool> setKey({required String key, dynamic value}) =>
+      throw UnimplementedError();
 }

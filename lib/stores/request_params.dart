@@ -3,6 +3,7 @@ import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
+import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 
 part 'request_params.g.dart';
@@ -14,6 +15,7 @@ class PaginationStore = _PaginationStoreBase with _$PaginationStore;
 
 abstract class _PaginationStoreBase with Store {
   final _pokemonStateStore = locator.get<PokemonStateStore>();
+  final _pokemonListStore = locator.get<PokemonListStore>();
   late ReactionDisposer _dispose;
 
   @observable
@@ -22,7 +24,7 @@ abstract class _PaginationStoreBase with Store {
 
   @action
   void nextPage() {
-    params = params.nextPage();
+    params = params.nextPage(_pokemonListStore.length);
   }
 
   @action
@@ -50,8 +52,12 @@ abstract class _PaginationStoreBase with Store {
     _pokemonStateStore.onStateChange();
 
     _dispose = autorun((_) {
-      // When the store has a new value, it will trigger a new request to fetch pokemons
-      _pokemonStateStore.fetchPokemons(params);
+      final shouldFetchNewPokemons = _pokemonListStore.length == 0 ||
+          pagination.offset >= _pokemonListStore.length;
+      if (shouldFetchNewPokemons) {
+        // When the store has a new value, it will trigger a new request to fetch pokemons
+        _pokemonStateStore.fetchPokemons(params);
+      }
     });
   }
 }

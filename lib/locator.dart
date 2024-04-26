@@ -6,6 +6,8 @@ import 'package:versotech_pokemon/dio/client.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/shared_pref/interface.dart';
+import 'package:versotech_pokemon/shared_pref/pokemon_list.dart';
+import 'package:versotech_pokemon/shared_pref/shared_pref.dart';
 import 'package:versotech_pokemon/shared_pref/theme.dart';
 import 'package:versotech_pokemon/stores/color_schemes.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
@@ -29,10 +31,13 @@ Future<void> setUpLocation({bool testing = false}) async {
   }
 
   locator.registerLazySingleton<SharedPrefService>(
-      () => ThemeLocalImplementation());
+      () => SharedPrefImplementation());
 
   locator.registerLazySingleton<ThemeLocalService>(
       () => ThemeLocalService(locator.get<SharedPrefService>()));
+
+  locator.registerLazySingleton<PokemonListLocalService>(
+      () => PokemonListLocalService(locator.get<SharedPrefService>()));
 
   // Dependency
   locator.registerLazySingleton<RepositoryInterface>(

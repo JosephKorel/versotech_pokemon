@@ -32,6 +32,7 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
 
       // Fetch more pokemons when reached the end
       // Also check if it's not fetching pokemons already
+
       if (_controller.hasClients && reachedEnd && !_pokemonStoreState.loading) {
         _paginationStore.nextPage();
       }

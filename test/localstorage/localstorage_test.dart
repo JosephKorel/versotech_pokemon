@@ -8,18 +8,18 @@ Future<void> main() async {
 
   late final SharedPrefImplementation themeService;
   const mockValue = {'theme': 'dark'};
+  const key = 'theme';
 
   group('Tests for shared preferences', () {
     test('After inserting key, it should appear in key list', () async {
-      themeService = SharedPrefImplementation(
-          key: 'theme', sharedPreferences: sharedPrefs);
+      themeService = SharedPrefImplementation(sharedPrefs);
 
       final currentKeys = sharedPrefs.getKeys();
 
       // Starts as a empty list
       expect(currentKeys.length, 0);
 
-      themeService.setKey(mockValue);
+      themeService.setKey(key: key, value: mockValue);
 
       expect(currentKeys.length, 1);
     });
