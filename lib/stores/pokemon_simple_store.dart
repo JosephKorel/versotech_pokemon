@@ -32,6 +32,7 @@ abstract class _PokemonStateBase with Store {
 
   void onStateChange() {
     _dispose = reaction((p0) => pokemons, (addedPokemons) {
+      // Save pokemons in local storage
       _pokemonListLocalService.setPokemons(addedPokemons);
     });
   }

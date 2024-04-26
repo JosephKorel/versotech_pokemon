@@ -19,9 +19,15 @@ Future<void> main() async {
   final themeStore = locator.get<ThemeStore>();
   final pokemonListStore = locator.get<PokemonListStore>();
   final pokemonStateStore = locator.get<PokemonStateStore>();
+
+  // Read the pokemons that are alreeady saved in the local storage
   pokemonListStore.getSavedPokemons();
+
+  // Update the current state of pokemon store, otherwise it would stay in loading state forever
   pokemonStateStore
       .setPokemonState(FetchedPokemons(pokemons: pokemonListStore.pokemons));
+
+  // Read current theme
   themeStore.readTheme();
 
   runApp(const MyApp());

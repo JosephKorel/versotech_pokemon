@@ -17,8 +17,6 @@ final class PokemonListLocalService {
       return [];
     }
 
-    log('THE LENGTH OF SAVED POKEMONS IS: ${value.length}');
-
     return value
         .map((e) => SimplePokemon.fromLocalStorage(e as Map<String, dynamic>))
         .toList();

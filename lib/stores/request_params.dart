@@ -24,6 +24,8 @@ abstract class _PaginationStoreBase with Store {
 
   @action
   void nextPage() {
+    // The new offset will always be the current length of pokemons,
+    // since we query the list as offset + limit
     params = params.nextPage(_pokemonListStore.length);
   }
 
@@ -52,8 +54,14 @@ abstract class _PaginationStoreBase with Store {
     _pokemonStateStore.onStateChange();
 
     _dispose = autorun((_) {
+      // If list is empty, should fetch new pokemons.
+      // If it's not empty when the app starts, it means that there is already saved pokemons,
+      // so it should not fetch initial pokemons. When user reaches end of the list
+      // The new offset will be the same length as the pokemon list, which will
+      // satisfy pagination.offset >= _pokemonListStore.length
       final shouldFetchNewPokemons = _pokemonListStore.length == 0 ||
           pagination.offset >= _pokemonListStore.length;
+
       if (shouldFetchNewPokemons) {
         // When the store has a new value, it will trigger a new request to fetch pokemons
         _pokemonStateStore.fetchPokemons(params);
