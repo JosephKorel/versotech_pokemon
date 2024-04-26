@@ -25,7 +25,7 @@ mixin AbilityController {
 
 mixin CharacteristicsController {
   final _usecase = locator.get<PokemonUsecaseService>();
-  final _pokemonStore = locator.get<FetchSinglePokemonStore>();
+  final _pokemonStore = locator.get<SinglePokemonStore>();
 
   Future<PokemonCharacteristicsState> getCharacteristics() async {
     return await _usecase.getCharacteristics(

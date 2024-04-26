@@ -39,7 +39,7 @@ void setUpTestingLocation() {
     dispose: (param) => param.reset(),
   );
   testingLocator.registerLazySingleton(() => LoadedPokemonStore());
-  testingLocator.registerLazySingleton(() => FetchSinglePokemonStore());
+  testingLocator.registerLazySingleton(() => SinglePokemonStore());
   testingLocator.registerLazySingleton(() => ColorSchemesStore());
   testingLocator.registerLazySingleton(() => PaginationStore());
   //

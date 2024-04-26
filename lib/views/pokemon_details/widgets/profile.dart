@@ -44,7 +44,7 @@ class PokemonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+    final pokemonStore = locator.get<SinglePokemonStore>();
 
     return LayoutBuilder(
       builder: (context, constraints) => CustomPaint(

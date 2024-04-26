@@ -158,7 +158,7 @@ class _PokemonDetais extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+    final pokemonStore = locator.get<SinglePokemonStore>();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

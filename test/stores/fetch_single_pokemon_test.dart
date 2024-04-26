@@ -24,7 +24,7 @@ Future<void> main() async {
       .registerLazySingleton<PokemonUsecaseService>(() => MockPokemonUsecase());
 
   final pokemon = PokemonEntity.mock();
-  final singlePokemonStore = locator.get<FetchSinglePokemonStore>();
+  final singlePokemonStore = locator.get<SinglePokemonStore>();
   final loadedPokemonStore = locator.get<LoadedPokemonStore>();
 
   setUpAll(() {
@@ -40,7 +40,7 @@ Future<void> main() async {
     });
 
     tearDown(() {
-      locator.resetLazySingleton<FetchSinglePokemonStore>();
+      locator.resetLazySingleton<SinglePokemonStore>();
     });
 
     test('When pokemon state is updated, add it to loaded pokemon store',

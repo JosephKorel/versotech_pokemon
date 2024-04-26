@@ -16,7 +16,7 @@ class PokemonDetailsView extends StatefulWidget {
 }
 
 class _PokemonDetailsViewState extends State<PokemonDetailsView> {
-  final _pokemon = locator.get<FetchSinglePokemonStore>();
+  final _pokemon = locator.get<SinglePokemonStore>();
 
   @override
   void dispose() {

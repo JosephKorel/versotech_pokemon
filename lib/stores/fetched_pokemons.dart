@@ -20,7 +20,7 @@ abstract class _LoadedPokemonStoreBase with Store {
   // Will only be called when there's an active pokemon
   @computed
   List<Ability> get pokemonAbilities {
-    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+    final pokemonStore = locator.get<SinglePokemonStore>();
     return pokemons
         .firstWhere((element) => element == pokemonStore.pokemon)
         .abilities;
@@ -30,7 +30,7 @@ abstract class _LoadedPokemonStoreBase with Store {
   // calling the api again
   @action
   void updatePokemonAbility({required Ability ability}) {
-    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+    final pokemonStore = locator.get<SinglePokemonStore>();
 
     pokemons = pokemons
         .map((element) => element.name != pokemonStore.pokemon.name

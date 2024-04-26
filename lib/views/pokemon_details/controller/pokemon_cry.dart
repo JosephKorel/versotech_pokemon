@@ -6,7 +6,7 @@ import 'package:versotech_pokemon/utils/navigation.dart';
 
 mixin PokemonCryController {
   static const _errorMsg = 'Failed to play pokemon cry';
-  final _pokemonStore = locator.get<FetchSinglePokemonStore>();
+  final _pokemonStore = locator.get<SinglePokemonStore>();
   final _audioPlayer = AudioPlayer();
 
   void _onError(BuildContext context) => context.showSnackbar(_errorMsg);

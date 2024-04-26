@@ -14,10 +14,9 @@ part 'fetch_single_pokemon.g.dart';
 // Although the store when successfully loaded the pokemon has
 // the loaded pokemon avaiable, all widgets will read the pokemon from
 // the LoadedPokemonStore, to ensure a single source of truth
-class FetchSinglePokemonStore = _FetchSinglePokemonStoreBase
-    with _$FetchSinglePokemonStore;
+class SinglePokemonStore = _SinglePokemonStoreBase with _$SinglePokemonStore;
 
-abstract class _FetchSinglePokemonStoreBase with Store {
+abstract class _SinglePokemonStoreBase with Store {
   // Dependencies
   final _pokemonUsecase = locator.get<PokemonUsecaseService>();
   final _loadedPokemonsStore = locator.get<LoadedPokemonStore>();

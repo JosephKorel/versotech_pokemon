@@ -13,7 +13,7 @@ part 'color_schemes.g.dart';
 class ColorSchemesStore = _ColorSchemesStoreBase with _$ColorSchemesStore;
 
 abstract class _ColorSchemesStoreBase with Store {
-  final _pokemonStore = locator.get<FetchSinglePokemonStore>();
+  final _pokemonStore = locator.get<SinglePokemonStore>();
 
   @observable
   var colorSchemes = ObservableList<PokemonColor>();

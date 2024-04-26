@@ -65,7 +65,7 @@ Future<void> setUpLocation({bool testing = false}) async {
     dispose: (param) => param.reset(),
   );
   locator.registerLazySingleton(
-    () => FetchSinglePokemonStore(),
+    () => SinglePokemonStore(),
     dispose: (param) => param.reset(),
   );
   locator.registerLazySingleton(() => LoadedPokemonStore());

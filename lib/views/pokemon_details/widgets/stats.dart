@@ -9,7 +9,7 @@ class _StatsSpiderChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+    final pokemonStore = locator.get<SinglePokemonStore>();
     final values =
         pokemonStore.pokemon.stats.map((e) => e.value.toDouble()).toList();
 

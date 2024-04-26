@@ -33,7 +33,7 @@ class _CardContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonStore = locator.get<FetchSinglePokemonStore>();
+    final pokemonStore = locator.get<SinglePokemonStore>();
 
     // Navigate to see details of the pokemon
     void onTap() {

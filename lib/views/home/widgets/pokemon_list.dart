@@ -19,7 +19,7 @@ class PokemonListContainer extends StatefulWidget {
 class _PokemonListContainerState extends State<PokemonListContainer> {
   // Stores
   final _pokemonStoreState = locator.get<PokemonStateStore>();
-  final _fetchSinglePokemonStore = locator.get<FetchSinglePokemonStore>();
+  final _fetchSinglePokemonStore = locator.get<SinglePokemonStore>();
   final _paginationStore = locator.get<PaginationStore>();
   final _themeStore = locator.get<ThemeStore>();
   //
