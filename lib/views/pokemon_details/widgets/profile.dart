@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/color_schemes.dart';
-import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
+import 'package:versotech_pokemon/stores/single_pokemon.dart';
 
 class HalfCirclePainter extends CustomPainter {
   final pokemonColor = locator.get<ColorSchemesStore>();

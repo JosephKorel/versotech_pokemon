@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'fetch_single_pokemon.dart';
+part of 'single_pokemon.dart';
 
 // **************************************************************************
 // StoreGenerator

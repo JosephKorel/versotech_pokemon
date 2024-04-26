@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
+import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
 import 'package:versotech_pokemon/views/home/widgets/loading_card.dart';
 import 'package:versotech_pokemon/views/home/widgets/pokemon_card.dart';

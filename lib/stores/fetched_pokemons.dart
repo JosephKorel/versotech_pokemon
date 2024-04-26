@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
-import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
+import 'package:versotech_pokemon/stores/single_pokemon.dart';
 
 part 'fetched_pokemons.g.dart';
 

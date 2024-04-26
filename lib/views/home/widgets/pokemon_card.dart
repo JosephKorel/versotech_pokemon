@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
-import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
+import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/utils/navigation.dart';
 import 'package:versotech_pokemon/views/home/widgets/pokemon_avatar.dart';

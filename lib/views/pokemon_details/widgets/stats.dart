@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spider_chart/spider_chart.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
+import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 
 class _StatsSpiderChart extends StatelessWidget {

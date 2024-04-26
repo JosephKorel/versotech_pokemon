@@ -4,8 +4,8 @@ import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
-import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
+import 'package:versotech_pokemon/stores/single_pokemon.dart';
 
 mixin AbilityController {
   final _usecase = locator.get<PokemonUsecaseService>();

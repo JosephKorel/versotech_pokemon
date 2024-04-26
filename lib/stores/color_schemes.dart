@@ -3,7 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_color.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
-import 'package:versotech_pokemon/stores/fetch_single_pokemon.dart';
+import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/theme/color_schemes.g.dart';
 
 part 'color_schemes.g.dart';

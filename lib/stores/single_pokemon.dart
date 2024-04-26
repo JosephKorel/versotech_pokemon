@@ -6,8 +6,9 @@ import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
+import 'package:versotech_pokemon/utils/navigation.dart';
 
-part 'fetch_single_pokemon.g.dart';
+part 'single_pokemon.g.dart';
 
 // This store is responsible for fetching the pokemon details
 // when the user taps the pokemon and navigate to its page.
@@ -48,11 +49,7 @@ abstract class _SinglePokemonStoreBase with Store {
 
   void _showErrorSnackbar(String errorMsg) {
     final context = locator.get<GlobalKey<NavigatorState>>().currentContext!;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(errorMsg),
-      ),
-    );
+    context.showSnackbar(errorMsg);
   }
 
   bool _pokemonAlreadyLoaded(String pokemonName) =>
