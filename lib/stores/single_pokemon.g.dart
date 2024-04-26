@@ -80,17 +80,6 @@ mixin _$SinglePokemonStore on _SinglePokemonStoreBase, Store {
   }
 
   @override
-  void clear() {
-    final _$actionInfo = _$_SinglePokemonStoreBaseActionController.startAction(
-        name: '_SinglePokemonStoreBase.clear');
-    try {
-      return super.clear();
-    } finally {
-      _$_SinglePokemonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 state: ${state},

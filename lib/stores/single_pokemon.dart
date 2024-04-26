@@ -84,9 +84,6 @@ abstract class _SinglePokemonStoreBase with Store {
     updateState(newState);
   }
 
-  @action
-  void clear() => state = LoadingPokemon();
-
   // When the user taps the pokemon card, it will call fetchPokemon method
   // thus triggering the state change
   void onStateChange() {
