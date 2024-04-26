@@ -27,6 +27,12 @@ abstract class _PokemonStateStoreBase with Store {
   @computed
   bool get loading => pokemonState is LoadingPokemons;
 
+  @computed
+  bool get hasError => pokemonState is ErrorFetchingPokemons;
+
+  @computed
+  ErrorFetchingPokemons get error => pokemonState as ErrorFetchingPokemons;
+
   @action
   Future<void> fetchPokemons(ApiRequestParams params) async {
     pokemonState = LoadingPokemons();

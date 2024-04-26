@@ -1,5 +1,4 @@
 // Class used to make the requests to the API
-
 base class ApiRequestParams {
   final String endpoint;
 

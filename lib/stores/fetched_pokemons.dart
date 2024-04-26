@@ -14,7 +14,7 @@ abstract class _LoadedPokemonStoreBase with Store {
   var pokemons = ObservableList<PokemonEntity>();
 
   @action
-  void reset() => pokemons.clear();
+  void reset() => pokemons = <PokemonEntity>[].asObservable();
 
   @computed
   PokemonEntity get currentPokemon {

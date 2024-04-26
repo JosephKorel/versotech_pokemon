@@ -15,6 +15,20 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
   bool get loading => (_$loadingComputed ??= Computed<bool>(() => super.loading,
           name: '_PokemonStateStoreBase.loading'))
       .value;
+  Computed<bool>? _$hasErrorComputed;
+
+  @override
+  bool get hasError =>
+      (_$hasErrorComputed ??= Computed<bool>(() => super.hasError,
+              name: '_PokemonStateStoreBase.hasError'))
+          .value;
+  Computed<ErrorFetchingPokemons>? _$errorComputed;
+
+  @override
+  ErrorFetchingPokemons get error =>
+      (_$errorComputed ??= Computed<ErrorFetchingPokemons>(() => super.error,
+              name: '_PokemonStateStoreBase.error'))
+          .value;
 
   late final _$pokemonStateAtom =
       Atom(name: '_PokemonStateStoreBase.pokemonState', context: context);
@@ -69,7 +83,9 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
   String toString() {
     return '''
 pokemonState: ${pokemonState},
-loading: ${loading}
+loading: ${loading},
+hasError: ${hasError},
+error: ${error}
     ''';
   }
 }

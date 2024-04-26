@@ -4,8 +4,6 @@ import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
-import 'package:versotech_pokemon/stores/single_pokemon.dart';
-import 'package:versotech_pokemon/stores/theme.dart';
 import 'package:versotech_pokemon/views/home/widgets/loading_card.dart';
 import 'package:versotech_pokemon/views/home/widgets/pokemon_card.dart';
 
@@ -19,9 +17,8 @@ class PokemonListContainer extends StatefulWidget {
 class _PokemonListContainerState extends State<PokemonListContainer> {
   // Stores
   final _pokemonStoreState = locator.get<PokemonStateStore>();
-  final _fetchSinglePokemonStore = locator.get<SinglePokemonStore>();
   final _paginationStore = locator.get<PaginationStore>();
-  final _themeStore = locator.get<ThemeStore>();
+  final _pokemonList = locator.get<PokemonListStore>();
   //
 
   final _controller = ScrollController();
@@ -29,15 +26,6 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
   @override
   void initState() {
     super.initState();
-
-    // Initiate reactions for theme store
-    _themeStore.onThemeChange();
-
-    // Make first request to fetch pokemons
-    _paginationStore.onPaginationChange();
-
-    // Start single pokemon store
-    _fetchSinglePokemonStore.onStateChange();
 
     _controller.addListener(() {
       final reachedEnd = _controller.position.atEdge && _controller.offset != 0;
@@ -58,22 +46,20 @@ class _PokemonListContainerState extends State<PokemonListContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonList = locator.get<PokemonListStore>();
-
     return Observer(
       builder: (context) => GridView.builder(
         controller: _controller,
-        itemCount: pokemonList.length + (_pokemonStoreState.loading ? 10 : 0),
+        itemCount: _pokemonList.length + (_pokemonStoreState.loading ? 10 : 0),
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),
-        itemBuilder: (context, index) => index >= pokemonList.length
+        itemBuilder: (context, index) => index >= _pokemonList.length
             ? const LoadingCard()
             : PokemonCard(
-                pokemon: pokemonList.pokemons[index],
+                pokemon: _pokemonList.pokemons[index],
               ),
       ),
     );

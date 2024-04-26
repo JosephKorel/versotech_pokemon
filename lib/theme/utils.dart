@@ -49,6 +49,13 @@ extension AnimationEffects on Animate {
         duration: .4.seconds,
       );
 
+  Animate slideVertical({bool fromTop = false}) => slideY(
+        begin: fromTop ? -2 : 2,
+        end: 0,
+        curve: Curves.easeOutQuint,
+        duration: .4.seconds,
+      );
+
   Animate get fadeEffect => fadeIn(
         delay: .2.seconds,
         curve: Curves.easeOutQuint,

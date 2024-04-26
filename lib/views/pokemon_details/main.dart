@@ -3,9 +3,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/single_pokemon.dart';
+import 'package:versotech_pokemon/utils/navigation.dart';
+import 'package:versotech_pokemon/views/home/widgets/error_screen.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/app_bar.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/content.dart';
-import 'package:versotech_pokemon/views/pokemon_details/widgets/error_screen.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/loading_screen.dart';
 import 'package:versotech_pokemon/views/pokemon_details/widgets/profile.dart';
 
@@ -32,8 +33,14 @@ class _PokemonDetailsViewState extends State<PokemonDetailsView> {
       builder: (context) => switch (_pokemon.state) {
         LoadingPokemon() => const PokemonDetailsLoadingScreen(),
         LoadedPokemon(pokemon: _) => const _PokemonMainScreen(),
-        FailedToGetPokemon(error: final e) =>
-          PokemonDetailsErrorScreen(errorMessage: e.message),
+        FailedToGetPokemon(error: final e) => ErrorView(
+            message: e.message,
+            actionButton: FilledButton.icon(
+              onPressed: context.pop,
+              icon: const Icon(Icons.arrow_back_ios),
+              label: const Text('Go Back'),
+            ),
+          ),
       },
     );
   }
