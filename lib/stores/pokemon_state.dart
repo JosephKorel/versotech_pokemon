@@ -19,8 +19,6 @@ abstract class _PokemonStateStoreBase with Store {
   final _pokemonListStore = locator.get<PokemonListStore>();
   //
 
-  late ReactionDisposer _dispose;
-
   @observable
   PokemonListState pokemonState = LoadingPokemons();
 
@@ -48,16 +46,16 @@ abstract class _PokemonStateStoreBase with Store {
   @action
   void reset() => pokemonState = LoadingPokemons();
 
-  void _showErrorSnackbar(String errorMsg) {
-    final context = locator.get<GlobalKey<NavigatorState>>().currentContext!;
-    context.showSnackbar(errorMsg);
-  }
+  void _showErrorSnackbar(String errorMsg) => locator
+      .get<GlobalKey<NavigatorState>>()
+      .currentContext!
+      .showSnackbar(errorMsg);
 
   // This will run everytime the state of this store changes.
   // Pagination stores changes -> trigger fetchPokemons method ->
   // Update current store state -> React to the state changes
   void onStateChange() {
-    _dispose = reaction((_) => pokemonState, (newState) {
+    final _ = reaction((_) => pokemonState, (newState) {
       return switch (newState) {
         // Successfully fetched new pokemons, so it will add to the current list
         FetchedPokemons(pokemons: final p) => _pokemonListStore.addPokemons(p),

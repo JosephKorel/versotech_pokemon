@@ -11,7 +11,7 @@ class LoadedPokemonStore = _LoadedPokemonStoreBase with _$LoadedPokemonStore;
 
 abstract class _LoadedPokemonStoreBase with Store {
   @observable
-  var pokemons = ObservableList<PokemonEntity>();
+  ObservableList<PokemonEntity> pokemons = ObservableList<PokemonEntity>();
 
   @action
   void reset() => pokemons = <PokemonEntity>[].asObservable();
@@ -47,12 +47,15 @@ abstract class _LoadedPokemonStoreBase with Store {
     final pokemonStore = locator.get<SinglePokemonStore>();
 
     pokemons = pokemons
-        .map((element) => element.name != pokemonStore.pokemon.name
-            ? element
-            : element.copyWith(
-                abilities: element.abilities
-                    .map((e) => e.name == ability.name ? ability : e)
-                    .toList()))
+        .map(
+          (element) => element.name != pokemonStore.pokemon.name
+              ? element
+              : element.copyWith(
+                  abilities: element.abilities
+                      .map((e) => e.name == ability.name ? ability : e)
+                      .toList(),
+                ),
+        )
         .toList()
         .asObservable();
   }

@@ -13,8 +13,10 @@ mixin _$PaginationStore on _PaginationStoreBase, Store {
 
   @override
   ApiPagination get pagination =>
-      (_$paginationComputed ??= Computed<ApiPagination>(() => super.pagination,
-              name: '_PaginationStoreBase.pagination'))
+      (_$paginationComputed ??= Computed<ApiPagination>(
+        () => super.pagination,
+        name: '_PaginationStoreBase.pagination',
+      ))
           .value;
 
   late final _$paramsAtom =
@@ -39,7 +41,8 @@ mixin _$PaginationStore on _PaginationStoreBase, Store {
   @override
   void nextPage() {
     final _$actionInfo = _$_PaginationStoreBaseActionController.startAction(
-        name: '_PaginationStoreBase.nextPage');
+      name: '_PaginationStoreBase.nextPage',
+    );
     try {
       return super.nextPage();
     } finally {
@@ -50,7 +53,8 @@ mixin _$PaginationStore on _PaginationStoreBase, Store {
   @override
   void reset() {
     final _$actionInfo = _$_PaginationStoreBaseActionController.startAction(
-        name: '_PaginationStoreBase.reset');
+      name: '_PaginationStoreBase.reset',
+    );
     try {
       return super.reset();
     } finally {

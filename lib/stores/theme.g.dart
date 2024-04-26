@@ -54,7 +54,7 @@ mixin _$ThemeStore on _ThemeStoreBase, Store {
   }
 
   @override
-  dynamic setTheme(ThemeOptions newTheme) {
+  ThemeOptions setTheme(ThemeOptions newTheme) {
     final _$actionInfo = _$_ThemeStoreBaseActionController.startAction(
         name: '_ThemeStoreBase.setTheme');
     try {

@@ -4,7 +4,7 @@ extension Navigation on BuildContext {
   void pop() => Navigator.of(this).pop();
 
   void navigate(Widget page) => Navigator.of(this).push(
-        MaterialPageRoute(
+        MaterialPageRoute<void>(
           builder: (context) => page,
         ),
       );

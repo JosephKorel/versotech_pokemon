@@ -36,7 +36,7 @@ class _CharacteristicText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
+    return Center(
       child: SingleChildScrollView(
         child: Text(
           '"${characteristic.description}"',
@@ -82,7 +82,8 @@ class _ShowPokemonCharacteristicsState
       children: [
         Expanded(
           child: _CharacteristicText(
-              characteristic: widget.characteristics[_viewingCharacteristic]),
+            characteristic: widget.characteristics[_viewingCharacteristic],
+          ),
         ),
         Row(
           children: [
@@ -109,7 +110,7 @@ class _ShowPokemonCharacteristicsState
                   Icons.arrow_forward_ios_rounded,
                   color: _canGoToNext ? context.onSurface : Colors.transparent,
                 ),
-              )
+              ),
           ],
         ),
       ],
@@ -189,7 +190,7 @@ class _PokemonDetais extends StatelessWidget {
                     'Weight',
                     style: context.bodyMedium
                         .copyWith(color: context.onSurface.withOpacity(0.8)),
-                  )
+                  ),
                 ],
               ),
               const Divider(),
@@ -199,7 +200,7 @@ class _PokemonDetais extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 ),
                 textAlign: TextAlign.center,
-              )
+              ),
             ],
           ),
         ),
@@ -218,7 +219,7 @@ class _PokemonDetais extends StatelessWidget {
                     'Height',
                     style: context.bodyMedium
                         .copyWith(color: context.onSurface.withOpacity(0.8)),
-                  )
+                  ),
                 ],
               ),
               const Divider(),
@@ -228,7 +229,7 @@ class _PokemonDetais extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 ),
                 textAlign: TextAlign.center,
-              )
+              ),
             ],
           ),
         ),
@@ -247,10 +248,8 @@ class AboutTab extends StatelessWidget {
       child: Column(
         children: [
           Expanded(child: _PokemonCharacteristics()),
-          Spacer(
-            flex: 1,
-          ),
-          Expanded(child: _PokemonDetais())
+          Spacer(),
+          _PokemonDetais(),
         ],
       ),
     );

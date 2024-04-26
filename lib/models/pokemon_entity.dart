@@ -4,29 +4,31 @@ import 'package:fluttericon/rpg_awesome_icons.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 
 class PokemonEntity {
-  const PokemonEntity(
-      {required this.id,
-      required this.name,
-      required this.height,
-      required this.weight,
-      required this.cry,
-      required this.images,
-      required this.abilities,
-      required this.types,
-      required this.stats,
-      required this.characteristics});
+  const PokemonEntity({
+    required this.id,
+    required this.name,
+    required this.height,
+    required this.weight,
+    required this.cry,
+    required this.images,
+    required this.abilities,
+    required this.types,
+    required this.stats,
+    required this.characteristics,
+  });
 
   factory PokemonEntity.mock() => const PokemonEntity(
-      id: 2,
-      name: 'pikachu',
-      height: 0,
-      weight: 0,
-      cry: PokemonCry(url: ''),
-      images: PokemonImage(),
-      abilities: [],
-      types: [],
-      stats: [],
-      characteristics: []);
+        id: 2,
+        name: 'pikachu',
+        height: 0,
+        weight: 0,
+        cry: PokemonCry(url: ''),
+        images: PokemonImage(),
+        abilities: [],
+        types: [],
+        stats: [],
+        characteristics: [],
+      );
 
   factory PokemonEntity.fromJson(Map<String, dynamic> json) {
     final sprites = json['sprites']?['other'];
@@ -34,10 +36,10 @@ class PokemonEntity {
     final dreamWorld = sprites?['dream_world'];
     final gif = json['sprites']?['other']?['showdown']?['front_default'];
     final pokemonImage = PokemonImage(
-      gif: gif,
-      small: officialArtword?['front_default'],
-      medium: dreamWorld?['front_default'],
-      large: officialArtword?['front_default'],
+      gif: gif as String,
+      small: officialArtword?['front_default'] as String,
+      medium: dreamWorld?['front_default'] as String,
+      large: officialArtword?['front_default'] as String,
     );
 
     final cry = PokemonCry.fromJson(json);
@@ -55,16 +57,17 @@ class PokemonEntity {
         .toList();
 
     return PokemonEntity(
-        id: json['id'],
-        name: json['name'],
-        height: json['height'],
-        weight: json['weight'],
-        cry: cry,
-        images: pokemonImage,
-        abilities: abilities,
-        types: types,
-        stats: stats,
-        characteristics: []);
+      id: json['id'] as int,
+      name: json['name'] as String,
+      height: json['height'] as int,
+      weight: json['weight'] as int,
+      cry: cry,
+      images: pokemonImage,
+      abilities: abilities,
+      types: types,
+      stats: stats,
+      characteristics: [],
+    );
   }
 
   String get idLabel => switch (id.toString().length) {
@@ -118,7 +121,7 @@ final class PokemonCry {
   const PokemonCry({required this.url});
 
   factory PokemonCry.fromJson(Map<String, dynamic> json) {
-    return PokemonCry(url: json['cries']['latest']);
+    return PokemonCry(url: json['cries']['latest'] as String);
   }
   final String url;
 }
@@ -147,7 +150,7 @@ final class Ability {
   final String description;
 
   factory Ability.fromJson(Map<String, dynamic> json) {
-    final name = json['ability']['name'];
+    final name = json['ability']['name'] as String;
     final urlSplit = (json['ability']['url'] as String).split('/');
     return Ability(
       id: urlSplit[urlSplit.length - 2],
@@ -162,8 +165,8 @@ final class Ability {
 
     return Ability(
       id: json['id'].toString(),
-      name: json['name'],
-      description: ability['effect'],
+      name: json['name'] as String,
+      description: ability['effect'] as String,
     );
   }
 
@@ -177,7 +180,7 @@ final class Type {
   const Type({required this.type});
 
   factory Type.fromJson(Map<String, dynamic> json) {
-    return Type(type: json['type']['name']);
+    return Type(type: json['type']['name'] as String);
   }
 
   final String type;
@@ -213,8 +216,8 @@ final class Status {
       };
 
   factory Status.fromJson(Map<String, dynamic> json) {
-    final value = json['base_stat'];
-    final name = json['stat']['name'];
+    final value = json['base_stat'] as int;
+    final name = json['stat']['name'] as String;
     return Status(name: name, value: value);
   }
 }
@@ -224,8 +227,8 @@ final class Characteristic {
 
   factory Characteristic.fromJson(Map<String, dynamic> json) {
     final description =
-        (json['flavor_text'] as String).replaceAll(RegExp('\\s+'), ' ');
-    final version = json['version']['name'];
+        (json['flavor_text'] as String).replaceAll(RegExp(r'\s+'), ' ');
+    final version = json['version']['name'] as String;
 
     return Characteristic(description: description, version: version);
   }

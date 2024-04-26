@@ -22,8 +22,6 @@ abstract class _SinglePokemonStoreBase with Store {
   final _loadedPokemonsStore = locator.get<LoadedPokemonStore>();
   //
 
-  late ReactionDisposer _dispose;
-
   @observable
   SinglePokemonState state = LoadingPokemon();
 
@@ -46,10 +44,10 @@ abstract class _SinglePokemonStoreBase with Store {
   @action
   void updateState(SinglePokemonState newState) => state = newState;
 
-  void _showErrorSnackbar(String errorMsg) {
-    final context = locator.get<GlobalKey<NavigatorState>>().currentContext!;
-    context.showSnackbar(errorMsg);
-  }
+  void _showErrorSnackbar(String errorMsg) => locator
+      .get<GlobalKey<NavigatorState>>()
+      .currentContext!
+      .showSnackbar(errorMsg);
 
   bool _pokemonAlreadyLoaded(String pokemonName) =>
       _loadedPokemonsStore.pokemons
@@ -87,7 +85,7 @@ abstract class _SinglePokemonStoreBase with Store {
   // When the user taps the pokemon card, it will call fetchPokemon method
   // thus triggering the state change
   void onStateChange() {
-    _dispose = reaction((_) => state, (newState) {
+    final _ = reaction((_) => state, (newState) {
       return switch (newState) {
         // Loaded pokemon from the api or just retrieved from the list
         LoadedPokemon(pokemon: final p) => _onLoadedPokemon(p),

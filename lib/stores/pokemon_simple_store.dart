@@ -10,7 +10,6 @@ class PokemonListStore = _PokemonStateBase with _$PokemonListStore;
 
 abstract class _PokemonStateBase with Store {
   final _pokemonListLocalService = locator.get<PokemonListLocalService>();
-  late ReactionDisposer _dispose;
 
   @observable
   ObservableList<SimplePokemon> pokemons = ObservableList<SimplePokemon>();
@@ -31,9 +30,6 @@ abstract class _PokemonStateBase with Store {
   int get length => pokemons.length;
 
   void onStateChange() {
-    _dispose = reaction((p0) => pokemons, (addedPokemons) {
-      // Save pokemons in local storage
-      _pokemonListLocalService.setPokemons(addedPokemons);
-    });
+    final _ = reaction((p0) => pokemons, _pokemonListLocalService.setPokemons);
   }
 }

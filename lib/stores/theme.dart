@@ -18,7 +18,7 @@ enum ThemeOptions {
   IconData get icon => [
         Icons.light_mode_rounded,
         Icons.dark_mode_rounded,
-        Icons.smartphone_rounded
+        Icons.smartphone_rounded,
       ][index];
 }
 
@@ -27,7 +27,6 @@ class ThemeStore = _ThemeStoreBase with _$ThemeStore;
 
 abstract class _ThemeStoreBase with Store {
   final _themeLocalService = locator.get<ThemeLocalService>();
-  late final ReactionDisposer _dispose;
 
   ColorScheme _getSystemBrightness() {
     final brightness =
@@ -43,7 +42,7 @@ abstract class _ThemeStoreBase with Store {
   void readTheme() => theme = _themeLocalService.getTheme();
 
   @action
-  setTheme(ThemeOptions newTheme) => theme = newTheme;
+  ThemeOptions setTheme(ThemeOptions newTheme) => theme = newTheme;
 
   @computed
   ColorScheme get colorScheme => switch (theme) {
@@ -59,8 +58,6 @@ abstract class _ThemeStoreBase with Store {
 
   // Everytime theme changes, save it in shared prefs
   void onThemeChange() {
-    _dispose = reaction((_) => theme, (t) {
-      _themeLocalService.setTheme(t);
-    });
+    final _ = reaction((_) => theme, _themeLocalService.setTheme);
   }
 }

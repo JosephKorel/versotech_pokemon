@@ -25,6 +25,7 @@ Future<void> setUpLocation({bool testing = false}) async {
   locator.allowReassignment = testing;
 
   if (testing) {
+    // ignore: invalid_use_of_visible_for_testing_member
     SharedPreferences.setMockInitialValues({});
   }
 
@@ -33,49 +34,56 @@ Future<void> setUpLocation({bool testing = false}) async {
   locator.registerLazySingleton<SharedPreferences>(() => sharedPref);
 
   locator.registerLazySingleton<SharedPrefService>(
-      () => SharedPrefImplementation());
+    SharedPrefImplementation.new,
+  );
 
   locator.registerLazySingleton<ThemeLocalService>(
-      () => ThemeLocalService(locator.get<SharedPrefService>()));
+    () => ThemeLocalService(locator.get<SharedPrefService>()),
+  );
 
   locator.registerLazySingleton<PokemonListLocalService>(
-      () => PokemonListLocalService(locator.get<SharedPrefService>()));
+    () => PokemonListLocalService(locator.get<SharedPrefService>()),
+  );
 
   // Dependency
   locator.registerLazySingleton<RepositoryInterface>(
-      () => ApiImplementation(DioClient()));
+    () => ApiImplementation(DioClient()),
+  );
 
   locator.registerLazySingleton<PokemonUsecaseInterface>(
-      () => PokemonUsecaseImplementation(locator<RepositoryInterface>()));
+    () => PokemonUsecaseImplementation(locator<RepositoryInterface>()),
+  );
 
   locator.registerLazySingleton<PokemonUsecaseService>(
-      () => PokemonUsecase(locator.get<PokemonUsecaseInterface>()));
+    () => PokemonUsecase(locator.get<PokemonUsecaseInterface>()),
+  );
 
   //
 
   // Global context key
   locator.registerLazySingleton<GlobalKey<NavigatorState>>(
-      () => GlobalKey<NavigatorState>(debugLabel: 'routerKey'));
+    () => GlobalKey<NavigatorState>(debugLabel: 'routerKey'),
+  );
 
   // Stores
-  locator.registerLazySingleton(() => ThemeStore());
+  locator.registerLazySingleton(ThemeStore.new);
   locator.registerLazySingleton(
-    () => PaginationStore(),
+    PaginationStore.new,
     dispose: (param) => param.reset(),
   );
   locator.registerLazySingleton(
-    () => PokemonListStore(),
+    PokemonListStore.new,
     dispose: (param) => param.reset(),
   );
   locator.registerLazySingleton(
-    () => PokemonStateStore(),
+    PokemonStateStore.new,
     dispose: (param) => param.reset(),
   );
   locator.registerLazySingleton(
-    () => SinglePokemonStore(),
+    SinglePokemonStore.new,
     dispose: (param) => param.reset(),
   );
-  locator.registerLazySingleton(() => LoadedPokemonStore());
-  locator.registerLazySingleton(() => ColorSchemesStore());
+  locator.registerLazySingleton(LoadedPokemonStore.new);
+  locator.registerLazySingleton(ColorSchemesStore.new);
   //
 }
