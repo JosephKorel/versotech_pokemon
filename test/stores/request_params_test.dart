@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/models/pokemon_state.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
@@ -15,10 +15,9 @@ void main() async {
 
   await setUpLocation(testing: true);
 
-  locator.registerLazySingleton<RepositoryInterface>(() => MockApiRepository());
+  locator.registerLazySingleton<RepositoryInterface>(MockApiRepository.new);
 
-  locator
-      .registerLazySingleton<PokemonUsecaseService>(() => MockPokemonUsecase());
+  locator.registerLazySingleton<PokemonUsecaseService>(MockPokemonUsecase.new);
 
   final pokemonStateStore = locator.get<PokemonStateStore>();
   final paginationStore = locator.get<PaginationStore>();

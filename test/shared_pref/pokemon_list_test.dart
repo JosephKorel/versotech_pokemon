@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:versotech_pokemon/domain/shared_pref_service.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
-import 'package:versotech_pokemon/shared_pref/interface.dart';
 import 'package:versotech_pokemon/shared_pref/pokemon_list.dart';
-import 'package:versotech_pokemon/shared_pref/shared_pref.dart';
+import 'package:versotech_pokemon/shared_pref/shared_pref_impl.dart';
 
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -20,11 +20,12 @@ Future<void> main() async {
 
   locator.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
   locator.registerLazySingleton<SharedPrefService>(
-      () => SharedPrefImplementation(sharedPrefs));
+    () => SharedPrefImplementation(sharedPrefs),
+  );
   final themeLocalService = locator.get<PokemonListLocalService>();
 
   group('Tests for pokemon list local service', () {
-    tearDown(() => sharedPrefs.clear());
+    tearDown(sharedPrefs.clear);
 
     test('When theres no pokemon saved, return empty list', () async {
       // No key inserted
@@ -43,7 +44,7 @@ Future<void> main() async {
       // No key inserted
       expect(sharedPrefs.containsKey(key), false);
 
-      themeLocalService.setPokemons(mockList);
+      await themeLocalService.setPokemons(mockList);
 
       final savedList = themeLocalService.getPokemons();
 

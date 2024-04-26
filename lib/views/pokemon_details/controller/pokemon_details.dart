@@ -1,9 +1,9 @@
-import 'package:versotech_pokemon/domain/pokemon_abilities.dart';
-import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/models/pokemon_abilities.dart';
+import 'package:versotech_pokemon/models/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 import 'package:versotech_pokemon/stores/single_pokemon.dart';
 
@@ -36,7 +36,8 @@ mixin CharacteristicsController {
     // Save characteristic
     if (value is LoadedCharacteristics) {
       _loadedPokemonStore.updatePokemonCharacteristic(
-          characteristics: value.characteristics);
+        characteristics: value.characteristics,
+      );
     }
 
     return value;

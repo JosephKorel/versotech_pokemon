@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/models/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 import 'package:versotech_pokemon/stores/single_pokemon.dart';
@@ -15,13 +15,13 @@ Future<void> main() async {
 
   await setUpLocation(testing: true);
 
-  locator.registerLazySingleton<RepositoryInterface>(() => MockApiRepository());
+  locator.registerLazySingleton<RepositoryInterface>(MockApiRepository.new);
 
   locator.registerLazySingleton<PokemonUsecaseInterface>(
-      () => MockPokemonUsecaseInterface());
+    MockPokemonUsecaseInterface.new,
+  );
 
-  locator
-      .registerLazySingleton<PokemonUsecaseService>(() => MockPokemonUsecase());
+  locator.registerLazySingleton<PokemonUsecaseService>(MockPokemonUsecase.new);
 
   final pokemon = PokemonEntity.mock();
   final singlePokemonStore = locator.get<SinglePokemonStore>();
@@ -34,10 +34,7 @@ Future<void> main() async {
   group(
       'Tests for single pokemon store and its interactions with loaded pokemon store',
       () {
-    setUp(() {
-      // Starts listener
-      singlePokemonStore.onStateChange();
-    });
+    setUp(singlePokemonStore.onStateChange);
 
     tearDown(() {
       locator.resetLazySingleton<SinglePokemonStore>();

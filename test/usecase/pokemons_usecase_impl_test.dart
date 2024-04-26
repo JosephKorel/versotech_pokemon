@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/usecase/pokemons_usecase_impl.dart';
@@ -44,22 +44,24 @@ void main() {
     test('When api returns null, should throw exception', () async {
       // stub
       when(() => repository.get(requestParams))
-          .thenAnswer((_) => Future.value(null));
+          .thenAnswer((_) => Future.value());
 
       // act
       final pokemonCall = pokemonUsecase.fetchPokemons(requestParams);
 
       // assert
       verify(() => repository.get(requestParams)).called(1);
-      expectLater(pokemonCall, throwsException);
+      await expectLater(pokemonCall, throwsException);
     });
 
     test('Verify that api throws DioException', () async {
       // stub
-      when(() => repository.get(requestParams)).thenThrow(DioException(
-        requestOptions: RequestOptions(path: 'exception'),
-        type: DioExceptionType.connectionError,
-      ));
+      when(() => repository.get(requestParams)).thenThrow(
+        DioException(
+          requestOptions: RequestOptions(path: 'exception'),
+          type: DioExceptionType.connectionError,
+        ),
+      );
 
       // act
       final pokemonCall = pokemonUsecase.fetchPokemons(requestParams);

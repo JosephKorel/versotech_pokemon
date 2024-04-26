@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:versotech_pokemon/domain/shared_pref_service.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/shared_pref/interface.dart';
-import 'package:versotech_pokemon/shared_pref/shared_pref.dart';
+import 'package:versotech_pokemon/shared_pref/shared_pref_impl.dart';
 import 'package:versotech_pokemon/shared_pref/theme.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
 
@@ -19,11 +19,12 @@ Future<void> main() async {
 
   locator.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
   locator.registerLazySingleton<SharedPrefService>(
-      () => SharedPrefImplementation(sharedPrefs));
+    () => SharedPrefImplementation(sharedPrefs),
+  );
   final themeLocalService = locator.get<ThemeLocalService>();
 
   group('Tests for theme local service', () {
-    tearDown(() => sharedPrefs.clear());
+    tearDown(sharedPrefs.clear);
 
     test('Should insert and retrieve ThemeOptions', () {
       // No key inserted

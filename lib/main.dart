@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/models/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
@@ -13,8 +12,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await setUpLocation();
-
-  Animate.restartOnHotReload = true;
 
   final themeStore = locator.get<ThemeStore>();
   final pokemonListStore = locator.get<PokemonListStore>();

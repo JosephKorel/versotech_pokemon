@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
+import 'package:versotech_pokemon/models/pokemon_state.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';

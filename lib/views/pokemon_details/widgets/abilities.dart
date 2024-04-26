@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:versotech_pokemon/domain/pokemon_abilities.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/models/pokemon_abilities.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
 import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 import 'package:versotech_pokemon/theme/utils.dart';

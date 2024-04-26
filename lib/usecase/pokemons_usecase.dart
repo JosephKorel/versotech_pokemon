@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:versotech_pokemon/domain/pokemon_abilities.dart';
-import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
-import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/models/error.dart';
+import 'package:versotech_pokemon/models/pokemon_abilities.dart';
+import 'package:versotech_pokemon/models/pokemon_characteristics.dart';
+import 'package:versotech_pokemon/models/pokemon_detail_state.dart';
+import 'package:versotech_pokemon/models/pokemon_state.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 
 final class PokemonUsecase implements PokemonUsecaseService {
   const PokemonUsecase(this._interface);
@@ -36,20 +36,23 @@ final class PokemonUsecase implements PokemonUsecaseService {
     } catch (e) {
       return const ErrorFetchingPokemons(
         error: ApiException(
-            message: 'An unknown error happened while getting pokemons list'),
+          message: 'An unknown error happened while getting pokemons list',
+        ),
       );
     }
   }
 
   @override
   Future<PokemonCharacteristicsState> getCharacteristics(
-      ApiRequestParams params) async {
+    ApiRequestParams params,
+  ) async {
     try {
       final characteristics = await _interface.getCharacteristic(params);
       return LoadedCharacteristics(characteristics: characteristics);
     } on DioException catch (e) {
       return FailedToGetCharacteristics(
-          error: ApiException.fromDioException(e));
+        error: ApiException.fromDioException(e),
+      );
     } catch (e) {
       return const FailedToGetCharacteristics(
         error: ApiException(message: 'Failed to get pokemon characteristic'),

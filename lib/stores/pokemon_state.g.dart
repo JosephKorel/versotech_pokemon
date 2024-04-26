@@ -12,27 +12,22 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
   Computed<bool>? _$loadingComputed;
 
   @override
-  bool get loading => (_$loadingComputed ??= Computed<bool>(
-        () => super.loading,
-        name: '_PokemonStateStoreBase.loading',
-      ))
-          .value;
+  bool get loading => (_$loadingComputed ??= Computed<bool>(() => super.loading,
+          name: '_PokemonStateStoreBase.loading'))
+      .value;
   Computed<bool>? _$hasErrorComputed;
 
   @override
-  bool get hasError => (_$hasErrorComputed ??= Computed<bool>(
-        () => super.hasError,
-        name: '_PokemonStateStoreBase.hasError',
-      ))
+  bool get hasError =>
+      (_$hasErrorComputed ??= Computed<bool>(() => super.hasError,
+              name: '_PokemonStateStoreBase.hasError'))
           .value;
   Computed<ErrorFetchingPokemons>? _$errorComputed;
 
   @override
   ErrorFetchingPokemons get error =>
-      (_$errorComputed ??= Computed<ErrorFetchingPokemons>(
-        () => super.error,
-        name: '_PokemonStateStoreBase.error',
-      ))
+      (_$errorComputed ??= Computed<ErrorFetchingPokemons>(() => super.error,
+              name: '_PokemonStateStoreBase.error'))
           .value;
 
   late final _$pokemonStateAtom =
@@ -65,8 +60,7 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
   @override
   void setPokemonState(PokemonListState newState) {
     final _$actionInfo = _$_PokemonStateStoreBaseActionController.startAction(
-      name: '_PokemonStateStoreBase.setPokemonState',
-    );
+        name: '_PokemonStateStoreBase.setPokemonState');
     try {
       return super.setPokemonState(newState);
     } finally {
@@ -77,8 +71,7 @@ mixin _$PokemonStateStore on _PokemonStateStoreBase, Store {
   @override
   void reset() {
     final _$actionInfo = _$_PokemonStateStoreBaseActionController.startAction(
-      name: '_PokemonStateStoreBase.reset',
-    );
+        name: '_PokemonStateStoreBase.reset');
     try {
       return super.reset();
     } finally {

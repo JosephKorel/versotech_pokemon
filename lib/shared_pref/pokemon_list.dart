@@ -1,12 +1,11 @@
 import 'dart:developer';
 
+import 'package:versotech_pokemon/domain/shared_pref_service.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
-import 'package:versotech_pokemon/shared_pref/interface.dart';
 
 final class PokemonListLocalService {
-  static const _key = 'pokemonList';
-
   const PokemonListLocalService(this._localStorageService);
+  static const _key = 'pokemonList';
 
   final SharedPrefService _localStorageService;
 

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:versotech_pokemon/domain/shared_pref_service.dart';
 import 'package:versotech_pokemon/locator.dart';
-import 'package:versotech_pokemon/shared_pref/interface.dart';
 
 class SharedPrefImplementation implements SharedPrefService {
   SharedPrefImplementation([this.sharedPreferences])

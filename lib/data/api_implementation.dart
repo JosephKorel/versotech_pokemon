@@ -1,6 +1,6 @@
-import 'package:versotech_pokemon/dio/client.dart';
+import 'package:versotech_pokemon/data/client.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 
 final class ApiImplementation implements RepositoryInterface {
   const ApiImplementation(this._client);

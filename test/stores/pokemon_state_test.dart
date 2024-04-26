@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
+import 'package:versotech_pokemon/models/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
@@ -13,8 +13,7 @@ import '../usecase/pokemons_usecase_impl_test.dart';
 Future<void> main() async {
   await setUpLocation(testing: true);
 
-  locator
-      .registerLazySingleton<PokemonUsecaseService>(() => MockPokemonUsecase());
+  locator.registerLazySingleton<PokemonUsecaseService>(MockPokemonUsecase.new);
 
   const params = ApiRequestParams(endpoint: '');
   const pokemon = SimplePokemon(name: '', imageUrl: '', id: '');
@@ -22,9 +21,7 @@ Future<void> main() async {
   final mockUsecase = locator.get<PokemonUsecaseService>();
   final pokemonListStore = locator.get<PokemonListStore>();
 
-  setUpAll(() {
-    pokemonStateStore.onStateChange();
-  });
+  setUpAll(pokemonStateStore.onStateChange);
 
   group('Tests for PokemonStateStore', () {
     tearDown(() {
@@ -37,8 +34,9 @@ Future<void> main() async {
         () async {
       // stub
       when(() => mockUsecase.fetchPokemons(params)).thenAnswer(
-          (invocation) async =>
-              const FetchedPokemons(pokemons: <SimplePokemon>[]));
+        (invocation) async =>
+            const FetchedPokemons(pokemons: <SimplePokemon>[]),
+      );
 
       // State starts loading
       expect(pokemonStateStore.loading, true);
@@ -56,8 +54,9 @@ Future<void> main() async {
         () async {
       // stub
       when(() => mockUsecase.fetchPokemons(params)).thenAnswer(
-          (invocation) async =>
-              const FetchedPokemons(pokemons: [pokemon, pokemon]));
+        (invocation) async =>
+            const FetchedPokemons(pokemons: [pokemon, pokemon]),
+      );
 
       // List starts empty
       expect(pokemonListStore.pokemons.isEmpty, true);

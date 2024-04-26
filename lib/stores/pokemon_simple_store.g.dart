@@ -38,8 +38,7 @@ mixin _$PokemonListStore on _PokemonStateBase, Store {
   @override
   void addPokemons(List<SimplePokemon> newPokemons) {
     final _$actionInfo = _$_PokemonStateBaseActionController.startAction(
-      name: '_PokemonStateBase.addPokemons',
-    );
+        name: '_PokemonStateBase.addPokemons');
     try {
       return super.addPokemons(newPokemons);
     } finally {
@@ -50,8 +49,7 @@ mixin _$PokemonListStore on _PokemonStateBase, Store {
   @override
   void getSavedPokemons() {
     final _$actionInfo = _$_PokemonStateBaseActionController.startAction(
-      name: '_PokemonStateBase.getSavedPokemons',
-    );
+        name: '_PokemonStateBase.getSavedPokemons');
     try {
       return super.getSavedPokemons();
     } finally {
@@ -62,8 +60,7 @@ mixin _$PokemonListStore on _PokemonStateBase, Store {
   @override
   void reset() {
     final _$actionInfo = _$_PokemonStateBaseActionController.startAction(
-      name: '_PokemonStateBase.reset',
-    );
+        name: '_PokemonStateBase.reset');
     try {
       return super.reset();
     } finally {

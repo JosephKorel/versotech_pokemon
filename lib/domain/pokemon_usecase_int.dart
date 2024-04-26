@@ -1,9 +1,9 @@
-import 'package:versotech_pokemon/domain/pokemon_abilities.dart';
-import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
-import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
-import 'package:versotech_pokemon/domain/pokemon_state.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
+import 'package:versotech_pokemon/models/pokemon_abilities.dart';
+import 'package:versotech_pokemon/models/pokemon_characteristics.dart';
+import 'package:versotech_pokemon/models/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/models/pokemon_state.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 
 // This class has all methods we need to deal with the pokemon feature
@@ -30,7 +30,8 @@ interface class PokemonUsecaseService {
       throw UnimplementedError();
 
   Future<PokemonCharacteristicsState> getCharacteristics(
-          ApiRequestParams params) =>
+    ApiRequestParams params,
+  ) =>
       throw UnimplementedError();
 
   Future<PokemonAbilityState> getAbility(ApiRequestParams params) =>

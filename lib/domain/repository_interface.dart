@@ -1,4 +1,4 @@
-import 'package:versotech_pokemon/domain/request_params.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 
 // This class defines the HTTP requests the application uses
 interface class RepositoryInterface {

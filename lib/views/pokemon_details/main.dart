@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:versotech_pokemon/domain/pokemon_detail_state.dart';
+import 'package:versotech_pokemon/models/pokemon_detail_state.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/utils/navigation.dart';
@@ -57,7 +57,7 @@ class _PokemonMainScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: PokemonProfile()),
-          Expanded(flex: 2, child: PokemonMainContent())
+          Expanded(flex: 2, child: PokemonMainContent()),
         ],
       ),
     );

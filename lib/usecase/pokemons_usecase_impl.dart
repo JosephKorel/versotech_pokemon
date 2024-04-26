@@ -1,7 +1,7 @@
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
-import 'package:versotech_pokemon/domain/request_params.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/models/request_params.dart';
 import 'package:versotech_pokemon/models/simple_pokemon.dart';
 
 final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
@@ -59,7 +59,8 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
 
   @override
   Future<List<Characteristic>> getCharacteristic(
-      ApiRequestParams params) async {
+    ApiRequestParams params,
+  ) async {
     try {
       final request = await _repository.get(params);
       if (request == null) {
@@ -75,7 +76,8 @@ final class PokemonUsecaseImplementation implements PokemonUsecaseInterface {
         final characteristic =
             Characteristic.fromJson(item as Map<String, dynamic>);
         if (characteristics.any(
-            (element) => element.description == characteristic.description)) {
+          (element) => element.description == characteristic.description,
+        )) {
           continue;
         }
 

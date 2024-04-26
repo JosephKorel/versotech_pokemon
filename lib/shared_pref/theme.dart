@@ -1,9 +1,9 @@
-import 'package:versotech_pokemon/shared_pref/interface.dart';
+import 'package:versotech_pokemon/domain/shared_pref_service.dart';
 import 'package:versotech_pokemon/stores/theme.dart';
 
 final class ThemeLocalService {
-  static const _key = 'theme';
   const ThemeLocalService(this._localStorageService);
+  static const _key = 'theme';
 
   final SharedPrefService _localStorageService;
 
