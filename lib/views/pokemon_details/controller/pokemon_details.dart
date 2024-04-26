@@ -26,10 +26,19 @@ mixin AbilityController {
 mixin CharacteristicsController {
   final _usecase = locator.get<PokemonUsecaseService>();
   final _pokemonStore = locator.get<SinglePokemonStore>();
+  final _loadedPokemonStore = locator.get<LoadedPokemonStore>();
 
   Future<PokemonCharacteristicsState> getCharacteristics() async {
-    return await _usecase.getCharacteristics(
+    final value = await _usecase.getCharacteristics(
       PokemonCharacteristicRequest.fromName(_pokemonStore.pokemon.name),
     );
+
+    // Save characteristic
+    if (value is LoadedCharacteristics) {
+      _loadedPokemonStore.updatePokemonCharacteristic(
+          characteristics: value.characteristics);
+    }
+
+    return value;
   }
 }

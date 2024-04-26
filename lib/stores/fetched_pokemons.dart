@@ -31,6 +31,15 @@ abstract class _LoadedPokemonStoreBase with Store {
         .abilities;
   }
 
+  @computed
+  List<Characteristic> get pokemonCharacteristics {
+    final pokemonStore = locator.get<SinglePokemonStore>();
+    return pokemons
+        .firstWhere((element) => element == pokemonStore.pokemon)
+        .characteristics;
+  }
+  //
+
   // Everytime user reads an ability, save the description to prevent
   // calling the api again
   @action
@@ -44,6 +53,22 @@ abstract class _LoadedPokemonStoreBase with Store {
                 abilities: element.abilities
                     .map((e) => e.name == ability.name ? ability : e)
                     .toList()))
+        .toList()
+        .asObservable();
+  }
+
+  @action
+  void updatePokemonCharacteristic({
+    required List<Characteristic> characteristics,
+  }) {
+    final pokemonStore = locator.get<SinglePokemonStore>();
+
+    pokemons = pokemons
+        .map(
+          (element) => element.name != pokemonStore.pokemon.name
+              ? element
+              : element.copyWith(characteristics: characteristics),
+        )
         .toList()
         .asObservable();
   }

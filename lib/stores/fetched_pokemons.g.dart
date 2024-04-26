@@ -23,6 +23,14 @@ mixin _$LoadedPokemonStore on _LoadedPokemonStoreBase, Store {
           Computed<List<Ability>>(() => super.pokemonAbilities,
               name: '_LoadedPokemonStoreBase.pokemonAbilities'))
       .value;
+  Computed<List<Characteristic>>? _$pokemonCharacteristicsComputed;
+
+  @override
+  List<Characteristic> get pokemonCharacteristics =>
+      (_$pokemonCharacteristicsComputed ??= Computed<List<Characteristic>>(
+              () => super.pokemonCharacteristics,
+              name: '_LoadedPokemonStoreBase.pokemonCharacteristics'))
+          .value;
 
   late final _$pokemonsAtom =
       Atom(name: '_LoadedPokemonStoreBase.pokemons', context: context);
@@ -66,6 +74,19 @@ mixin _$LoadedPokemonStore on _LoadedPokemonStoreBase, Store {
   }
 
   @override
+  void updatePokemonCharacteristic(
+      {required List<Characteristic> characteristics}) {
+    final _$actionInfo = _$_LoadedPokemonStoreBaseActionController.startAction(
+        name: '_LoadedPokemonStoreBase.updatePokemonCharacteristic');
+    try {
+      return super
+          .updatePokemonCharacteristic(characteristics: characteristics);
+    } finally {
+      _$_LoadedPokemonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addPokemon(PokemonEntity pokemon) {
     final _$actionInfo = _$_LoadedPokemonStoreBaseActionController.startAction(
         name: '_LoadedPokemonStoreBase.addPokemon');
@@ -81,7 +102,8 @@ mixin _$LoadedPokemonStore on _LoadedPokemonStoreBase, Store {
     return '''
 pokemons: ${pokemons},
 currentPokemon: ${currentPokemon},
-pokemonAbilities: ${pokemonAbilities}
+pokemonAbilities: ${pokemonAbilities},
+pokemonCharacteristics: ${pokemonCharacteristics}
     ''';
   }
 }

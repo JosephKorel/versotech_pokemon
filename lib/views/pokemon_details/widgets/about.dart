@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:versotech_pokemon/domain/pokemon_characteristics.dart';
 import 'package:versotech_pokemon/locator.dart';
 import 'package:versotech_pokemon/models/pokemon_entity.dart';
+import 'package:versotech_pokemon/stores/fetched_pokemons.dart';
 import 'package:versotech_pokemon/stores/single_pokemon.dart';
 import 'package:versotech_pokemon/theme/utils.dart';
 import 'package:versotech_pokemon/views/pokemon_details/controller/pokemon_details.dart';
@@ -126,9 +127,11 @@ class _PokemonCharacteristics extends StatefulWidget {
 
 class __PokemonCharacteristicsState extends State<_PokemonCharacteristics>
     with CharacteristicsController {
-  PokemonCharacteristicsState _characteristic = LoadingCharacteristic();
+  final _pokemonCharacteristics =
+      locator.get<LoadedPokemonStore>().pokemonCharacteristics;
+  late PokemonCharacteristicsState _characteristic;
 
-  Future<void> fetchCharacteristics() async {
+  Future<void> _fetchCharacteristics() async {
     _characteristic = await getCharacteristics();
     setState(() {});
   }
@@ -136,7 +139,15 @@ class __PokemonCharacteristicsState extends State<_PokemonCharacteristics>
   @override
   void initState() {
     super.initState();
-    fetchCharacteristics();
+    if (_pokemonCharacteristics.isNotEmpty) {
+      _characteristic =
+          LoadedCharacteristics(characteristics: _pokemonCharacteristics);
+      return;
+    }
+
+    _characteristic = LoadingCharacteristic();
+
+    _fetchCharacteristics();
   }
 
   @override

@@ -4,29 +4,29 @@ import 'package:fluttericon/rpg_awesome_icons.dart';
 import 'package:versotech_pokemon/domain/request_params.dart';
 
 class PokemonEntity {
-  const PokemonEntity({
-    required this.id,
-    required this.name,
-    required this.height,
-    required this.weight,
-    required this.cry,
-    required this.images,
-    required this.abilities,
-    required this.types,
-    required this.stats,
-  });
+  const PokemonEntity(
+      {required this.id,
+      required this.name,
+      required this.height,
+      required this.weight,
+      required this.cry,
+      required this.images,
+      required this.abilities,
+      required this.types,
+      required this.stats,
+      required this.characteristics});
 
   factory PokemonEntity.mock() => const PokemonEntity(
-        id: 2,
-        name: 'pikachu',
-        height: 0,
-        weight: 0,
-        cry: PokemonCry(url: ''),
-        images: PokemonImage(),
-        abilities: [],
-        types: [],
-        stats: [],
-      );
+      id: 2,
+      name: 'pikachu',
+      height: 0,
+      weight: 0,
+      cry: PokemonCry(url: ''),
+      images: PokemonImage(),
+      abilities: [],
+      types: [],
+      stats: [],
+      characteristics: []);
 
   factory PokemonEntity.fromJson(Map<String, dynamic> json) {
     final sprites = json['sprites']?['other'];
@@ -55,16 +55,16 @@ class PokemonEntity {
         .toList();
 
     return PokemonEntity(
-      id: json['id'],
-      name: json['name'],
-      height: json['height'],
-      weight: json['weight'],
-      cry: cry,
-      images: pokemonImage,
-      abilities: abilities,
-      types: types,
-      stats: stats,
-    );
+        id: json['id'],
+        name: json['name'],
+        height: json['height'],
+        weight: json['weight'],
+        cry: cry,
+        images: pokemonImage,
+        abilities: abilities,
+        types: types,
+        stats: stats,
+        characteristics: []);
   }
 
   String get idLabel => switch (id.toString().length) {
@@ -85,6 +85,7 @@ class PokemonEntity {
   final List<Type> types;
   final List<Ability> abilities;
   final List<Status> stats;
+  final List<Characteristic> characteristics;
 
   PokemonEntity copyWith({
     int? id,
@@ -96,6 +97,7 @@ class PokemonEntity {
     List<Type>? types,
     List<Ability>? abilities,
     List<Status>? stats,
+    List<Characteristic>? characteristics,
   }) {
     return PokemonEntity(
       id: id ?? this.id,
@@ -107,6 +109,7 @@ class PokemonEntity {
       types: types ?? this.types,
       abilities: abilities ?? this.abilities,
       stats: stats ?? this.stats,
+      characteristics: characteristics ?? this.characteristics,
     );
   }
 }
