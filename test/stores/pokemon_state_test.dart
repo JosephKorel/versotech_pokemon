@@ -10,8 +10,8 @@ import 'package:versotech_pokemon/stores/pokemon_state.dart';
 
 import '../usecase/pokemons_usecase_impl_test.dart';
 
-void main() {
-  setUpLocation(testing: true);
+Future<void> main() async {
+  await setUpLocation(testing: true);
 
   locator
       .registerLazySingleton<PokemonUsecaseService>(() => MockPokemonUsecase());

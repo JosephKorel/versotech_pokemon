@@ -24,11 +24,13 @@ final locator = GetIt.instance;
 Future<void> setUpLocation({bool testing = false}) async {
   locator.allowReassignment = testing;
 
-  if (!testing) {
-    final sharedPref = await SharedPreferences.getInstance();
-
-    locator.registerLazySingleton<SharedPreferences>(() => sharedPref);
+  if (testing) {
+    SharedPreferences.setMockInitialValues({});
   }
+
+  final sharedPref = await SharedPreferences.getInstance();
+
+  locator.registerLazySingleton<SharedPreferences>(() => sharedPref);
 
   locator.registerLazySingleton<SharedPrefService>(
       () => SharedPrefImplementation());

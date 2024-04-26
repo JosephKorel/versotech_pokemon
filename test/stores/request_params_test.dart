@@ -3,6 +3,7 @@ import 'package:versotech_pokemon/domain/pokemon_state.dart';
 import 'package:versotech_pokemon/domain/pokemon_usecase_int.dart';
 import 'package:versotech_pokemon/domain/repository_interface.dart';
 import 'package:versotech_pokemon/locator.dart';
+import 'package:versotech_pokemon/models/simple_pokemon.dart';
 import 'package:versotech_pokemon/stores/pokemon_simple_store.dart';
 import 'package:versotech_pokemon/stores/pokemon_state.dart';
 import 'package:versotech_pokemon/stores/request_params.dart';
@@ -31,15 +32,17 @@ void main() async {
       locator.resetLazySingleton<PokemonListStore>();
     });
 
-    test('When go to next page, set offset to current offset + limit',
+    test(
+        'When go to next page, set offset to current pokemon store list length',
         () async {
       // Initial state
+      pokemonListStore
+          .addPokemons(List.generate(10, (index) => SimplePokemon.mock()));
       expect(paginationStore.pagination.offset, 0);
 
       paginationStore.nextPage();
 
-      expect(paginationStore.pagination.offset,
-          0 + paginationStore.pagination.limit);
+      expect(paginationStore.pagination.offset, pokemonListStore.length);
     });
 
     test(
@@ -56,12 +59,16 @@ void main() async {
       // Go to next page
       paginationStore.nextPage();
 
-      // Should update offset, trigger pokemon store and trigger
+      // Offset should stay the same, trigger pokemon store and trigger
       // pokemon list store
-      expect(paginationStore.pagination.offset,
-          0 + paginationStore.pagination.limit);
+      expect(paginationStore.pagination.offset, 0);
       expect(pokemonStateStore.pokemonState, isA<FetchedPokemons>());
       expect(pokemonListStore.length, 3);
+
+      // When go to next page, offset should change to 3, which is
+      // the length of pokemon store list before update
+      paginationStore.nextPage();
+      expect(paginationStore.pagination.offset, 3);
     });
   });
 }
